@@ -1,0 +1,31 @@
+Every N time period
+Sensor sends uplink:
+{
+	armStatus : boolean,
+	tripped	  : boolean
+}
+Response:
+Backend responds with downlink
+{
+	armStatus : boolean
+}
+
+Panic Alarm:
+Sensor sends uplink:
+{
+	tripped	  : boolean
+}
+Response:
+Backend starts alarming everyone.
+
+
+When the keypad has a code enterred
+Keypad sends uplink:
+{
+	password : string
+}
+Response:
+Backend sends downlink
+{
+	response : boolean
+}
