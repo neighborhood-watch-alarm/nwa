@@ -1,27 +1,42 @@
 nwaDTUBackend
-Every N time period
+Every N time period.
+If there is a different ArmStatus it toggles the device.
 Sensor sends uplink:
 {
-	armStatus : boolean,
+	armStatus : boolean
+	panic : false,
+	armStatus : true,
+	response : false
+	password : string	
 }
 
 Response:
 Backend responds with downlink
 {
 	armStatus : boolean
+	panic : false,
+	armStatus : true,
+	response : false
+	password : string
 }
 
 IF a trigger occurs on a sensor that is not a panic alarm:
 Sensor sends uplink:
 {
-	tripped : true,
-	panic : false
+		armStatus : boolean
+	panic : false,
+	armStatus : true,
+	response : false
+	password : string
+
 }
 
 
 Response:
 Backend responds with downlink
 {
+	tripped : false,
+	panic : false
 	armStatus : boolean
 }
 
@@ -31,8 +46,9 @@ IF a trigger occurs on a sensor that is  a panic alarm:
 input: Panic Alarm is triggered
 Sensor sends uplink:
 {
-	tripped	  : boolean
-	panic : true
+	tripped : true,
+	panic : false,
+	armStatus : true
 }
 
 Response:
