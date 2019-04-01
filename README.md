@@ -4,6 +4,7 @@ Sensor sends uplink:
 {
 	armStatus : boolean,
 }
+
 Response:
 Backend responds with downlink
 {
@@ -21,6 +22,8 @@ Backend responds with downlink
 {
 	armStatus : boolean
 }
+
+
 IF a trigger occurs on a sensor that is  a panic alarm:
 
 input: Panic Alarm is triggered
@@ -40,6 +43,8 @@ Keypad sends uplink:
 {
 	password : string
 }
+
+
 Response:
 Backend sends downlink
 {
