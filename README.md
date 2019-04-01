@@ -17,6 +17,8 @@ Sensor sends uplink:
 	tripped : true,
 	panic : false
 }
+
+
 Response:
 Backend responds with downlink
 {
