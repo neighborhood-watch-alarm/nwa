@@ -8,6 +8,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Writer;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -40,10 +41,14 @@ public class Main
 	private Database<House> houseDB;
 	private Database<Component> deviceDB;
 	private Database<PhoneAddress> phoneAddrDB;
+	private ArrayList<House> warningHouses = new ArrayList<House>();
+	private Alarm alarm;
+	
 	
 	private Gson gson;
+	private TimerSystem timerSystem;
+	private Client client;
 	
-	Client client;
 	
 	public static void main(String[] args) throws MqttException, Exception
 	{
@@ -62,6 +67,9 @@ public class Main
 			e.printStackTrace();
 			return;
 		}
+		timerSystem = new TimerSystem();
+		timerSystem.init(alarm, warningHouses);
+		alarm = new Alarm(phoneAddrDB);
 		try {
 			clientSetup();
 		} catch (URISyntaxException e) {
@@ -155,6 +163,7 @@ public class Main
         Optional<Component> optDevice = deviceDB.get(filterFunction);
         if (!optDevice.isPresent())
         {
+        	//If component does not exist.
         	return Optional.empty();
         }
         Component component = optDevice.get();
@@ -167,47 +176,43 @@ public class Main
         {
         	return Optional.empty();
         }
-        
+       
        House house = optHouse.get();
        //Check if conflict
        boolean panicRecv = input.get("panic").getAsBoolean();
        boolean statusRecv = input.get("status").getAsBoolean();
        String pwRecv = input.get("password").getAsString();
+       boolean pwCheck = false;
+       component.updateLastDate(new Date());
        if (pwRecv.length() > 0)
        { // password - toggle things
+    	 // needs some form of verification
+    	   timerSystem.lockWarningHouses();
     	   house.toggleArm();
-    	   if (!house.isWarning())
-    	   {
-    		   house.toggleHouseWarn();
-    		   
-    	   }
+           pwCheck = true;
+    	   timerSystem.unlockWarningHouse();
 
        }
        else if (statusRecv && house.getArmStatus()) 
        { //ALARM START
-    	   
+    	   timerSystem.lockWarningHouses();
+		   if (!warningHouses.contains(house))
+		   {
+			   warningHouses.add(house);
+			   house.setHouseTime(60);
+		   }
+		   
+		   timerSystem.unlockWarningHouse();
+
        }
        else if (statusRecv && panicRecv)
        {
-    	   
-       }
-       else // generic lookup
-       {
-
+    	   alarm.alarm(house);
        }
        output.addProperty("armStatus", house.getArmStatus());
-
-
-       
-       
-
-        
-
-		
-		
-		
-		
-		return Optional.empty();
+       output.addProperty("panic",  false);
+       output.addProperty("status", pwCheck);
+       return Optional.of(output);
 	}
 
 	private byte[] convertToBytes(Object object) throws IOException
@@ -225,51 +230,3 @@ public class Main
 		return null;
 	}
 }
-	
-	
-	
-	
-	
-/**
-
-    public Main() throws Exception
-    {
-    	Client client = new MSGrecver().setupRecver();
-    	client.onConnected((Connection _client) -> System.out.println("connected !"));
-        
-    	try {
-			client.start();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-
-    	
-
-    	while(true)
-    	{
-    		try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//byte[] msg = {0x00};
-			//
-    		System.out.print(".");
-    	}
-
-    	
-    	
-    	
-        House testHouse = new HouseImplementation("DTU 404");
-        houseDB.add(testHouse);
-        houseDB.add(new HouseImplementation("DTU 405"));
-
-        Predicate<House> filterFunction = n -> n.getAddress().equals("DTU 405");
-        Optional<?> newHouse = houseDB.get(filterFunction);
-        System.out.println("result: " + newHouse.isPresent());
-        
-    }
-	*/

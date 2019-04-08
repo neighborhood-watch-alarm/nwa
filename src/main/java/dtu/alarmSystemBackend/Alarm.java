@@ -6,7 +6,7 @@ import dtu.house.House;
 import dtu.smsComm.SMSSender;
 import dtu.smsComm.SMSSenderBash;
 
-public class Alarm 
+public class Alarm
 {
 
 	Database<PhoneAddress> phoneNumbers;

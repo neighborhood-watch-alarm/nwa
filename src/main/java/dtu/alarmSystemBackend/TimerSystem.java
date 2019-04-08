@@ -1,34 +1,41 @@
 package dtu.alarmSystemBackend;
 
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
-import dtu.database.Database;
-import dtu.database.PhoneAddress;
 import dtu.house.House;
 
 public class TimerSystem implements Runnable
 {
-	public ArrayList<House> warningHouses;
-	public Alarm alarm;
+	private ArrayList<House> warningHouses;
+	private Alarm alarm;
+	private Semaphore semaphore = new Semaphore(1, true);
 	@Override
 	public void run()
 	{
 		while(true)
 		{
-
-			warningHouses.removeIf(house -> !house.isWarning());
-
-			for (House house : warningHouses)
-			{
-				house.modifyWarningTime(-1);
-				if (house.getWarningTime() == 0)
+			try {
+				semaphore.acquire();
+				warningHouses.removeIf(house -> !house.getArmStatus());
+				semaphore.release();
+				semaphore.acquire();
+				for (House house : warningHouses)
 				{
-					//ALARM
-					house.modifyWarningTime(60);
+					house.modifyWarningTime(-1);
+					if (house.getWarningTime() <= 0)
+					{
+						
+						alarm.alarm(house);					
+					}
 				}
+				semaphore.release();
+				semaphore.acquire();
+				warningHouses.removeIf(house -> house.getWarningTime() <= 0);
+				semaphore.release();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
 			}
-			
-			System.out.println("hello");
 			try
 			{
 				Thread.sleep(1000);
@@ -37,13 +44,27 @@ public class TimerSystem implements Runnable
 			}
 			
 		}
-		
 	}
 	
-	public void init(Database<PhoneAddress> phoneNumbers)
+	public void lockWarningHouses()
 	{
-		warningHouses = new ArrayList<House>();
-		alarm = new Alarm(phoneNumbers);
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void unlockWarningHouse()
+	{
+		semaphore.release();
+	}
+	
+	public void init(Alarm alarm, ArrayList<House> warnings)
+	{
+		warningHouses = warnings;
+		this.alarm = alarm;
 	}
 	
 

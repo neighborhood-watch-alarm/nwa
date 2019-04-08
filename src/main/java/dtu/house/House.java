@@ -7,8 +7,8 @@ public interface House
 	public boolean getArmStatus();	
 	public void toggleArm();
 	public void toggleHouseWarn();
-	public boolean isWarning();
 	public int getWarningTime();
 	public void modifyWarningTime(int value);
+	public void setHouseTime(int value);
 
 }

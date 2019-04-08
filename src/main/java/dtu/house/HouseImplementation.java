@@ -42,15 +42,15 @@ public class HouseImplementation implements House
 		
 	}
 
-	public boolean isWarning() {
-		return warning;
-	}
-
 	public int getWarningTime() {
 		return warningTime;
 	}
-
-	@Override
+	
+	public void setHouseTime(int value)
+	{
+		warningTime = value;
+	}
+	
 	public void modifyWarningTime(int value) {
 		warningTime += value;
 		
