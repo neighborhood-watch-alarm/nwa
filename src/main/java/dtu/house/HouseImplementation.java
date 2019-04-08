@@ -1,4 +1,4 @@
-package dtu.database;
+package dtu.house;
 
 import java.util.UUID;
 
@@ -6,7 +6,8 @@ public class HouseImplementation implements House
 {
 
 	private HouseID id;
-	private boolean armStatus;
+	private int warningTime;
+	private boolean armStatus, warning = false;
 	private String address;
 	
 	public HouseImplementation(String address)
@@ -33,6 +34,26 @@ public class HouseImplementation implements House
 	public void toggleArm()
 	{
 		armStatus = !armStatus;
+	}
+
+	public void toggleHouseWarn()
+	{
+		warning = !warning;
+		
+	}
+
+	public boolean isWarning() {
+		return warning;
+	}
+
+	public int getWarningTime() {
+		return warningTime;
+	}
+
+	@Override
+	public void modifyWarningTime(int value) {
+		warningTime += value;
+		
 	}
 
 

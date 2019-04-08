@@ -1,4 +1,4 @@
-package dtu.database;
+package dtu.components;
 
 public interface ComponentID
 {

@@ -8,8 +8,8 @@ public class MSGrecver
 {
 	private Client client;
 	String region = "eu";
-	String appID = "dtu_hello_world_test_1_2019";
-	String appAccessKey = "ttn-account-v2.p4eyF3rq9bgl7C60sqrRshXSWgykN8zCicWQk64AdPY";
+	String appID = "dtu_nwa";
+	String appAccessKey = "ttn-account-v2.3Npyl34nrqhAQ8YT_A0eJapgYVMCzeOoR82H1XsnZDU";
 	
 	
 	public Client setupRecver() throws URISyntaxException

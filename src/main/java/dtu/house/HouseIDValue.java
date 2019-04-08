@@ -1,4 +1,4 @@
-package dtu.database;
+package dtu.house;
 
 public class HouseIDValue implements HouseID
 {
