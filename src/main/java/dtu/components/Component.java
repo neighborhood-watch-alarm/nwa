@@ -1,6 +1,8 @@
-package dtu.database;
+package dtu.components;
 
 import java.util.Date;
+
+import dtu.house.HouseID;
 
 public interface Component
 {

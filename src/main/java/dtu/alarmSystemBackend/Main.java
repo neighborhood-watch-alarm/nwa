@@ -24,16 +24,11 @@ import com.google.gson.JsonObject;
 import org.thethingsnetwork.data.common.messages.ActivationMessage;
 import org.thethingsnetwork.data.common.messages.DataMessage;
 import org.thethingsnetwork.data.common.messages.DownlinkMessage;
-import org.thethingsnetwork.data.common.messages.RawMessage;
-import org.thethingsnetwork.data.common.messages.UplinkMessage;
 
-import dtu.database.Component;
+import dtu.components.Component;
 import dtu.database.Database;
-import dtu.database.DatabaseArrayList;
-import dtu.database.DeviceEnum;
-import dtu.database.House;
-import dtu.database.HouseImplementation;
 import dtu.database.PhoneAddress;
+import dtu.house.House;
 import dtu.ttnCommunication.MSGrecver;
 
 /**
@@ -77,11 +72,7 @@ public class Main
 		while(true)
 		{
 			System.out.print(".");
-			Thread.sleep(1000);
-			
-			byte[] output = null;
-
-		
+			Thread.sleep(1000);		
 		}
 		
 	}
@@ -125,14 +116,12 @@ public class Main
         client.onConnected((Connection _client) -> System.out.println("connected !"));
 
 
-		//Upon getting a mesage, this is how its handled - handle -> converted to byte stream -> put into its container -> sent
+		//Upon getting a message, this is how its handled - handle -> converted to byte stream -> put into its container -> sent
 		client.onMessage(null, (String devId, DataMessage data) -> {
 			
-			/*
 			Optional<JsonElement> result = handleMessage(data, devId);
-			*/
+			
 			JsonObject elem = new JsonObject();
-			elem.addProperty("return", 1234567890);
 			byte[] output = null;
 			try {
 				output = convertToBytes(elem);
@@ -180,10 +169,38 @@ public class Main
         }
         
        House house = optHouse.get();
-       if (house.getArmStatus() == true)
-       {
-    	   //Handle arm status
+       //Check if conflict
+       boolean panicRecv = input.get("panic").getAsBoolean();
+       boolean statusRecv = input.get("status").getAsBoolean();
+       String pwRecv = input.get("password").getAsString();
+       if (pwRecv.length() > 0)
+       { // password - toggle things
+    	   house.toggleArm();
+    	   if (!house.isWarning())
+    	   {
+    		   house.toggleHouseWarn();
+    		   
+    	   }
+
        }
+       else if (statusRecv && house.getArmStatus()) 
+       { //ALARM START
+    	   
+       }
+       else if (statusRecv && panicRecv)
+       {
+    	   
+       }
+       else // generic lookup
+       {
+
+       }
+       output.addProperty("armStatus", house.getArmStatus());
+
+
+       
+       
+
         
 
 		
