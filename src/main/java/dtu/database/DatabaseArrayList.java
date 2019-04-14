@@ -10,6 +10,11 @@ public class DatabaseArrayList<T> implements Database<T>
 {
 	private List<T> db;
 	
+	public int size()
+	{
+		return db.size();
+	}
+	
 	public DatabaseArrayList()
 	{
 		db = new ArrayList<T>();
@@ -23,6 +28,7 @@ public class DatabaseArrayList<T> implements Database<T>
 
 	public Optional<T> get(Predicate<T> expression)
 	{
+		System.out.println("Ehm what");
 		if (db.size() == 0)
 			return Optional.empty();
 		

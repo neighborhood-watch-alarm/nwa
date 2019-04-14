@@ -1,8 +1,8 @@
 package dtu.alarmSystemBackend;
 
 import dtu.database.Database;
-import dtu.database.PhoneAddress;
 import dtu.house.House;
+import dtu.house.PhoneAddress;
 import dtu.smsComm.SMSSender;
 import dtu.smsComm.SMSSenderBash;
 

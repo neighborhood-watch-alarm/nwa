@@ -1,4 +1,4 @@
-package dtu.database;
+package dtu.house;
 
 import dtu.house.HouseID;
 

@@ -2,6 +2,7 @@ package dtu.alarmSystemBackend;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutput;
@@ -21,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 
 import org.thethingsnetwork.data.common.messages.ActivationMessage;
 import org.thethingsnetwork.data.common.messages.DataMessage;
@@ -28,8 +30,8 @@ import org.thethingsnetwork.data.common.messages.DownlinkMessage;
 
 import dtu.components.Component;
 import dtu.database.Database;
-import dtu.database.PhoneAddress;
 import dtu.house.House;
+import dtu.house.PhoneAddress;
 import dtu.ttnCommunication.MSGrecver;
 
 /**
@@ -94,23 +96,17 @@ public class Main
 	{
 	    Gson gson = new GsonBuilder().create();
 	    
-	    File file = new File("HouseDB.json");
-	    file.createNewFile();
-	    Writer writer = new FileWriter(file);
-	    gson.toJson(houseDB, writer);
-		writer.close();
-		
-	    file = new File("DeviceDB.json");
-	    file.createNewFile();
-		writer = new FileWriter(file);
-	    gson.toJson(deviceDB, writer);
-		writer.close();
-		
-		file = new File("PhoneAddrDB.json");
-	    file.createNewFile();
-		writer = new FileWriter(file);
-	    gson.toJson(phoneAddrDB, writer);
-		writer.close();
+	    JsonReader reader = new JsonReader(new FileReader("HouseDB.json"));
+	    houseDB = gson.fromJson(reader, Database.class); 
+	    reader.close();
+	    
+	    reader = new JsonReader(new FileReader("DeviceDB.json"));
+	    deviceDB = gson.fromJson(reader, Database.class); 
+	    reader.close();
+
+	    reader = new JsonReader(new FileReader("PhoneAddrDB.json"));
+	    phoneAddrDB = gson.fromJson(reader, Database.class);
+	    reader.close();
 	}
 	
 	public void clientSetup() throws MqttException, Exception
@@ -126,9 +122,9 @@ public class Main
 
 		//Upon getting a message, this is how its handled - handle -> converted to byte stream -> put into its container -> sent
 		client.onMessage(null, (String devId, DataMessage data) -> {
-			
+			System.out.println("here");
 			Optional<JsonElement> result = handleMessage(data, devId);
-			
+			System.out.println("here");
 			JsonObject elem = new JsonObject();
 			byte[] output = null;
 			try {
@@ -158,14 +154,21 @@ public class Main
 		JsonObject output = new JsonObject();
 		JsonObject input = gson.toJsonTree(data).getAsJsonObject();
 		
+		System.out.println("Is there anything?");
+
         Predicate<Component> filterFunction = n -> n.getComponentID().getID().equals(deviceID);
-        
+		System.out.println("HELLO");
+		System.out.println(deviceDB == null);
         Optional<Component> optDevice = deviceDB.get(filterFunction);
+		System.out.println("WORLD");
+
         if (!optDevice.isPresent())
         {
         	//If component does not exist.
         	return Optional.empty();
         }
+		System.out.println("Is there anything?");
+
         Component component = optDevice.get();
         component.updateLastDate(new Date());
         
