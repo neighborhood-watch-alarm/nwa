@@ -1,16 +1,21 @@
 package dtu.components;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import dtu.house.HouseID;
 
-public class ComponentSignal implements Component
+public class ComponentSignal implements Component, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3930834081472801135L;
 	private ComponentID id;
 	private HouseID houseID;
-	private Date date;
+	private LocalDateTime date;
 	
-	public ComponentSignal(int id, HouseID houseID)
+	public ComponentSignal(String id, HouseID houseID)
 	{
 		this.id = new ComponentIDValue(id);
 		this.houseID = houseID;
@@ -30,12 +35,12 @@ public class ComponentSignal implements Component
 		return DeviceEnum.SIGNAL_ALARM;
 	}
 	
-	public Date getLastSignalDate()
+	public LocalDateTime getLastSignalDate()
 	{
 		return date;
 	}
 	
-	public void updateLastDate(Date date)
+	public void updateLastDate(LocalDateTime date)
 	{
 		this.date = date;
 	}

@@ -1,6 +1,8 @@
 package dtu.house;
 
-public interface HouseID
+import java.io.Serializable;
+
+public interface HouseID extends Serializable
 {
 	
 	public String getID();

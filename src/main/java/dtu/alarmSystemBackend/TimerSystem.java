@@ -24,8 +24,8 @@ public class TimerSystem implements Runnable
 				{
 					house.modifyWarningTime(-1);
 					if (house.getWarningTime() <= 0)
-					{
-						
+					{	
+						house.modifyWarningTime(-1);
 						alarm.alarm(house);					
 					}
 				}
@@ -65,6 +65,7 @@ public class TimerSystem implements Runnable
 	{
 		warningHouses = warnings;
 		this.alarm = alarm;
+
 	}
 	
 

@@ -1,13 +1,21 @@
 package dtu.house;
 
-public class HouseIDValue implements HouseID
+import java.io.Serializable;
+
+public class HouseIDValue implements HouseID, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1511148683557999102L;
 	private String id;
 	
 	public HouseIDValue(String id)
 	{
 		this.id = id;
 	}
+	
+	public HouseIDValue() {};
 	
 	public String getID()
 	{

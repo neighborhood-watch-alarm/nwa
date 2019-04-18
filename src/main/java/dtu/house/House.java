@@ -1,6 +1,8 @@
 package dtu.house;
 
-public interface House
+import java.io.Serializable;
+
+public interface House extends Serializable
 {
 	public String getAddress();
 	public HouseID getHouseID();
@@ -10,5 +12,6 @@ public interface House
 	public int getWarningTime();
 	public void modifyWarningTime(int value);
 	public void setHouseTime(int value);
+	public void setHouseWarn(boolean b);
 
 }

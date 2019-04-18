@@ -1,10 +1,15 @@
 package dtu.house;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class HouseImplementation implements House
+public class HouseImplementation implements House, Serializable
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4110152058379289436L;
 	private HouseID id;
 	private int warningTime;
 	private boolean armStatus, warning = false;
@@ -15,6 +20,8 @@ public class HouseImplementation implements House
 		this.address = address;
 		id = new HouseIDValue(UUID.randomUUID().toString());
 	}
+	
+	public HouseImplementation() {};
 	
 	public String getAddress()
 	{
@@ -53,6 +60,11 @@ public class HouseImplementation implements House
 	
 	public void modifyWarningTime(int value) {
 		warningTime += value;
+		
+	}
+
+	public void setHouseWarn(boolean b) {
+		warning = b;
 		
 	}
 

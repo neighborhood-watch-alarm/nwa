@@ -1,16 +1,22 @@
 package dtu.components;
 
-public class ComponentIDValue implements ComponentID
+import java.io.Serializable;
+
+public class ComponentIDValue implements ComponentID, Serializable
 {
-	private int value;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1879802809013910787L;
+	private String value;
 	
-	public ComponentIDValue(int value)
+	public ComponentIDValue(String value)
 	{
 		this.value = value;
 	}
 
 
-	public int getID()
+	public String getID()
 	{
 		return value;
 	}

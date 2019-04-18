@@ -1,6 +1,8 @@
 package dtu.database;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 
@@ -10,4 +12,6 @@ public interface Database<T>
 	public boolean remove(T e);
 	public Optional<T> get(Predicate<T> t);
 	public int size();
+	public void apply(Consumer<? super T> action);
+	public List<T> filter(Predicate<T> expression); 
 }
