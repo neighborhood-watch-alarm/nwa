@@ -10,7 +10,7 @@ public class Alarm
 {
 
 	Database<PhoneAddress> phoneNumbers;
-	SMSSender sender = new SMSSenderBash();
+	SMSSender sender = new SMSSenderBash(phoneNumbers);
 	public Alarm(Database<PhoneAddress> phoneNumbers)
 	{
 		this.phoneNumbers = phoneNumbers;
@@ -19,8 +19,10 @@ public class Alarm
 	public void alarm(House house)
 	{
 		System.out.println("did we actuallyget here?");
-		sender.sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
+		//sender.sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
 	}
+	
+
 	
 
 }

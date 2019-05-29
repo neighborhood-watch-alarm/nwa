@@ -10,6 +10,7 @@ public class TimerSystem implements Runnable
 	private ArrayList<House> warningHouses;
 	private Alarm alarm;
 	private Semaphore semaphore = new Semaphore(1, true);
+	
 	@Override
 	public void run()
 	{

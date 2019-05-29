@@ -12,6 +12,5 @@ public interface Database<T>
 	public boolean remove(T e);
 	public Optional<T> get(Predicate<T> t);
 	public int size();
-	public void apply(Consumer<? super T> action);
 	public List<T> filter(Predicate<T> expression); 
 }

@@ -12,16 +12,15 @@ public class HouseImplementation implements House, Serializable
 	private static final long serialVersionUID = -4110152058379289436L;
 	private HouseID id;
 	private int warningTime;
-	private boolean armStatus, warning = false;
+	private boolean armStatus = false;
 	private String address;
 	
-	public HouseImplementation(String address)
+	public HouseImplementation(String address, HouseID ID)
 	{
 		this.address = address;
-		id = new HouseIDValue(UUID.randomUUID().toString());
+		this.id = ID;
 	}
 	
-	public HouseImplementation() {};
 	
 	public String getAddress()
 	{
@@ -43,11 +42,6 @@ public class HouseImplementation implements House, Serializable
 		armStatus = !armStatus;
 	}
 
-	public void toggleHouseWarn()
-	{
-		warning = !warning;
-		
-	}
 
 	public int getWarningTime() {
 		return warningTime;
@@ -62,12 +56,6 @@ public class HouseImplementation implements House, Serializable
 		warningTime += value;
 		
 	}
-
-	public void setHouseWarn(boolean b) {
-		warning = b;
-		
-	}
-
 
 
 }

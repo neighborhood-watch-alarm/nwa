@@ -64,14 +64,34 @@ public class Main
 		new Main();
 
 	}
+	
+	public void resetHouseArm()
+	{
+		List<House> houses = houseDB.filter(house -> house.equals(house));
+		for (House house : houses)
+		{
+			if (house.getArmStatus())
+				house.toggleArm();
+		}
+	}
+	
+	public void resetLastSeen()
+	{
+		List<Component> devices = deviceDB.filter(device -> device.equals(device));
+		for (Component device : devices)
+		{
+			device.updateLastDate(null);
+		}
+	}
 		
 	public Main() throws MqttException, Exception
 	{
 		gson = new GsonBuilder().setPrettyPrinting().create();
 		readDatabaseFiles();
 		//Some cleanup.
-		houseDB.apply(house -> house.setHouseWarn(false));
-		deviceDB.apply(device -> device.updateLastDate(null));
+		resetHouseArm();
+		resetLastSeen();
+		//Setup new
 		timerSystem = new TimerSystem();
 		alarm = new Alarm(phoneAddrDB);		
 		timerSystem.init(alarm, warningHouses);

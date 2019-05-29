@@ -33,15 +33,11 @@ public class DatabaseArrayList<T> implements Database<T>, Serializable
 		db.add(o);
 	}
 	
-	public void apply(Consumer<? super T> action)
-	{
-		db.forEach(action);
-	}
-	
 	public List<T> filter(Predicate<T> expression)
 	{
 		return db.stream().filter(expression).collect(Collectors.toList());
 	}
+	
 
 	public Optional<T> get(Predicate<T> expression)
 	{

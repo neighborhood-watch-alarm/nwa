@@ -15,7 +15,6 @@ public class HouseIDValue implements HouseID, Serializable
 		this.id = id;
 	}
 	
-	public HouseIDValue() {};
 	
 	public String getID()
 	{

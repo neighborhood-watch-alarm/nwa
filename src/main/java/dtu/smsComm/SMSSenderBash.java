@@ -7,20 +7,30 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
+import dtu.database.Database;
+import dtu.house.House;
+import dtu.house.PhoneAddress;
+
 public class SMSSenderBash implements SMSSender
-{
-    private Set<String> phoneNumbers = new HashSet<String>();
-	
-    /**
-     * Adds a phonenumber to the set, in case a number is non-unique it wont get added.
-     * Please note that a number like +45123.. is not considered equivalent to 123..
-     * @author s164166
-     */
-	public void addPhoneNumber(String number)
+{	
+	Database<PhoneAddress> phoneNumbers;
+	public SMSSenderBash(Database<PhoneAddress> phoneNumbers)
 	{
-		phoneNumbers.add(number);
+		this.phoneNumbers = phoneNumbers;
 	}
 	
+	public void alarm(House house)
+	{
+		sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
+	}
+	
+	private void sendToAll(String msg) {
+		for(PhoneAddress addr : phoneNumbers.filter(nothing -> true))
+		{
+			sendToNumber(addr.getNumber(), msg);
+		}
+	}
+
 	/**
 	 * Sends an SMS with the following content
 	 */
@@ -65,12 +75,5 @@ public class SMSSenderBash implements SMSSender
         return sb.toString();
     }
 	
-	public void sendToAll(String content)
-	{
-		for (String number : phoneNumbers)
-		{
-			sendToNumber(number, content);
-		}
-	}
 
 }
