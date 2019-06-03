@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +29,6 @@ import dtu.components.Component;
 import dtu.database.Database;
 import dtu.database.DatabaseArrayList;
 import dtu.house.House;
-import dtu.house.HouseID;
 import dtu.house.PhoneAddress;
 import dtu.ttnCommunication.MSGrecver;
 
@@ -45,17 +41,16 @@ public class Main
 	private Database<House> houseDB;
 	private Database<Component> deviceDB;
 	private Database<PhoneAddress> phoneAddrDB;
-	private ArrayList<House> warningHouses = new ArrayList<House>();
+	private HashSet<House> warningHouses = new HashSet<House>();
 	private Alarm alarm;
 	
-	//Amount of seconds from when an alarm is seen to when it should be seen again.
-	private int lastSeenMaxTime = 90;
 	//Amount of time when the alarm goes off
-	private int alarmTime = 1;
+	private int alarmTime = 60;
+	//How many seconds between each seen is allowed per split.
+	private int lastSeen = 300 * 1000;
 	
 	
 	private Gson gson;
-	private TimerSystem timerSystem;
 	private Client client;
 	
 	
@@ -75,7 +70,8 @@ public class Main
 		}
 	}
 	
-	public void resetLastSeen()
+	
+	public void resetAlarmLastSeen()
 	{
 		List<Component> devices = deviceDB.filter(device -> device.equals(device));
 		for (Component device : devices)
@@ -83,20 +79,16 @@ public class Main
 			device.updateLastDate(null);
 		}
 	}
-		
+
 	public Main() throws MqttException, Exception
 	{
 		gson = new GsonBuilder().setPrettyPrinting().create();
 		readDatabaseFiles();
 		//Some cleanup.
 		resetHouseArm();
-		resetLastSeen();
+		resetAlarmLastSeen();
 		//Setup new
-		timerSystem = new TimerSystem();
 		alarm = new Alarm(phoneAddrDB);		
-		timerSystem.init(alarm, warningHouses);
-		Thread thread = new Thread(timerSystem);
-		thread.start();
 		try {
 			clientSetup();
 		} catch (URISyntaxException e) {
@@ -104,46 +96,50 @@ public class Main
 			System.out.println("Failed to setup communication - program failed");
 			return;
 		}
-		//DUMMY STUFF
-		//DUMMY STUFF
 		while(true)
 		{
-			LocalDateTime localDate = LocalDateTime.now();
-	        Predicate<Component> filterFunction = n -> n.getLastSignalDate() != null
-	        		&&	Duration.between(n.getLastSignalDate(), localDate).getSeconds() >= lastSeenMaxTime;
-			List<Component> componentCollection = deviceDB.filter(filterFunction);
-			if (componentCollection.size() > 0)
-			{
-				HashSet<HouseID> set = new HashSet<HouseID>();
-				for (Component comp : componentCollection)
-				{
-					set.add(comp.getHouseID());
-					comp.updateLastDate(null);
-				}
-				List<House> houseList = houseDB.filter(house -> house.getArmStatus() && set.contains(house.getHouseID()));
-				for (House house : houseList)
-				{
-					alarm.alarm(house);
-				}
-				
-			}
 			System.out.print(".");
+			alarmHouses();
+			checkDevices();
+			warningHouses.removeIf(house -> house.getWarningTime() <= 0);
 			Thread.sleep(1000);		
 		}
 		
 	}	
 	
+	private void checkDevices() 
+	{
+		List<Component> devices = deviceDB.filter(device -> device.equals(device));
+		
+	}
+
+	private void alarmHouses()
+	{
+		for (House house : warningHouses)
+		{
+			house.modifyWarningTime(-1);
+			if (house.getWarningTime() <= 0)
+			{	
+				house.modifyWarningTime(-1);
+				alarm.alarm(house);					
+			}
+		}
+		
+	}
+
 	public void clientSetup() throws MqttException, Exception
 	{
 		client = new MSGrecver().setupRecver();
         client.onActivation((String _devId, ActivationMessage _data) -> System.out.println("Activation: " + _devId + ", data: " + _data.getDevAddr()));
         client.onError((Throwable _error) -> System.err.println("error: " + _error.getMessage()));
-        client.onConnected((Connection _client) -> System.out.println("connected !"));
+        client.onConnected((Connection _client) -> System.out.println("connected to the backend!"));
 
 
 		//Upon getting a message, this is how its handled - handle -> converted to byte stream -> put into its container -> sent
 		client.onMessage(null, (String devId, DataMessage data) -> {
-			Optional<JsonObject> result = handleMessage(data, devId);
+		Optional<JsonObject> result = handleMessage(data, devId);
+		if (result.isPresent())
+		{
 			JsonObject elem = result.get();
 			byte[] output = null;
 			try {
@@ -164,6 +160,8 @@ public class Main
 				System.out.println("Failed to send response back to " + devId);
 				e.printStackTrace();
 			}
+		}
+			
 		});
 		
 		client.start();
@@ -173,18 +171,14 @@ public class Main
 		JsonObject output = new JsonObject();
 		JsonObject input = gson.toJsonTree(data).getAsJsonObject();
 		input =  gson.toJsonTree(input.get("payloadFields")).getAsJsonObject();
-		
-
         Predicate<Component> filterFunction = n -> n.getComponentID().getID().equals(deviceID);
         Optional<Component> optDevice = deviceDB.get(filterFunction);
-
         if (!optDevice.isPresent())
         {
         	//If component does not exist.
         	return Optional.empty();
         }
         Component component = optDevice.get();
-        component.updateLastDate( LocalDateTime.now());
         Predicate<House> filterFunctionHouse = n -> n.getHouseID().getID().equals(component.getHouseID().getID());
         Optional<House> optHouse = houseDB.get(filterFunctionHouse);
         if (!optHouse.isPresent()) //figure out how to handle this - component exists but house got deleted? Wrong house ID perhaps in DB? Indicates corruption
@@ -192,18 +186,22 @@ public class Main
         	return Optional.empty();
         }
        House house = optHouse.get();
-       boolean panicRecv = input.get("panic").getAsInt() == 1;
-       boolean statusRecv = input.get("status").getAsInt() == 1;
+       boolean deviceArmStatus = input.get("armStatus").getAsInt() == 2;
+       boolean panicRecv = input.get("panic").getAsInt() == 2;
+       boolean statusRecv = input.get("status").getAsInt() == 2;
        String pwRecv = input.get("password").getAsString();
-       System.out.println("panicRecv: " + panicRecv + " statusRecv " + statusRecv + " arm status " + house.getArmStatus());
+       System.out.println("panic: " + panicRecv);
+       System.out.println("status: " + statusRecv);
+       System.out.println("armStatus: " + deviceArmStatus);
+       System.out.println("password: " + pwRecv );
+       System.out.println("password size: " + pwRecv.length() );
+       System.out.println("House Arm Status: " + house.getArmStatus());
        boolean pwCheck = false;
        if (pwRecv.length() > 0)
        { // password - toggle things
     	 // needs some form of verification
-    	   timerSystem.lockWarningHouses();
     	   house.toggleArm();
            pwCheck = true;
-    	   timerSystem.unlockWarningHouse();
 
        }
        else if (statusRecv && panicRecv)
@@ -212,21 +210,18 @@ public class Main
        }
        else if (statusRecv && house.getArmStatus()) 
        { //ALARM START
-    	   timerSystem.lockWarningHouses();
 		   if (!warningHouses.contains(house))
 		   {
 			   warningHouses.add(house);
 			   house.setHouseTime(alarmTime);
 		   }
-		   
-		   timerSystem.unlockWarningHouse();
-
        }
-      
-       output.addProperty("armStatus", house.getArmStatus());
-       output.addProperty("panic",  false);
-       output.addProperty("status", pwCheck);
-       return Optional.of(output);
+       else if (deviceArmStatus != house.getArmStatus())
+       {
+           output.addProperty("armStatus", house.getArmStatus());
+           return Optional.of(output);
+       }
+       return Optional.empty();
 	}
 
 	private byte[] convertToBytes(JsonObject input) throws IOException

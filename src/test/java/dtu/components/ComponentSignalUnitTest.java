@@ -1,26 +1,16 @@
 package dtu.components;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.*;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 
-import dtu.database.DatabaseArrayList;
 import dtu.house.HouseID;
 
 /**
@@ -77,27 +67,5 @@ public class ComponentSignalUnitTest
 		DeviceEnum deviceType = component.getComponentType();
 		assertEquals(DeviceEnum.SIGNAL_ALARM, deviceType);
 	}
-	
-	@Test
-	public void getLastSignalDate()
-	{
-		LocalDateTime resultingDate = component.getLastSignalDate();
-		assertNull(resultingDate);
-	}
-	
-	@Test
-	public void updateLastDate()
-	{
-		LocalDateTime newTime = LocalDateTime.MAX;
-		component.updateLastDate(newTime);
-		LocalDateTime resultingTime = component.getLastSignalDate();
-		assertEquals(resultingTime, newTime);
-	}
-	
-	
-	
-	
-	
-
 	
 }

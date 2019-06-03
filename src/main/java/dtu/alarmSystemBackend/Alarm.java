@@ -18,7 +18,7 @@ public class Alarm
 	
 	public void alarm(House house)
 	{
-		System.out.println("did we actuallyget here?");
+		System.out.println("did we actually get here?");
 		//sender.sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
 	}
 	
