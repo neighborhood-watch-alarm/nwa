@@ -36,6 +36,8 @@ import dtu.database.DatabaseArrayList;
 import dtu.house.House;
 import dtu.house.HouseID;
 import dtu.house.PhoneAddress;
+import dtu.smsComm.SMSSender;
+import dtu.smsComm.SMSSenderBash;
 import dtu.ttnCommunication.MSGrecver;
 
 /**
@@ -48,7 +50,7 @@ public class Main
 	private Database<Component> deviceDB;
 	private Database<PhoneAddress> phoneAddrDB;
 	private HashSet<House> warningHouses = new HashSet<House>();
-	private Alarm alarm;
+	private SMSSender sender;;
 	
 	//Amount of time when the alarm goes off
 	private int alarmTime = 60;
@@ -110,8 +112,8 @@ public class Main
 		//Some cleanup.
 		resetHouseArm();
 		resetAlarmLastSeen();
-		//Setup new
-		alarm = new Alarm(phoneAddrDB);		
+		//Setup new transmitSms
+		sender = new SMSSenderBash(phoneAddrDB);		
 		try {
 			clientSetup();
 		} catch (URISyntaxException e) {
@@ -200,7 +202,7 @@ public class Main
        }
        else if (statusRecv && panicRecv)
        {
-    	   alarm.alarm(house);
+    	   alarm(house);
        }
        else if (statusRecv && house.getArmStatus()) 
        { //ALARM START
@@ -324,7 +326,7 @@ public class Main
 	{
 		if (house.getArmStatus())
 		{
-			alarm.alarm(house);
+			alarm(house);
 		}
 		else
 		{
@@ -338,7 +340,7 @@ public class Main
 			}
 			sb.delete(sb.length() - 2, sb.length());
 			sb.append(".");
-			alarm.sendMsg(numbers, sb.toString());
+			sendMsg(numbers, sb.toString());
 		}
 	}
 
@@ -366,9 +368,23 @@ public class Main
 			if (house.getWarningTime() <= 0)
 			{	
 				house.modifyWarningTime(-1);
-				alarm.alarm(house);					
+				alarm(house);					
 			}
 		}
-		
+	}
+	
+	
+	public void alarm(House house)
+	{
+		System.out.println("did we actually get here?");
+		//sender.sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
+	}
+	
+	public void sendMsg(List<PhoneAddress> numbers, String msg)
+	{
+		for (PhoneAddress number : numbers)
+		{
+			sender.sendToNumber(number.getNumber(), msg);
+		}
 	}
 }
