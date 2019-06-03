@@ -88,8 +88,25 @@ public class Main
 
 	public Main() throws MqttException, Exception
 	{
+		setup();
+		while(true)
+		{
+			System.out.print(".");
+			alarmHouses();
+			checkDevices();
+			warningHouses.removeIf(house -> house.getWarningTime() <= 0);
+			Thread.sleep(1000);		
+		}
+	}	
+	
+	public void setup() throws MqttException, Exception
+	{
 		gson = new GsonBuilder().setPrettyPrinting().create();
-		readDatabaseFiles();
+		try {
+			readDatabaseFiles();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		//Some cleanup.
 		resetHouseArm();
 		resetAlarmLastSeen();
@@ -102,16 +119,7 @@ public class Main
 			System.out.println("Failed to setup communication - program failed");
 			return;
 		}
-		while(true)
-		{
-			System.out.print(".");
-			alarmHouses();
-			checkDevices();
-			warningHouses.removeIf(house -> house.getWarningTime() <= 0);
-			Thread.sleep(1000);		
-		}
-		
-	}	
+	}
 
 	public void clientSetup() throws MqttException, Exception
 	{

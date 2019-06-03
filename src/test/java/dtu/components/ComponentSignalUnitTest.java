@@ -1,6 +1,9 @@
 package dtu.components;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -62,10 +65,19 @@ public class ComponentSignalUnitTest
 	}
 	
 	@Test
-	public void getCompoenntType()
+	public void getLastSignalDateNotSet()
 	{
-		DeviceEnum deviceType = component.getComponentType();
-		assertEquals(DeviceEnum.SIGNAL_ALARM, deviceType);
+		LocalDateTime date = component.getLastSignalDate();
+		assertNull(date);
+	}
+	
+	@Test
+	public void getLastSignalDateUpdate()
+	{
+		LocalDateTime now = LocalDateTime.now();
+		component.updateLastDate(now);
+		LocalDateTime date = component.getLastSignalDate();
+		assertEquals(date, now);
 	}
 	
 }
