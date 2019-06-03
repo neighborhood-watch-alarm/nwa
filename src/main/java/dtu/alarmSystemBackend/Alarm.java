@@ -1,5 +1,7 @@
 package dtu.alarmSystemBackend;
 
+import java.util.List;
+
 import dtu.database.Database;
 import dtu.house.House;
 import dtu.house.PhoneAddress;
@@ -20,6 +22,14 @@ public class Alarm
 	{
 		System.out.println("did we actually get here?");
 		//sender.sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
+	}
+	
+	public void sendMsg(List<PhoneAddress> numbers, String msg)
+	{
+		for (PhoneAddress number : numbers)
+		{
+			sender.sendToNumber(number.getNumber(), msg);
+		}
 	}
 	
 
