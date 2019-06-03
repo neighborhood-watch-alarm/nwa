@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -26,9 +30,11 @@ import org.thethingsnetwork.data.common.messages.DataMessage;
 import org.thethingsnetwork.data.common.messages.DownlinkMessage;
 
 import dtu.components.Component;
+import dtu.components.ComponentID;
 import dtu.database.Database;
 import dtu.database.DatabaseArrayList;
 import dtu.house.House;
+import dtu.house.HouseID;
 import dtu.house.PhoneAddress;
 import dtu.ttnCommunication.MSGrecver;
 
@@ -106,26 +112,6 @@ public class Main
 		}
 		
 	}	
-	
-	private void checkDevices() 
-	{
-		List<Component> devices = deviceDB.filter(device -> device.equals(device));
-		
-	}
-
-	private void alarmHouses()
-	{
-		for (House house : warningHouses)
-		{
-			house.modifyWarningTime(-1);
-			if (house.getWarningTime() <= 0)
-			{	
-				house.modifyWarningTime(-1);
-				alarm.alarm(house);					
-			}
-		}
-		
-	}
 
 	public void clientSetup() throws MqttException, Exception
 	{
@@ -303,5 +289,78 @@ public class Main
 		inputStream2.close();
 		fileInput3.close();
 		inputStream3.close();
+	}
+	
+	private void checkDevices() 
+	{
+		LocalDateTime now = LocalDateTime.now();
+		List<Component> devices = deviceDB.filter(device ->  device.getLastSignalDate() != null
+					&& Duration.between(now, device.getLastSignalDate()).toMillis() > lastSeen);
+		
+		Hashtable<HouseID, List<ComponentID>> hashtable = new Hashtable<HouseID, List<ComponentID>>();
+		for (Component device : devices)
+		{ 
+			checkDevicesHashtable(device.getComponentID(), device.getHouseID(), hashtable);
+		}
+		
+		List<House> houses = houseDB.filter(house -> hashtable.containsKey(house.getHouseID()));
+		for (House house : houses)
+		{
+			handleHouseFailureDeviceMsg(house, hashtable);
+		}		
+	}
+	
+
+
+	private void handleHouseFailureDeviceMsg(House house, Hashtable<HouseID, List<ComponentID>> hashtable)
+	{
+		if (house.getArmStatus())
+		{
+			alarm.alarm(house);
+		}
+		else
+		{
+			List<PhoneAddress> numbers = phoneAddrDB.filter(number -> number.getHouseID().equals(house.getHouseID()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("Device failure on component: ");
+			for (ComponentID id : hashtable.get(house.getHouseID()))
+			{
+				sb.append(id.getID());
+				sb.append(", ");
+			}
+			sb.delete(sb.length() - 2, sb.length());
+			sb.append(".");
+			alarm.sendMsg(numbers, sb.toString());
+		}
+	}
+
+	private void checkDevicesHashtable(ComponentID deviceID, HouseID houseID,
+			Hashtable<HouseID, List<ComponentID>> hashtable) {
+		if (hashtable.containsKey(houseID))
+		{
+			List<ComponentID> list = hashtable.get(houseID);
+			list.add(deviceID);
+			hashtable.put(houseID, list);
+		}
+		else
+		{
+			ArrayList<ComponentID> list = new ArrayList<ComponentID>();
+			list.add(deviceID);
+			hashtable.put(houseID, list);
+		}		
+	}
+
+	private void alarmHouses()
+	{
+		for (House house : warningHouses)
+		{
+			house.modifyWarningTime(-1);
+			if (house.getWarningTime() <= 0)
+			{	
+				house.modifyWarningTime(-1);
+				alarm.alarm(house);					
+			}
+		}
+		
 	}
 }
