@@ -130,14 +130,14 @@ public class Main
 		for (House house : warningHouses)
 		{
 			house.modifyWarningTime(-1);
-			if (house.getWarningTime() <= 0)
+			if (house.getWarningTime() <= 0 && !house.getArmStatus())
 			{	
 				house.modifyWarningTime(-1);
 				house.smsSent(LocalDateTime.now());
 				alarm(house);					
 			}
 		}
-		warningHouses.removeIf(house -> house.getWarningTime() <= 0);
+		warningHouses.removeIf(house -> house.getWarningTime() <= 0 || !house.getArmStatus());
 	}
 	
 	public void clientSetup() throws MqttException, Exception
