@@ -67,7 +67,6 @@ public class Main
 	public static void main(String[] args) throws MqttException, Exception
 	{
 		new Main();
-
 	}
 	
 	public void resetHouseArm()
@@ -351,25 +350,29 @@ public class Main
 
 	private void handleHouseFailureDeviceMsg(House house, Hashtable<HouseID, List<ComponentID>> hashtable)
 	{
-		if (house.getArmStatus() && houseTimeStampCondition(house))
+		if (houseTimeStampCondition(house))
 		{
-			house.setHouseTime(alarmTime);
-			alarm(house);
-		}
-		else
-		{
-			List<PhoneAddress> numbers = phoneAddrDB.filter(number -> number.getHouseID().equals(house.getHouseID()));
-			StringBuilder sb = new StringBuilder();
-			sb.append("Device failure on component: ");
-			for (ComponentID id : hashtable.get(house.getHouseID()))
+			if (house.getArmStatus())
 			{
-				sb.append(id.getID());
-				sb.append(", ");
+				house.setHouseTime(alarmTime);
+				alarm(house);
 			}
-			sb.delete(sb.length() - 2, sb.length());
-			sb.append(".");
-			sendMsg(numbers, sb.toString());
+			else
+			{
+				List<PhoneAddress> numbers = phoneAddrDB.filter(number -> number.getHouseID().equals(house.getHouseID()));
+				StringBuilder sb = new StringBuilder();
+				sb.append("Device failure on component: ");
+				for (ComponentID id : hashtable.get(house.getHouseID()))
+				{
+					sb.append(id.getID());
+					sb.append(", ");
+				}
+				sb.delete(sb.length() - 2, sb.length());
+				sb.append(".");
+				sendMsg(numbers, sb.toString());
+			}
 		}
+		
 	}
 
 	private void checkDevicesHashtable(ComponentID deviceID, HouseID houseID,
