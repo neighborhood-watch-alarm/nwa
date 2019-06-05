@@ -1,6 +1,7 @@
 package dtu.house;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class HouseImplementation implements House, Serializable
@@ -14,6 +15,7 @@ public class HouseImplementation implements House, Serializable
 	private int warningTime;
 	private boolean armStatus = false;
 	private String address;
+	private LocalDateTime smsStamp;
 	
 	public HouseImplementation(String address, HouseID ID)
 	{
@@ -55,6 +57,16 @@ public class HouseImplementation implements House, Serializable
 	public void modifyWarningTime(int value) {
 		warningTime += value;
 		
+	}
+
+
+	public void smsSent(LocalDateTime date) {
+		smsStamp = date;
+		
+	}
+
+	public LocalDateTime getSMSTimestamp() {
+		return smsStamp;
 	}
 
 

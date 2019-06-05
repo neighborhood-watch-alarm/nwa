@@ -50,13 +50,15 @@ public class Main
 	private Database<Component> deviceDB;
 	private Database<PhoneAddress> phoneAddrDB;
 	private HashSet<House> warningHouses = new HashSet<House>();
-	private SMSSender sender;;
+	private SMSSender sender;
 	
-	//Amount of time when the alarm goes off
+	//Amount of seconds from when an alarm spots someone till it goes off.
 	private int alarmTime = 60;
 	//How many seconds between each seen is allowed per split.
-	private int lastSeen = 300 * 1000;
-	
+	private long lastSeen = 300 * 1000;
+	//How much time between cooldown periods of SMS
+	//If this value is set to -1, then only 1 sms can be sent.
+	private long timeBetweenSMS = 30 *  60 * 1000;
 	
 	private Gson gson;
 	private Client client;
@@ -96,7 +98,6 @@ public class Main
 			System.out.print(".");
 			alarmHouses();
 			checkDevices();
-			warningHouses.removeIf(house -> house.getWarningTime() <= 0);
 			Thread.sleep(1000);		
 		}
 	}	
@@ -123,6 +124,22 @@ public class Main
 		}
 	}
 
+	
+	private void alarmHouses()
+	{
+		for (House house : warningHouses)
+		{
+			house.modifyWarningTime(-1);
+			if (house.getWarningTime() <= 0)
+			{	
+				house.modifyWarningTime(-1);
+				house.smsSent(LocalDateTime.now());
+				alarm(house);					
+			}
+		}
+		warningHouses.removeIf(house -> house.getWarningTime() <= 0);
+	}
+	
 	public void clientSetup() throws MqttException, Exception
 	{
 		client = new MSGrecver().setupRecver();
@@ -190,7 +207,6 @@ public class Main
        System.out.println("status: " + statusRecv);
        System.out.println("armStatus: " + deviceArmStatus);
        System.out.println("password: " + pwRecv );
-       System.out.println("password size: " + pwRecv.length() );
        System.out.println("House Arm Status: " + house.getArmStatus());
        boolean pwCheck = false;
        if (pwRecv.length() > 0)
@@ -206,11 +222,12 @@ public class Main
        }
        else if (statusRecv && house.getArmStatus()) 
        { //ALARM START
-		   if (!warningHouses.contains(house))
+		   if (!warningHouses.contains(house) && houseTimeStampCondition(house))
 		   {
 			   warningHouses.add(house);
 			   house.setHouseTime(alarmTime);
 		   }
+
        }
        else if (deviceArmStatus != house.getArmStatus())
        {
@@ -218,6 +235,16 @@ public class Main
            return Optional.of(output);
        }
        return Optional.empty();
+	}
+	
+	
+	public boolean houseTimeStampCondition(House house)
+	{
+		if (timeBetweenSMS <= 0)
+		{
+			return true;
+		}
+		return house.getSMSTimestamp() != null && Duration.between(LocalDateTime.now(), house.getSMSTimestamp()).toMillis() >= timeBetweenSMS;
 	}
 
 	private byte[] convertToBytes(JsonObject input) throws IOException
@@ -360,18 +387,7 @@ public class Main
 		}		
 	}
 
-	private void alarmHouses()
-	{
-		for (House house : warningHouses)
-		{
-			house.modifyWarningTime(-1);
-			if (house.getWarningTime() <= 0)
-			{	
-				house.modifyWarningTime(-1);
-				alarm(house);					
-			}
-		}
-	}
+
 	
 	
 	public void alarm(House house)

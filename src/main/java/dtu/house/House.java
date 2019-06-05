@@ -1,6 +1,7 @@
 package dtu.house;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public interface House extends Serializable
 {
@@ -11,5 +12,7 @@ public interface House extends Serializable
 	public int getWarningTime();
 	public void modifyWarningTime(int value);
 	public void setHouseTime(int value);
+	public void smsSent(LocalDateTime date);
+	public LocalDateTime getSMSTimestamp();
 
 }
