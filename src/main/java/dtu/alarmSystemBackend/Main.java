@@ -340,7 +340,7 @@ public class Main
 			checkDevicesHashtable(device.getComponentID(), device.getHouseID(), hashtable);
 		}
 		
-		List<House> houses = houseDB.filter(house -> hashtable.containsKey(house.getHouseID()));
+		List<House> houses = houseDB.filter(house -> hashtable.containsKey(house.getHouseID()) && houseTimeStampCondition(house));
 		for (House house : houses)
 		{
 			handleHouseFailureDeviceMsg(house, hashtable);
@@ -351,8 +351,9 @@ public class Main
 
 	private void handleHouseFailureDeviceMsg(House house, Hashtable<HouseID, List<ComponentID>> hashtable)
 	{
-		if (house.getArmStatus())
+		if (house.getArmStatus() && houseTimeStampCondition(house))
 		{
+			house.setHouseTime(alarmTime);
 			alarm(house);
 		}
 		else
