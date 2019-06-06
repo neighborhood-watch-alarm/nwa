@@ -29,13 +29,13 @@ public class HouseImplementationUnitTest
     @Before
     public void init()
     {
-    	house = new HouseImplementation("12345 whitehouse", id);
+    	house = new HouseImplementation("12345 whitehouse", id, "1234", null);
     }
 	
 	@Test
 	public void testCreate()
 	{
-		new HouseImplementation("12345 whitehouse", id);
+		new HouseImplementation("12345 whitehouse", id, "1234", null);
 	}
 	
 	@Test

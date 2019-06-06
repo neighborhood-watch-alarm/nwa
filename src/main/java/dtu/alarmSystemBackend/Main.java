@@ -15,10 +15,10 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.thethingsnetwork.data.common.Connection;
 import org.thethingsnetwork.data.mqtt.Client;
 
 import com.google.gson.Gson;
@@ -27,7 +27,6 @@ import com.google.gson.JsonObject;
 
 import au.com.forward.sipHash.SipHash_2_4;
 
-import org.thethingsnetwork.data.common.messages.ActivationMessage;
 import org.thethingsnetwork.data.common.messages.DataMessage;
 import org.thethingsnetwork.data.common.messages.DownlinkMessage;
 
@@ -72,25 +71,6 @@ public class Main
 		new Main();
 	}
 	
-	public void resetHouseArm()
-	{
-		List<House> houses = houseDB.filter(house -> house.equals(house));
-		for (House house : houses)
-		{
-			if (house.getArmStatus())
-				house.toggleArm();
-		}
-	}
-	
-	
-	public void resetAlarmLastSeen()
-	{
-		List<Component> devices = deviceDB.filter(device -> device.equals(device));
-		for (Component device : devices)
-		{
-			device.updateLastDate(null);
-		}
-	}
 
 	public Main() throws MqttException, Exception
 	{
@@ -98,7 +78,7 @@ public class Main
 		while(true)
 		{
 			System.out.print(".");
-			alarmHouses();
+			alarmHouses(warningHouses);
 			checkDevices();
 			Thread.sleep(1000);		
 		}
@@ -112,9 +92,11 @@ public class Main
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		Setup setup = new Setup();
+		
 		//Some cleanup.
-		resetHouseArm();
-		resetAlarmLastSeen();
+		setup.resetHouseArm(houseDB);
+		setup.resetAlarmLastSeen(deviceDB);
 		//Setup new transmitSms
 		sender = new SMSSenderBash(phoneAddrDB);		
 		try {
@@ -122,14 +104,13 @@ public class Main
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 			System.out.println("Failed to setup communication - program failed");
-			return;
 		}
 	}
 
 	
-	private void alarmHouses()
+	private void alarmHouses(HashSet<House> warning)
 	{
-		for (House house : warningHouses)
+		for (House house : warning)
 		{
 			house.modifyWarningTime(-1);
 			if (house.getWarningTime() <= 0 && !house.getArmStatus())
@@ -139,124 +120,124 @@ public class Main
 				alarm(house);					
 			}
 		}
-		warningHouses.removeIf(house -> house.getWarningTime() <= 0 || !house.getArmStatus());
+		warning.removeIf(house -> house.getWarningTime() <= 0 || !house.getArmStatus());
 	}
 	
 	public void clientSetup() throws MqttException, Exception
 	{
-		client = new MSGrecver().setupRecver();
-        client.onActivation((String _devId, ActivationMessage _data) -> System.out.println("Activation: " + _devId + ", data: " + _data.getDevAddr()));
-        client.onError((Throwable _error) -> System.err.println("error: " + _error.getMessage()));
-        client.onConnected((Connection _client) -> System.out.println("connected to the backend!"));
+		MSGrecver TTNconnector = new MSGrecver();
+		client = TTNconnector.setupRecver();
+		
+        client.onActivation(TTNconnector.onActivationSetup());
+        client.onError(TTNconnector.onErrorSetup());
+        
+        client.onConnected(TTNconnector.onConnectionSetup());
 
 
 		//Upon getting a message, this is how its handled - handle -> converted to byte stream -> put into its container -> sent
-		client.onMessage(null, (String devId, DataMessage data) -> {
-		Optional<JsonObject> result = handleMessage(data, devId);
-		if (result.isPresent())
-		{
-			JsonObject elem = result.get();
-			byte[] output = null;
-			try {
-				output = convertToBytes(elem);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			System.out.println("transmitting: ");
-			for (byte msg : output)
-			{
-				System.out.print(msg);
-			}
-			System.out.println("");
-    		DownlinkMessage response = new DownlinkMessage(1, output);
-    		try {
-				client.send(devId, response);
-			} catch (Exception e) {
-				System.out.println("Failed to send response back to " + devId);
-				e.printStackTrace();
-			}
-		}
-			
-		});
-		
+		client.onMessage(null, onMessageSetup());
 		client.start();
 	}
 	
-	private Optional<JsonObject> handleMessage(DataMessage data, String deviceID) {
+	public BiConsumer<String, DataMessage>  onMessageSetup()
+	{
+		BiConsumer<String, DataMessage> var = (String devId, DataMessage data) -> {
+			Optional<JsonObject> result = handleRequest(data, devId);
+
+			if (result.isPresent()) {
+				transmitMessage(result.get(), devId);
+			}
+		};
+		return var;
+	}
+	
+	private void transmitMessage(JsonObject elem, String devId) {
+		byte[] output = convertToBytes(elem);
+		System.out.println("transmitting: ");
+		for (byte msg : output)
+		{
+			System.out.print(msg);
+		}
+		System.out.println("");
+		DownlinkMessage response = new DownlinkMessage(1, output);
+		try {
+			client.send(devId, response);
+		} catch (Exception e) {
+			System.out.println("Failed to send response back to " + devId);
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	public JsonObject readPayLoad(JsonObject data, Gson gson) 
+	{
+		return  gson.toJsonTree(data.get("payloadFields")).getAsJsonObject();
+	}
+	
+	private Optional<JsonObject> handleRequest(DataMessage data, String deviceID) {
+		System.out.println("hello");
+
 		JsonObject output = new JsonObject();
 		JsonObject input = gson.toJsonTree(data).getAsJsonObject();
-		input =  gson.toJsonTree(input.get("payloadFields")).getAsJsonObject();
+		JsonObject payload = readPayLoad(input, gson);
+		System.out.println("hello2");
+
+		
+		
         Predicate<Component> filterFunction = n -> n.getComponentID().getID().equals(deviceID);
         Optional<Component> optDevice = deviceDB.get(filterFunction);
         if (!optDevice.isPresent())
         {
-        	//If component does not exist.
         	return Optional.empty();
         }
+        
         Component component = optDevice.get();
         Predicate<House> filterFunctionHouse = n -> n.getHouseID().getID().equals(component.getHouseID().getID());
         Optional<House> optHouse = houseDB.get(filterFunctionHouse);
-        if (!optHouse.isPresent()) //figure out how to handle this - component exists but house got deleted? Wrong house ID perhaps in DB? Indicates corruption
+        if (!optHouse.isPresent())
         {
         	return Optional.empty();
         }
+        
        House house = optHouse.get();
-       boolean deviceArmStatus = input.get("armStatus").getAsInt() == 2;
-       boolean panicRecv = input.get("panic").getAsInt() == 2;
-       boolean statusRecv = input.get("status").getAsInt() == 2;
-       String pwRecv = input.get("password").getAsString();
+       boolean deviceArmStatus = payload.get("armStatus").getAsInt() == 2;
+       boolean panicRecv = payload.get("panic").getAsInt() == 2;
+       boolean statusRecv = payload.get("status").getAsInt() == 2;
+       String pwRecv = payload.get("password").getAsString();
+       
        System.out.println("\npanic: " + panicRecv);
        System.out.println("status: " + statusRecv);
        System.out.println("armStatus: " + deviceArmStatus);
        System.out.println("password: " + pwRecv );
        System.out.println("House Arm Status: " + house.getArmStatus());
+       
        if (pwRecv.length() > 0)
        {
-    	   byte[] salt = house.getSalt();
-    	   //Updated before or after
-    	   int counterField = input.get("counter").getAsInt();
-    	   salt[14] = (byte) counterField;
-    	   salt[15] = (byte)(counterField >> 8);
-    	   hash.initialize(salt);
-    	   Long result = hash.hash(salt, house.getPassword().getBytes());
-    	   byte[] bytesPW = SipHash_2_4.longToBytes(result);
-    	   byte[] bytesMSG = pwRecv.getBytes();
-    	   boolean pwCheck = true;
-    	   for (int i = 0; i < bytesPW.length; i++)
+    	   System.out.println("hello world");
+    	   System.out.println(payload);
+    	   System.out.println(input);
+    	   int counter = input.get("counter").getAsInt();
+    	   System.out.println(counter);
+    	   if (handlePW(house, counter, pwRecv))
     	   {
-    		   if (bytesPW[i] != bytesMSG[i])
-    		   {
-    			   pwCheck = false;
-    			   break;
-    		   }
-    	   }
-    	   if (pwCheck)
-    	   {
-    		   house.toggleArm();
-    		   output.addProperty("armStatus", house.getArmStatus());
+    		   
+    		   System.out.println("Login succeeded");
+    		   handleLogin(output, house);
     		   return Optional.of(output);
     	   }
-    	   
-    	   //hash.
-    	   
-    	   // password - toggle things
-    	 // needs some form of verification
-    	   //house.toggleArm();
-          // pwCheck = true;
-
+    	   else
+    	   {
+    		   System.out.println("login failed");
+    	   }
        }
        else if (statusRecv && panicRecv)
        {
     	   alarm(house);
        }
        else if (statusRecv && house.getArmStatus()) 
-       { //ALARM START
-		   if (!warningHouses.contains(house) && houseTimeStampCondition(house))
-		   {
-			   warningHouses.add(house);
-			   house.setHouseTime(alarmTime);
-		   }
-
+       {
+    	   handleStartAlarm(house);
        }
        else if (deviceArmStatus != house.getArmStatus())
        {
@@ -266,17 +247,62 @@ public class Main
        return Optional.empty();
 	}
 	
+	private void handleStartAlarm(House house) {
+		if (!warningHouses.contains(house) && houseTimeStampCondition(house)) {
+			warningHouses.add(house);
+			house.setHouseTime(alarmTime);
+		}
+
+	}
+
+	private void handleLogin(JsonObject output, House house)
+	{
+		 house.toggleArm();
+		 output.addProperty("armStatus", house.getArmStatus());		
+	}
+
+
+	private boolean handlePW(House house, int counter, String password) {
+		System.out.println("test");
+ 	   byte[] salt = house.getSalt();
+	   System.out.println("test2");
+
+ 	   //Updated before or after
+	   System.out.println("test2");
+ 	   salt[14] = (byte) counter;
+	   System.out.println("test2");
+
+ 	   salt[15] = (byte)(counter >> 8);
+ 	  System.out.println(salt.length);
+ 	   hash.initialize(salt);
+  	  System.out.println("14");
+
+ 	   Long result = hash.hash(salt, house.getPassword().getBytes());
+ 	   byte[] bytesPW = SipHash_2_4.longToBytes(result);
+ 	   byte[] bytesMSG = password.getBytes();
+ 	   for (int i = 0; i < bytesPW.length; i++)
+ 	   {
+ 		   if (bytesPW[i] != bytesMSG[i])
+ 		   {
+ 			   return false;
+ 		   }
+ 	   }
+
+		return false;
+	}
+
 	
 	public boolean houseTimeStampCondition(House house)
 	{
-		if (timeBetweenSMS <= 0)
-		{
-			return true;
-		}
+		return (timeBetweenSMS <= 0) ? true : checkHouseTimeStamp(house);
+	}
+	
+	public boolean checkHouseTimeStamp(House house)
+	{
 		return house.getSMSTimestamp() != null && Duration.between(LocalDateTime.now(), house.getSMSTimestamp()).toMillis() >= timeBetweenSMS;
 	}
 
-	private byte[] convertToBytes(JsonObject input) throws IOException
+	private byte[] convertToBytes(JsonObject input)
 	{
 		byte[] out = new byte[3];		
 		
@@ -420,9 +446,6 @@ public class Main
 			hashtable.put(houseID, list);
 		}		
 	}
-
-
-	
 	
 	public void alarm(House house)
 	{

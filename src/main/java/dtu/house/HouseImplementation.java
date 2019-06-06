@@ -19,12 +19,14 @@ public class HouseImplementation implements House, Serializable
 	private String address;
 	private LocalDateTime smsStamp;
 	
-	public HouseImplementation(String address, HouseID ID, String password)
+	public HouseImplementation(String address, HouseID ID, String password, byte[] salt)
 	{
 		this.address = address;
 		this.id = ID;
 		this.password = password;
+		this.salt = salt;
 	}
+	
 	
 	
 	public String getAddress()

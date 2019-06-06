@@ -19,18 +19,6 @@ public class SMSSenderBash implements SMSSender
 		this.phoneNumbers = phoneNumbers;
 	}
 	
-	public void alarm(House house)
-	{
-		sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
-	}
-	
-	private void sendToAll(String msg) {
-		for(PhoneAddress addr : phoneNumbers.filter(nothing -> true))
-		{
-			sendToNumber(addr.getNumber(), msg);
-		}
-	}
-
 	/**
 	 * Sends an SMS with the following content
 	 */
