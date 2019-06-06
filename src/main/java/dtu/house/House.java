@@ -9,6 +9,8 @@ public interface House extends Serializable
 	public HouseID getHouseID();
 	public boolean getArmStatus();	
 	public void toggleArm();
+	public String getPassword();
+	public byte[] getSalt();
 	public int getWarningTime();
 	public void modifyWarningTime(int value);
 	public void setHouseTime(int value);

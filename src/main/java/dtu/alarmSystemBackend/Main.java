@@ -25,6 +25,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import au.com.forward.sipHash.SipHash_2_4;
+
 import org.thethingsnetwork.data.common.messages.ActivationMessage;
 import org.thethingsnetwork.data.common.messages.DataMessage;
 import org.thethingsnetwork.data.common.messages.DownlinkMessage;
@@ -51,7 +53,8 @@ public class Main
 	private Database<PhoneAddress> phoneAddrDB;
 	private HashSet<House> warningHouses = new HashSet<House>();
 	private SMSSender sender;
-	
+	private SipHash_2_4 hash = new SipHash_2_4();
+
 	//Amount of seconds from when an alarm spots someone till it goes off.
 	private int alarmTime = 60;
 	//How many seconds between each seen is allowed per split.
@@ -202,17 +205,44 @@ public class Main
        boolean panicRecv = input.get("panic").getAsInt() == 2;
        boolean statusRecv = input.get("status").getAsInt() == 2;
        String pwRecv = input.get("password").getAsString();
-       System.out.println("panic: " + panicRecv);
+       System.out.println("\npanic: " + panicRecv);
        System.out.println("status: " + statusRecv);
        System.out.println("armStatus: " + deviceArmStatus);
        System.out.println("password: " + pwRecv );
        System.out.println("House Arm Status: " + house.getArmStatus());
-       boolean pwCheck = false;
        if (pwRecv.length() > 0)
-       { // password - toggle things
+       {
+    	   byte[] salt = house.getSalt();
+    	   //Updated before or after
+    	   int counterField = input.get("counter").getAsInt();
+    	   salt[14] = (byte) counterField;
+    	   salt[15] = (byte)(counterField >> 8);
+    	   hash.initialize(salt);
+    	   Long result = hash.hash(salt, house.getPassword().getBytes());
+    	   byte[] bytesPW = SipHash_2_4.longToBytes(result);
+    	   byte[] bytesMSG = pwRecv.getBytes();
+    	   boolean pwCheck = true;
+    	   for (int i = 0; i < bytesPW.length; i++)
+    	   {
+    		   if (bytesPW[i] != bytesMSG[i])
+    		   {
+    			   pwCheck = false;
+    			   break;
+    		   }
+    	   }
+    	   if (pwCheck)
+    	   {
+    		   house.toggleArm();
+    		   output.addProperty("armStatus", house.getArmStatus());
+    		   return Optional.of(output);
+    	   }
+    	   
+    	   //hash.
+    	   
+    	   // password - toggle things
     	 // needs some form of verification
-    	   house.toggleArm();
-           pwCheck = true;
+    	   //house.toggleArm();
+          // pwCheck = true;
 
        }
        else if (statusRecv && panicRecv)

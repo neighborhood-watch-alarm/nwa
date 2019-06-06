@@ -10,6 +10,8 @@ public class HouseImplementation implements House, Serializable
 	/**
 	 * 
 	 */
+	private String password;
+	private byte[] salt;
 	private static final long serialVersionUID = -4110152058379289436L;
 	private HouseID id;
 	private int warningTime;
@@ -17,10 +19,11 @@ public class HouseImplementation implements House, Serializable
 	private String address;
 	private LocalDateTime smsStamp;
 	
-	public HouseImplementation(String address, HouseID ID)
+	public HouseImplementation(String address, HouseID ID, String password)
 	{
 		this.address = address;
 		this.id = ID;
+		this.password = password;
 	}
 	
 	
@@ -67,6 +70,17 @@ public class HouseImplementation implements House, Serializable
 
 	public LocalDateTime getSMSTimestamp() {
 		return smsStamp;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	@Override
+	public byte[] getSalt() {
+		return salt;
 	}
 
 

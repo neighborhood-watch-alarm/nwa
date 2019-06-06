@@ -15,8 +15,6 @@ public class MSGrecver
 	public Client setupRecver() throws URISyntaxException
 	{
 		Client client = new Client(region, appID, appAccessKey );
-		return client;
-		
+		return client;	
 	}
-
 }
