@@ -176,14 +176,9 @@ public class Main
 	}
 	
 	private Optional<JsonObject> handleRequest(DataMessage data, String deviceID) {
-		System.out.println("hello");
-
 		JsonObject output = new JsonObject();
 		JsonObject input = gson.toJsonTree(data).getAsJsonObject();
 		JsonObject payload = readPayLoad(input, gson);
-		System.out.println("hello2");
-
-		
 		
         Predicate<Component> filterFunction = n -> n.getComponentID().getID().equals(deviceID);
         Optional<Component> optDevice = deviceDB.get(filterFunction);
@@ -214,11 +209,7 @@ public class Main
        
        if (pwRecv.length() > 0)
        {
-    	   System.out.println("hello world");
-    	   System.out.println(payload);
-    	   System.out.println(input);
     	   int counter = input.get("counter").getAsInt();
-    	   System.out.println(counter);
     	   if (handlePW(house, counter, pwRecv))
     	   {
     		   
@@ -252,7 +243,6 @@ public class Main
 			warningHouses.add(house);
 			house.setHouseTime(alarmTime);
 		}
-
 	}
 
 	private void handleLogin(JsonObject output, House house)
@@ -263,20 +253,10 @@ public class Main
 
 
 	private boolean handlePW(House house, int counter, String password) {
-		System.out.println("test");
  	   byte[] salt = house.getSalt();
-	   System.out.println("test2");
-
- 	   //Updated before or after
-	   System.out.println("test2");
  	   salt[14] = (byte) counter;
-	   System.out.println("test2");
-
  	   salt[15] = (byte)(counter >> 8);
- 	  System.out.println(salt.length);
  	   hash.initialize(salt);
-  	  System.out.println("14");
-
  	   Long result = hash.hash(salt, house.getPassword().getBytes());
  	   byte[] bytesPW = SipHash_2_4.longToBytes(result);
  	   byte[] bytesMSG = password.getBytes();
