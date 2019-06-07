@@ -254,15 +254,30 @@ public class Main
 
 	private boolean handlePW(House house, int counter, String password) {
  	   byte[] salt = house.getSalt();
- 	   salt[14] = (byte) counter;
- 	   salt[15] = (byte)(counter >> 8);
+ 	   salt[15] = (byte) counter;
+ 	   salt[14] = (byte)(counter >> 8);
  	   hash.initialize(salt);
- 	   Long result = hash.hash(salt, house.getPassword().getBytes());
- 	   byte[] bytesPW = SipHash_2_4.longToBytes(result);
+ 	   char[] pw = house.getPassword().toCharArray();
+ 	   for (int i = 0; i < 4; i++)
+ 	   {
+ 		   hash.updateHash((byte) pw[i]);
+ 	   }
+ 	   byte[] bytesPW = SipHash_2_4.longToBytes(hash.finish());
  	   byte[] bytesMSG = password.getBytes();
  	   for (int i = 0; i < bytesPW.length; i++)
  	   {
- 		   if (bytesPW[i] != bytesMSG[i])
+ 		   int int1 = bytesPW[i];
+ 		   int int2 = bytesMSG[i];
+ 		   if (int1 < 0)
+ 		   {
+ 			   int1 += 256;
+ 		   }
+ 		   if (int2 < 0)
+		   {
+			   int2 += 256;
+		   }
+ 		   
+ 		   if (int1 != int2)
  		   {
  			   return false;
  		   }
