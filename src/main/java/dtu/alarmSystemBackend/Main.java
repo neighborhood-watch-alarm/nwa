@@ -270,8 +270,8 @@ public class Main
 
 	private boolean handlePW(House house, int counter, int[] password) {
  	   byte[] salt = house.getSalt();
- 	   salt[15] = (byte) counter;
- 	   salt[14] = (byte)(counter >> 8);
+ 	   //salt[15] = (byte) counter;
+ 	   //salt[14] = (byte)(counter >> 8);
  	   hash.initialize(salt);
  	   char[] pw = house.getPassword().toCharArray();
  	   for (int i = 0; i < 4; i++)
