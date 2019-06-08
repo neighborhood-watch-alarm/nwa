@@ -23,6 +23,7 @@ import org.thethingsnetwork.data.mqtt.Client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import au.com.forward.sipHash.SipHash_2_4;
@@ -145,6 +146,7 @@ public class Main
 			Optional<JsonObject> result = handleRequest(data, devId);
 
 			if (result.isPresent()) {
+
 				transmitMessage(result.get(), devId);
 			}
 		};
@@ -152,6 +154,7 @@ public class Main
 	}
 	
 	private void transmitMessage(JsonObject elem, String devId) {
+
 		byte[] output = convertToBytes(elem);
 		System.out.println("transmitting: ");
 		for (byte msg : output)
@@ -199,22 +202,34 @@ public class Main
        boolean deviceArmStatus = payload.get("armStatus").getAsInt() == 2;
        boolean panicRecv = payload.get("panic").getAsInt() == 2;
        boolean statusRecv = payload.get("status").getAsInt() == 2;
-       String pwRecv = payload.get("password").getAsString();
+       JsonArray temp = payload.get("password").getAsJsonArray();
+       int[] pw = new int[temp.size()];
+       for (int i = 0; i < pw.length; i++)
+       {
+    	   pw[i] = temp.get(i).getAsInt();
+       }
+ 
        
-       System.out.println("\npanic: " + panicRecv);
+       System.out.println("panic: " + panicRecv);
        System.out.println("status: " + statusRecv);
        System.out.println("armStatus: " + deviceArmStatus);
-       System.out.println("password: " + pwRecv );
+       System.out.println("password: ");
+       for (int i = 0; i < pw.length; i++)
+       {
+    	   System.out.print(pw[i] + " ");
+       }
        System.out.println("House Arm Status: " + house.getArmStatus());
        
-       if (pwRecv.length() > 0)
+       if (temp.size() > 4)
        {
     	   int counter = input.get("counter").getAsInt();
-    	   if (handlePW(house, counter, pwRecv))
+    	   if (handlePW(house, counter, pw))
     	   {
-    		   
+ 
     		   System.out.println("Login succeeded");
     		   handleLogin(output, house);
+    		   System.out.println(output);
+
     		   return Optional.of(output);
     	   }
     	   else
@@ -235,6 +250,7 @@ public class Main
            output.addProperty("armStatus", house.getArmStatus());
            return Optional.of(output);
        }
+       
        return Optional.empty();
 	}
 	
@@ -252,7 +268,7 @@ public class Main
 	}
 
 
-	private boolean handlePW(House house, int counter, String password) {
+	private boolean handlePW(House house, int counter, int[] password) {
  	   byte[] salt = house.getSalt();
  	   salt[15] = (byte) counter;
  	   salt[14] = (byte)(counter >> 8);
@@ -263,27 +279,23 @@ public class Main
  		   hash.updateHash((byte) pw[i]);
  	   }
  	   byte[] bytesPW = SipHash_2_4.longToBytes(hash.finish());
- 	   byte[] bytesMSG = password.getBytes();
  	   for (int i = 0; i < bytesPW.length; i++)
  	   {
  		   int int1 = bytesPW[i];
- 		   int int2 = bytesMSG[i];
  		   if (int1 < 0)
  		   {
  			   int1 += 256;
  		   }
- 		   if (int2 < 0)
-		   {
-			   int2 += 256;
-		   }
- 		   
- 		   if (int1 != int2)
+ 		   System.out.println(int1 + " : " + password[i]);
+ 		   if (int1 != password[i])
  		   {
+ 			   System.out.println("it was fake when: " + int1);
+ 			  System.out.println("it was fake when: " + password[i]);
  			   return false;
  		   }
  	   }
 
-		return false;
+		return true;
 	}
 
 	
@@ -300,16 +312,16 @@ public class Main
 	private byte[] convertToBytes(JsonObject input)
 	{
 		byte[] out = new byte[3];		
-		
-		if (input.get("armStatus").getAsBoolean())
+		if (input.has("armStatus") && input.get("armStatus").getAsBoolean())
 		{
 			out[0] = 0x01;
 		}
-		if (input.get("panic").getAsBoolean())
+
+		if (input.has("panic") && input.get("panic").getAsBoolean())
 		{
 			out[1] = 0x01;
 		}
-		if (input.get("status").getAsBoolean())
+		if (input.has("status") && input.get("status").getAsBoolean())
 		{
 			out[2] = 0x01;
 		}
