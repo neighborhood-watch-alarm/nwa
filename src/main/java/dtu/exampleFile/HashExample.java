@@ -17,16 +17,22 @@ public class HashExample {
 			hash.updateHash((byte) pw[i]);
 		}
 		long result = hash.finish();
-		byte[] set1 = SipHash_2_4.longToBytesLE(result);
 		byte[] set2 = SipHash_2_4.longToBytes(result);
+		for (int i = 0; i < set2.length; i++)
+		{
+			int int2 = set2[i];
+
+			if (int2 < 0)
+			{
+				int2 = int2+256;
+			}
+			System.out.println(int2);
+		}
+		long tempLong = hash.hash(salt, pw.toString().getBytes());
+		byte[] set1 = SipHash_2_4.longToBytes(result);
 		for (int i = 0; i < set1.length; i++)
 		{
-			int int1 = set1[i];
 			int int2 = set2[i];
-			if (int1 < 0)
-			{
-				int1 = int1+256;
-			}
 			if (int2 < 0)
 			{
 				int2 = int2+256;
