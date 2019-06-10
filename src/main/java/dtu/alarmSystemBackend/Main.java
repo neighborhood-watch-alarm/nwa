@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
+import java.time.temporal.ChronoUnit;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.thethingsnetwork.data.mqtt.Client;
@@ -62,6 +64,11 @@ public class Main
 	//How much time between cooldown periods of SMS
 	//If this value is set to -1, then only 1 sms can be sent.
 	private long timeBetweenSMS = 30 *  60 * 1000;
+	
+	//How much time between cooldown periods of SMS
+	//Daily Limit on how many messages can be sent on downlink per day per device. 
+	//TTN requires that you utilize less than 10 per day, others might require less.
+	private final int DAILYMESSAGELIMIT = 30 *  60 * 1000;
 	
 	private Gson gson;
 	private Client client;
@@ -190,8 +197,8 @@ public class Main
         	return Optional.empty();
         }
         
-        Component component = optDevice.get();
-        Predicate<House> filterFunctionHouse = n -> n.getHouseID().getID().equals(component.getHouseID().getID());
+        Component device = optDevice.get();
+        Predicate<House> filterFunctionHouse = n -> n.getHouseID().getID().equals(device.getHouseID().getID());
         Optional<House> optHouse = houseDB.get(filterFunctionHouse);
         if (!optHouse.isPresent())
         {
@@ -222,10 +229,13 @@ public class Main
        
        if (temp.size() > 4)
        {
-    	   int counter = input.get("counter").getAsInt();
-    	   if (handlePW(house, counter, pw))
+    	   if (device.getDailyMessageCount() > 9)
     	   {
- 
+    		   return Optional.empty();
+    	   }
+    	   int counter = input.get("counter").getAsInt();
+    	   if (handlePW(house, counter, pw) && !dailyMessageLimitReached(device))
+    	   {
     		   System.out.println("Login succeeded");
     		   handleLogin(output, house);
     		   System.out.println(output);
@@ -245,7 +255,7 @@ public class Main
        {
     	   handleStartAlarm(house);
        }
-       else if (deviceArmStatus != house.getArmStatus())
+       else if (deviceArmStatus != house.getArmStatus() && !dailyMessageLimitReached(device))
        {
            output.addProperty("armStatus", house.getArmStatus());
            return Optional.of(output);
@@ -253,6 +263,27 @@ public class Main
        
        return Optional.empty();
 	}
+	
+	public boolean dailyMessageLimitReached(Component device)
+	{
+		LocalDate daily = device.getFirstMessageTime();
+		LocalDate now = LocalDate.now();
+		int messageCount = device.getDailyMessageCount();
+		if (Duration.between(daily.atStartOfDay(), now.atStartOfDay()).toDays() >= 1)
+		{
+			device.setFirstMessageTime(now);
+			messageCount = 0;
+			return false;
+		}
+		else
+		{
+			messageCount = messageCount + 1;
+		}
+		device.updateDailyMessageCount(messageCount);
+		return messageCount <= DAILYMESSAGELIMIT;
+	}
+	
+	
 	
 	private void handleStartAlarm(House house) {
 		if (!warningHouses.contains(house) && houseTimeStampCondition(house)) {
