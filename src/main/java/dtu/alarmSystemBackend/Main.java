@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
@@ -227,7 +229,7 @@ public class Main
        }
        System.out.println("House Arm Status: " + house.getArmStatus());
        
-       if (temp.size() > 4)
+       if (Arrays.stream(pw).sum() > 0)
        {
     	   if (device.getDailyMessageCount() > 9)
     	   {
@@ -301,8 +303,8 @@ public class Main
 
 	private boolean handlePW(House house, int counter, int[] password) {
  	   byte[] salt = house.getSalt();
- 	   //salt[15] = (byte) counter;
- 	   //salt[14] = (byte)(counter >> 8);
+ 	   salt[15] = (byte) counter;
+ 	   salt[14] = (byte)(counter >> 8);
  	   hash.initialize(salt);
  	   char[] pw = house.getPassword().toCharArray();
  	   for (int i = 0; i < 4; i++)
