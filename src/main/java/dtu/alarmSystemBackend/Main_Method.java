@@ -223,7 +223,7 @@ public class Main_Method
        }
        System.out.println("\nHouse Arm Status: " + house.getArmStatus());
        
-       if (component.getComponentType().equals(DeviceEnum.KEYPAD) && Arrays.stream(pw).sum() > 0)
+       if (Arrays.stream(pw).sum() > 0)
        {
     	   int counter = input.get("counter").getAsInt();
     	   if (handlePW(house, counter, pw))
