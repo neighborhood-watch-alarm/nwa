@@ -32,9 +32,6 @@ public class TempThread {
 
 
 		Setup setup = new Setup();
-		
-		System.out.println("hello");
-		readDatabaseFiles();
 		List<Component> elems = deviceDB.filter(device -> device.equals(device));
 		System.out.println(elems.size());
 		byte[] salt = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x00, 0x00};		
@@ -87,31 +84,5 @@ public class TempThread {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static void readDatabaseFiles() throws IOException
-	{	    
-		FileInputStream fileInput1 = new FileInputStream(new File("database_house.txt"));
-		ObjectInputStream inputStream1 = new ObjectInputStream(fileInput1);
-		FileInputStream fileInput2 = new FileInputStream(new File("database_phone.txt"));
-		ObjectInputStream inputStream2 = new ObjectInputStream(fileInput2);
-		FileInputStream fileInput3 = new FileInputStream(new File("database_component.txt"));
-		ObjectInputStream inputStream3 = new ObjectInputStream(fileInput3);
-
-		// Read objects
-		try {
-			DatabaseArrayList<House> houseDB = (DatabaseArrayList<House>) inputStream1.readObject();
-			DatabaseArrayList<Component> deviceDB = (DatabaseArrayList<Component>) inputStream3.readObject();
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		fileInput1.close();
-		inputStream1.close();
-		fileInput2.close();
-		inputStream2.close();
-		fileInput3.close();
-		inputStream3.close();
-	}
 
 }

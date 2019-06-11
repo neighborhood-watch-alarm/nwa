@@ -1,25 +1,13 @@
 package dtu.ttnCommunication;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 import org.thethingsnetwork.data.common.Connection;
 import org.thethingsnetwork.data.common.messages.ActivationMessage;
-import org.thethingsnetwork.data.common.messages.DataMessage;
-import org.thethingsnetwork.data.common.messages.DownlinkMessage;
 import org.thethingsnetwork.data.mqtt.Client;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import au.com.forward.sipHash.SipHash_2_4;
-import dtu.components.Component;
-import dtu.database.Database;
-import dtu.house.House;
 
 public class MSGrecver
 {

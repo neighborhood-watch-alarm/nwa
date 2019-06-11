@@ -459,7 +459,12 @@ public class Main
 	public void alarm(House house)
 	{
 		System.out.println("did we actually get here?");
-		//sender.sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
+		List<PhoneAddress> numbers = phoneAddrDB.filter(phone -> phone.equals(phone));
+		String content = "Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.";
+		for (PhoneAddress number : numbers)
+		{
+			sender.sendToNumber(number.getNumber(), content);
+		}
 	}
 	
 	public void sendMsg(List<PhoneAddress> numbers, String msg)
