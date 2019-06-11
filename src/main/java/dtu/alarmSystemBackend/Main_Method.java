@@ -35,6 +35,7 @@ import org.thethingsnetwork.data.common.messages.DownlinkMessage;
 
 import dtu.components.Component;
 import dtu.components.ComponentID;
+import dtu.components.DeviceEnum;
 import dtu.database.Database;
 import dtu.database.DatabaseArrayList;
 import dtu.house.House;
@@ -48,7 +49,7 @@ import dtu.ttnCommunication.MSGrecver;
  * Hello world!
  *
  */
-public class Main 
+public class Main_Method 
 {
 	private Database<House> houseDB;
 	private Database<Component> deviceDB;
@@ -71,11 +72,11 @@ public class Main
 	
 	public static void main(String[] args) throws MqttException, Exception
 	{
-		new Main();
+		new Main_Method();
 	}
 	
 
-	public Main() throws MqttException, Exception
+	public Main_Method() throws MqttException, Exception
 	{
 		setup();
 		while(true)
@@ -220,9 +221,9 @@ public class Main
        {
     	   System.out.print(pw[i] + " ");
        }
-       System.out.println("House Arm Status: " + house.getArmStatus());
+       System.out.println("\nHouse Arm Status: " + house.getArmStatus());
        
-       if (Arrays.stream(pw).sum() > 0)
+       if (component.getComponentType().equals(DeviceEnum.KEYPAD) && Arrays.stream(pw).sum() > 0)
        {
     	   int counter = input.get("counter").getAsInt();
     	   if (handlePW(house, counter, pw))

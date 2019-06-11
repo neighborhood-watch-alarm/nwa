@@ -23,7 +23,7 @@ import dtu.house.PhoneAddressImplementation;
 
 public class TempThread {
 	
-	public static void main(String[] args) throws InterruptedException, IOException
+	public static void testing(String[] args) throws InterruptedException, IOException
 	{
 		Database<PhoneAddress> phoneAddrDB = new DatabaseArrayList<PhoneAddress>();
 		Database<House> houseDB = new DatabaseArrayList<House>();
