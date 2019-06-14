@@ -1,0 +1,21 @@
+function Decoder(bytes, port) {
+  // Decode an uplink message from a buffer
+  // (array) of bytes to an object of fields.
+  var armStatusBool = bytes[0];
+  var panicBool = bytes[1];
+  var statusBool = bytes[2];
+  //remove none string elements
+  bytes.splice(0, 3)
+  var pw = [parseInt(bytes[0],10) & 255, parseInt(bytes[1],10) & 255, parseInt(bytes[2],10) & 255, parseInt(bytes[3],10) & 255,
+  parseInt(bytes[4],10) & 255, parseInt(bytes[5],10) & 255, parseInt(bytes[6],10) & 255, parseInt(bytes[7],10) & 255,
+  parseInt(bytes[8],10) & 255, parseInt(bytes[9],10) & 255, parseInt(bytes[10],10) & 255, parseInt(bytes[11],10) & 255,
+  parseInt(bytes[12],10) & 255, parseInt(bytes[13],10) & 255, parseInt(bytes[14],10) & 255, parseInt(bytes[15],10) & 255]
+  return {
+    armStatus: armStatusBool,
+    panic: panicBool,
+    status: statusBool,
+    password : pw,
+    
+  };
+  
+}
