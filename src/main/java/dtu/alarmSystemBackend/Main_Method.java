@@ -37,6 +37,7 @@ import org.thethingsnetwork.data.common.messages.DownlinkMessage;
 
 import dtu.components.Component;
 import dtu.components.ComponentID;
+import dtu.components.DeviceEnum;
 import dtu.database.Database;
 import dtu.database.DatabaseArrayList;
 import dtu.house.House;
@@ -50,7 +51,7 @@ import dtu.ttnCommunication.MSGrecver;
  * Hello world!
  *
  */
-public class Main 
+public class Main_Method 
 {
 	private Database<House> houseDB;
 	private Database<Component> deviceDB;
@@ -78,11 +79,11 @@ public class Main
 	
 	public static void main(String[] args) throws MqttException, Exception
 	{
-		new Main();
+		new Main_Method();
 	}
 	
 
-	public Main() throws MqttException, Exception
+	public Main_Method() throws MqttException, Exception
 	{
 		setup();
 		while(true)
@@ -227,7 +228,7 @@ public class Main
        {
     	   System.out.print(pw[i] + " ");
        }
-       System.out.println("House Arm Status: " + house.getArmStatus());
+       System.out.println("\nHouse Arm Status: " + house.getArmStatus());
        
        if (Arrays.stream(pw).sum() > 0)
        {
@@ -465,6 +466,7 @@ public class Main
 				}
 				sb.delete(sb.length() - 2, sb.length());
 				sb.append(".");
+				house.setHouseTime(alarmTime);
 				sendMsg(numbers, sb.toString());
 			}
 		}
@@ -490,7 +492,12 @@ public class Main
 	public void alarm(House house)
 	{
 		System.out.println("did we actually get here?");
-		//sender.sendToAll("Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.");
+		List<PhoneAddress> numbers = phoneAddrDB.filter(phone -> phone.equals(phone));
+		String content = "Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.";
+		for (PhoneAddress number : numbers)
+		{
+			sender.sendToNumber(number.getNumber(), content);
+		}
 	}
 	
 	public void sendMsg(List<PhoneAddress> numbers, String msg)
