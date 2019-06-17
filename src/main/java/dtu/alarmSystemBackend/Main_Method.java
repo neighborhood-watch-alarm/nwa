@@ -491,7 +491,6 @@ public class Main_Method
 	
 	public void alarm(House house)
 	{
-		System.out.println("did we actually get here?");
 		List<PhoneAddress> numbers = phoneAddrDB.filter(phone -> phone.equals(phone));
 		String content = "Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.";
 		for (PhoneAddress number : numbers)
