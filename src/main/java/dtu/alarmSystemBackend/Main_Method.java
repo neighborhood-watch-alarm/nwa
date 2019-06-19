@@ -241,8 +241,6 @@ public class Main_Method
     	   {
     		   System.out.println("Login succeeded");
     		   handleLogin(output, house);
-    		   System.out.println(output);
-
     		   return Optional.of(output);
     	   }
     	   else
@@ -298,14 +296,20 @@ public class Main_Method
 	private void handleLogin(JsonObject output, House house)
 	{
 		 house.toggleArm();
-		 output.addProperty("armStatus", house.getArmStatus());		
+		 output.addProperty("armStatus", house.getArmStatus());	
+		 HouseID id = house.getHouseID();
+		 List<Component> deviceList = deviceDB.filter(device -> device.getHouseID().equals(id));
+		 for (Component device : deviceList)
+		 {
+				device.updateLastDate(null);
+		 }
 	}
 
 
 	private boolean handlePW(House house, int counter, int[] password) {
  	   byte[] salt = house.getSalt();
  	   salt[15] = (byte) counter;
- 	   salt[14] = (byte)(counter >> 8);
+ 	   salt[14] = (byte) (counter >> 8);
  	   hash.initialize(salt);
  	   char[] pw = house.getPassword().toCharArray();
  	   for (int i = 0; i < 4; i++)
@@ -320,11 +324,8 @@ public class Main_Method
  		   {
  			   int1 += 256;
  		   }
- 		   System.out.println(int1 + " : " + password[i]);
  		   if (int1 != password[i])
  		   {
- 			   System.out.println("it was fake when: " + int1);
- 			  System.out.println("it was fake when: " + password[i]);
  			   return false;
  		   }
  	   }
