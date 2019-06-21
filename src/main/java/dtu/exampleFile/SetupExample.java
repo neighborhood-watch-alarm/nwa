@@ -1,15 +1,11 @@
 package dtu.exampleFile;
 
-import java.util.List;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import dtu.alarmSystemBackend.Setup;
 import dtu.components.Component;
 import dtu.components.ComponentSignal;
 import dtu.database.Database;
@@ -21,31 +17,33 @@ import dtu.house.HouseImplementation;
 import dtu.house.PhoneAddress;
 import dtu.house.PhoneAddressImplementation;
 
+/**
+ * Example setup file
+ * @author Arada
+ *
+ */
 public class SetupExample {
 	
 	public static void testing(String[] args) throws InterruptedException, IOException
 	{
 		Database<PhoneAddress> phoneAddrDB = new DatabaseArrayList<PhoneAddress>();
 		Database<House> houseDB = new DatabaseArrayList<House>();
-
 		Database<Component> deviceDB = new DatabaseArrayList<Component>();
 
-
+		//Salt example for file with house and two devices
 		byte[] salt = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x00, 0x00};
 		HouseID houseID = new HouseIDValue("HouseID");
 		House house = new HouseImplementation("temp addr", houseID, "1234", salt);
 	    Component device1 = new ComponentSignal("device_01", houseID);
 	    Component device2 = new ComponentSignal("device_02", houseID);
 	    
-	    PhoneAddress phoneNumber = new PhoneAddressImplementation("22932970", houseID);
+	    PhoneAddress phoneNumber = new PhoneAddressImplementation("TEMP NUMBER", houseID);
 		
 		
 		houseDB.add(house);
 		deviceDB.add(device1);
 		deviceDB.add(device2);
 		phoneAddrDB.add(phoneNumber);
-		List<Component> elems = deviceDB.filter(device -> device.equals(device));
-		System.out.println(elems.size());
 
 		
 		FileOutputStream f1;

@@ -13,8 +13,8 @@ public interface House extends Serializable
 	public byte[] getSalt();
 	public int getWarningTime();
 	public void modifyWarningTime(int value);
-	public void setHouseTime(int value);
-	public void smsSent(LocalDateTime date);
+	public void setWarningTime(int value);
+	public void setSMSsentTimestamp(LocalDateTime date);
 	public LocalDateTime getSMSTimestamp();
 
 }

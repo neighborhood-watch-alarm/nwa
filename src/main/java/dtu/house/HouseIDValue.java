@@ -1,12 +1,12 @@
 package dtu.house;
 
 import java.io.Serializable;
-
+/**
+ * House ID value object
+ */
 public class HouseIDValue implements HouseID, Serializable
 {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1511148683557999102L;
 	private String id;
 	

@@ -89,7 +89,7 @@ public class HouseImplementationUnitTest
 	public void testSetHouseTime()
 	{
 		int expected = 99;
-		house.setHouseTime(expected);
+		house.setWarningTime(expected);
 		int result = house.getWarningTime();
 		assertEquals(result, expected);
 	}

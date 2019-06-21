@@ -2,20 +2,9 @@ package dtu.components;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
-
-
-import dtu.database.DatabaseArrayList;
 
 /**
  * These tests are unit tests
@@ -80,7 +69,8 @@ public class ComponentIDValueUnitTest
 	public void equalsDiffClass()
 	{
 		component = 		new ComponentIDValue("Temp Addr");
-		boolean result = component.equals(new Integer(5));
+		Integer value = 5;
+		boolean result = component.equals(value);
 		assertFalse(result);			
 	}
 	

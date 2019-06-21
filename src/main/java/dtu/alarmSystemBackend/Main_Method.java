@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
-import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
-import java.time.temporal.ChronoUnit;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.thethingsnetwork.data.mqtt.Client;
@@ -37,7 +35,6 @@ import org.thethingsnetwork.data.common.messages.DownlinkMessage;
 
 import dtu.components.Component;
 import dtu.components.ComponentID;
-import dtu.components.DeviceEnum;
 import dtu.database.Database;
 import dtu.database.DatabaseArrayList;
 import dtu.house.House;
@@ -48,8 +45,7 @@ import dtu.smsComm.SMSSenderBash;
 import dtu.ttnCommunication.MSGrecver;
 
 /**
- * Hello world!
- *
+ * The runner class for the NWS
  */
 public class Main_Method 
 {
@@ -77,12 +73,23 @@ public class Main_Method
 	private Client client;
 	
 	
+	/**
+	 * Starts the program
+	 * @param args
+	 * @throws MqttException
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws MqttException, Exception
 	{
 		new Main_Method();
 	}
 	
 
+	/**
+	 * Starts the setup and listens for incoming messages and expiring alarms.
+	 * @throws MqttException
+	 * @throws Exception
+	 */
 	public Main_Method() throws MqttException, Exception
 	{
 		setup();
@@ -95,6 +102,11 @@ public class Main_Method
 		}
 	}	
 	
+	/**
+	 * Initial setup and cleanup of the devices
+	 * @throws MqttException
+	 * @throws Exception
+	 */
 	public void setup() throws MqttException, Exception
 	{
 		gson = new GsonBuilder().setPrettyPrinting().create();
@@ -109,7 +121,7 @@ public class Main_Method
 		setup.resetHouseArm(houseDB);
 		setup.resetAlarmLastSeen(deviceDB);
 		//Setup new transmitSms
-		sender = new SMSSenderBash(phoneAddrDB);		
+		sender = new SMSSenderBash();		
 		try {
 			clientSetup();
 		} catch (URISyntaxException e) {
@@ -118,7 +130,10 @@ public class Main_Method
 		}
 	}
 
-	
+	/**
+	 * Iterates over the list of warning houses on whether if any alarms have expired or not.
+	 * @param warning
+	 */
 	private void alarmHouses(HashSet<House> warning)
 	{
 		for (House house : warning)
@@ -127,13 +142,18 @@ public class Main_Method
 			if (house.getWarningTime() <= 0 && !house.getArmStatus())
 			{	
 				house.modifyWarningTime(-1);
-				house.smsSent(LocalDateTime.now());
+				house.setSMSsentTimestamp(LocalDateTime.now());
 				alarm(house);					
 			}
 		}
 		warning.removeIf(house -> house.getWarningTime() <= 0 || !house.getArmStatus());
 	}
 	
+	/**
+	 * Setups the TTN connection in regards to how handling should be done
+	 * @throws MqttException
+	 * @throws Exception
+	 */
 	public void clientSetup() throws MqttException, Exception
 	{
 		MSGrecver TTNconnector = new MSGrecver();
@@ -150,6 +170,10 @@ public class Main_Method
 		client.start();
 	}
 	
+	/**
+	 * The consumer for a message. Handles the way that messages are recieved, and in certain cases returns a downlink message to the TTN.
+	 * @return
+	 */
 	public BiConsumer<String, DataMessage>  onMessageSetup()
 	{
 		BiConsumer<String, DataMessage> var = (String devId, DataMessage data) -> {
@@ -163,6 +187,11 @@ public class Main_Method
 		return var;
 	}
 	
+	/**
+	 * Transmit a message to the TTN
+	 * @param elem
+	 * @param devId
+	 */
 	private void transmitMessage(JsonObject elem, String devId) {
 
 		byte[] output = convertToBytes(elem);
@@ -183,11 +212,23 @@ public class Main_Method
 	}
 
 
+	/**
+	 * Take the payload files from the json object.	
+	 * @param data
+	 * @param gson
+	 * @return
+	 */
 	public JsonObject readPayLoad(JsonObject data, Gson gson) 
 	{
 		return  gson.toJsonTree(data.get("payloadFields")).getAsJsonObject();
 	}
 	
+	/**
+	 * Handle the request found in the message based on the payload
+	 * @param data
+	 * @param deviceID
+	 * @return
+	 */
 	private Optional<JsonObject> handleRequest(DataMessage data, String deviceID) {
 		JsonObject output = new JsonObject();
 		JsonObject input = gson.toJsonTree(data).getAsJsonObject();
@@ -229,7 +270,6 @@ public class Main_Method
     	   System.out.print(pw[i] + " ");
        }
        System.out.println("\nHouse Arm Status: " + house.getArmStatus());
-       
        if (Arrays.stream(pw).sum() > 0)
        {
     	   if (device.getDailyMessageCount() > 9)
@@ -265,6 +305,11 @@ public class Main_Method
        return Optional.empty();
 	}
 	
+	/**
+	 * Checks whether the device has reached the daily message limit for the TTN.
+	 * @param device
+	 * @return
+	 */
 	public boolean dailyMessageLimitReached(Component device)
 	{
 		LocalDate daily = device.getFirstMessageTime();
@@ -285,14 +330,22 @@ public class Main_Method
 	}
 	
 	
-	
+	/**
+	 * Adds a house to warning houses and starts an alarm after the duration if no backoff period exists. 
+	 * @param house
+	 */
 	private void handleStartAlarm(House house) {
-		if (!warningHouses.contains(house) && houseTimeStampCondition(house)) {
+		if (houseNoBackoffPeriodExists(house)) {
 			warningHouses.add(house);
-			house.setHouseTime(alarmTime);
+			house.setWarningTime(alarmTime);
 		}
 	}
 
+	/**
+	 * On a login handle the parameters as needed.
+	 * @param output
+	 * @param house
+	 */
 	private void handleLogin(JsonObject output, House house)
 	{
 		 house.toggleArm();
@@ -306,6 +359,13 @@ public class Main_Method
 	}
 
 
+	/**
+	 * Check if a password is the correcto one for a house.
+	 * @param house
+	 * @param counter
+	 * @param password
+	 * @return
+	 */
 	private boolean handlePW(House house, int counter, int[] password) {
  	   byte[] salt = house.getSalt();
  	   salt[15] = (byte) counter;
@@ -333,36 +393,68 @@ public class Main_Method
 		return true;
 	}
 
-	
-	public boolean houseTimeStampCondition(House house)
+	/**
+	 * Check if there is a backoff period or not
+	 * @param house
+	 * @return
+	 */
+	public boolean houseNoBackoffPeriodExists(House house)
 	{
-		return (timeBetweenSMS <= 0) ? true : checkHouseTimeStamp(house);
+		//Hvis der er ingen backoff returner den true, hvis der er ingen backoff skal den returne false
+		return (timeBetweenSMS <= 0) ? true : checkNoHouseBackoffPeriod(house);
 	}
 	
-	public boolean checkHouseTimeStamp(House house)
+	/**
+	 * Check if the houses backoff period is expired or not.
+	 * @param house
+	 * @return
+	 */
+	public boolean checkNoHouseBackoffPeriod(House house)
 	{
-		return house.getSMSTimestamp() != null && Duration.between(LocalDateTime.now(), house.getSMSTimestamp()).toMillis() >= timeBetweenSMS;
+		return house.getSMSTimestamp() == null || house.getSMSTimestamp() != null && Duration.between(LocalDateTime.now(), house.getSMSTimestamp()).toMillis() >= timeBetweenSMS;
 	}
 
+	/**
+	 * Take the content of a json file and turn it into byte array.
+	 * If a given value is false it is set to 0x01 and if true 0x02
+	 * This is due to a buffer problem found on the nodes.
+	 * @param input
+	 * @return
+	 */
 	private byte[] convertToBytes(JsonObject input)
 	{
 		byte[] out = new byte[3];		
 		if (input.has("armStatus") && input.get("armStatus").getAsBoolean())
 		{
-			out[0] = 0x01;
+			out[0] = 0x02;
 		}
+		else
+		{
+			out[0] = 0x01;
 
+		}
 		if (input.has("panic") && input.get("panic").getAsBoolean())
+		{
+			out[1] = 0x02;
+		}
+		else
 		{
 			out[1] = 0x01;
 		}
 		if (input.has("status") && input.get("status").getAsBoolean())
+		{
+			out[2] = 0x02;
+		}
+		else
 		{
 			out[2] = 0x01;
 		}
 		return out;
 	}
 	
+	/**
+	 * Save the content of the databases down to some files
+	 */
 	public void saveDatabases()
 	{
 		FileOutputStream f1;
@@ -425,19 +517,24 @@ public class Main_Method
 		inputStream3.close();
 	}
 	
+	/**
+	 * Check if any devices havnt been seen in certain period of times, and if so combine them for each house.	
+	 */
 	private void checkDevices() 
 	{
 		LocalDateTime now = LocalDateTime.now();
+		//Filter if a device exceeds the limits set for its last seen time
 		List<Component> devices = deviceDB.filter(device ->  device.getLastSignalDate() != null
 					&& Duration.between(now, device.getLastSignalDate()).toMillis() > lastSeen);
 		
+		//Combine those message if such exist, we do not want 2 messages about the same house for different devices
 		Hashtable<HouseID, List<ComponentID>> hashtable = new Hashtable<HouseID, List<ComponentID>>();
 		for (Component device : devices)
 		{ 
 			checkDevicesHashtable(device.getComponentID(), device.getHouseID(), hashtable);
 		}
-		
-		List<House> houses = houseDB.filter(house -> hashtable.containsKey(house.getHouseID()) && houseTimeStampCondition(house));
+		//For each of them that exist, check if they dont have a backoff period
+		List<House> houses = houseDB.filter(house -> hashtable.containsKey(house.getHouseID()) && houseNoBackoffPeriodExists(house));
 		for (House house : houses)
 		{
 			handleHouseFailureDeviceMsg(house, hashtable);
@@ -446,34 +543,42 @@ public class Main_Method
 	
 
 
+	/**
+	 * Transmit the failure depending on the house arming status
+	 * @param house
+	 * @param hashtable
+	 */
 	private void handleHouseFailureDeviceMsg(House house, Hashtable<HouseID, List<ComponentID>> hashtable)
 	{
-		if (houseTimeStampCondition(house))
+		if (house.getArmStatus())
 		{
-			if (house.getArmStatus())
+			house.setWarningTime(alarmTime);
+			alarm(house);
+		}
+		else
+		{
+			List<PhoneAddress> numbers = phoneAddrDB.filter(number -> number.getHouseID().equals(house.getHouseID()));
+			StringBuilder sb = new StringBuilder();
+			sb.append("Device failure on component: ");
+			for (ComponentID id : hashtable.get(house.getHouseID()))
 			{
-				house.setHouseTime(alarmTime);
-				alarm(house);
+				sb.append(id.getID());
+				sb.append(", ");
 			}
-			else
-			{
-				List<PhoneAddress> numbers = phoneAddrDB.filter(number -> number.getHouseID().equals(house.getHouseID()));
-				StringBuilder sb = new StringBuilder();
-				sb.append("Device failure on component: ");
-				for (ComponentID id : hashtable.get(house.getHouseID()))
-				{
-					sb.append(id.getID());
-					sb.append(", ");
-				}
-				sb.delete(sb.length() - 2, sb.length());
-				sb.append(".");
-				house.setHouseTime(alarmTime);
-				sendMsg(numbers, sb.toString());
-			}
+			sb.delete(sb.length() - 2, sb.length());
+			sb.append(".");
+			house.setWarningTime(alarmTime);
+			sendMsg(numbers, sb.toString());
 		}
 		
 	}
 
+	/**
+	 * Add the house to a hashtable.
+	 * @param deviceID
+	 * @param houseID
+	 * @param hashtable
+	 */
 	private void checkDevicesHashtable(ComponentID deviceID, HouseID houseID,
 			Hashtable<HouseID, List<ComponentID>> hashtable) {
 		if (hashtable.containsKey(houseID))
@@ -490,16 +595,22 @@ public class Main_Method
 		}		
 	}
 	
+	/**
+	 * Transmit an alarm
+	 * @param house
+	 */
 	public void alarm(House house)
 	{
 		List<PhoneAddress> numbers = phoneAddrDB.filter(phone -> phone.equals(phone));
 		String content = "Hey everyone, there was a breakin at " + house.getAddress() + " please respond quickly.";
-		for (PhoneAddress number : numbers)
-		{
-			sender.sendToNumber(number.getNumber(), content);
-		}
+		sendMsg(numbers, content);
 	}
 	
+	/**
+	 * Send a message to a list of given number
+	 * @param numbers
+	 * @param msg
+	 */
 	public void sendMsg(List<PhoneAddress> numbers, String msg)
 	{
 		for (PhoneAddress number : numbers)

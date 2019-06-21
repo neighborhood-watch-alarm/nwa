@@ -69,7 +69,8 @@ public class AddressValueUnitTest
 	public void equalsDiffClass()
 	{
 		address = 		new AddressValue("Temp Addr");
-		boolean result = address.equals(new Integer(5));
+		Integer value = 5;
+		boolean result = address.equals(value);
 		assertFalse(result);			
 	}
 	

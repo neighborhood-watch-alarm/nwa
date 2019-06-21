@@ -2,10 +2,13 @@ package dtu.components;
 
 import java.io.Serializable;
 
+/**
+ * The base component ID value objects
+ */
 public class ComponentIDValue implements ComponentID, Serializable
 {
 	/**
-	 * 
+	 * Serial ID auto generated.
 	 */
 	private static final long serialVersionUID = 1879802809013910787L;
 	private String value;
@@ -16,6 +19,9 @@ public class ComponentIDValue implements ComponentID, Serializable
 	}
 
 
+	/**
+	 * Returns the value of the ID
+	 */
 	public String getID()
 	{
 		return value;

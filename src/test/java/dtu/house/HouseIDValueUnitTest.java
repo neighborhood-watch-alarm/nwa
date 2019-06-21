@@ -69,7 +69,8 @@ public class HouseIDValueUnitTest
 	public void equalsDiffClass()
 	{
 		id = 		new HouseIDValue("Temp Addr");
-		boolean result = id.equals(new Integer(5));
+		Integer value =  5;
+		boolean result = id.equals(value);
 		assertFalse(result);			
 	}
 	
