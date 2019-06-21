@@ -1,37 +1,5 @@
 
-//////////////////////////////////////////////// Sensor setup ///////////////////////////////////////////////////////////////////////////
-
-#include <LIDARLite.h>
-LIDARLite lidarLite;
-
-
 //////////////////////////////////////////////// Alarm Control Panel setup ///////////////////////////////////////////////////////////////////////////
-
-#include <LiquidCrystal_I2C.h>
-#include <Keypad.h>
-#include "SipHash_2_4.h"
-
-uint8_t hashKey[] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x00, 0x00};
-
-const byte ROWS = 4;
-const byte COLS = 4;
-
-char hexaKeys[ROWS][COLS] = {
-  {'1', '2', '3', 'A'},
-  {'4', '5', '6', 'B'},
-  {'7', '8', '9', 'C'},
-  {'*', '0', '#', 'D'}
-};
-
-byte rowPins[ROWS] = {22, 24, 26, 28};
-byte colPins[COLS] = {30, 32, 34, 36};
-
-char keypadList[] = {'x','x', 'x', 'x'}; 
-int keypadCnt = 0;
-
-Keypad keypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
-
-LiquidCrystal_I2C lcd(0x27, 1, 2);  
 
 
 
@@ -114,19 +82,12 @@ void onEvent (ev_t ev) {
           if (LMIC.frame[LMIC.dataBeg+0] == 2) {
 
             if (armFlag == 0) {
-              lcd.setCursor(0,1);
-              lcd.print("Armed           ");
-
               // Calibrate sensor
               refDist = getRefDist();
             }
             armFlag = 1;
           }
           else if (LMIC.frame[LMIC.dataBeg+0] == 1) {
-            if (armFlag == 1) {
-              lcd.setCursor(0,1);
-              lcd.print("Disarmed        ");
-            }
             armFlag = 0;
           }
 
@@ -242,13 +203,6 @@ void setup(){
 
 /////////// Device specific setup here ///////////
 
-    // Initialise lcd
-  lcd.init(); 
-  lcd.backlight();
-  lcdReset();
-
-  // Initialise keypad
-  keypad.addEventListener(keypadPress);
 } 
 
 void loop(){
@@ -265,16 +219,7 @@ void loop(){
 
     int dist;
  
-    // Correct for receiver bias every 100 reads
-    if ( cal_cnt == 0 ) {
-      dist = lidarLite.distance();      // With bias correction
-    } else {
-      dist = lidarLite.distance(false); // Without bias correction
-    }
-  
-    // Increment read counter
-    cal_cnt++;
-    cal_cnt = cal_cnt % 100;
+    dist = analogRead(0);  
 
     if (dist > refDist + 30 || dist < refDist - 30) {
       distCnt+=3;
@@ -292,130 +237,27 @@ void loop(){
       distCnt = 0;
       alarmFlag = 1;
     }
+    
+    delay(49); // maximum time needed between reads
   }
   ////////////////////////////////////////////////////////////////////
   
-  // Use keypad
-  char customKey = keypad.getKey();  
-
-  // Use panic button 
-  if (panicButton() && panicFlag == 0) {
-    panicFlag = 1;
-        
-    // Write to lcd
-    lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print("Panic mode");
-    lcd.setCursor(0,1);
-    lcd.print("Activated");
-  }
-}
-
-////////////////// Alarm Control Panel functions for LCD and keypad //////////////////
-
-void lcdReset() {
-  // Reset lcd
-  lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("Enter pw:        ");
-  lcd.setCursor(0,1);
-  lcd.print("Disarmed         ");
-}
-
-void keypadPress(KeypadEvent kpp) {
-  switch(keypad.getState()) {
-    case PRESSED:
-    char kpInput = kpp;
-    lcd.setCursor(14, 2); 
-    lcd.print(kpInput);
-    Serial.print(keypadCnt);
-    Serial.print(", ");
-    Serial.println(kpInput);
-
-    switch(kpInput) {
-      case '*':
-        // Delete entered password
-        keypadCnt = 0;
-        lcd.setCursor(9,0);
-        lcd.print("       ");
-        break;
-      case '#':
-        // Submit password
-        if (keypadCnt == 4) {
-          hashKey[14] = (byte) EEPROM.read(0);
-          hashKey[15] = (byte) EEPROM.read(1);
-          sipHash.initFromRAM(hashKey);
-
-          Serial.println("Keypad input as int: ");
-          
-          for (int i=0; i<4;i++) {
-            sipHash.updateHash((byte)keypadList[i]); // update hash with each byte of msg
-            Serial.println((byte)keypadList[i]);
-          }
-          sipHash.finish();
-          for(int i=0; i<16;i++) {
-            longMessage[i+3] = sipHash.result[i];
-          }
-          
-          pwFlag = 1;
-
-          // Write to lcd
-          lcd.setCursor(0,1);
-          lcd.print("Waiting for ack.");
-
-          // reset entered password
-          keypadCnt = 0;
-          lcd.setCursor(9,0);
-          lcd.print("       ");
-        }
-        break;
-      case 'A':
-        break;
-      case 'B':
-        break;
-      case 'C':
-        break;
-      case 'D':
-        break;
-      case '0' ... '9':
-        if (keypadCnt <= 3) {
-          keypadList[keypadCnt] = kpInput;
-          lcd.setCursor(9+keypadCnt,0);
-          lcd.print('*');
-          keypadCnt++;
-        }
-        break;
-    }
-  }
-}
-
-bool panicButton() {
-  if (analogRead(1) > 900) {
-    Serial.println("Panic button pressed");
-    return true;
-  }
-  else {
-    return false;
-  }
 }
 
 ////////////////// Sensor specific non-loop code here //////////////////
   
 int getRefDist() {
-    //#######################################
-    // for Lidar
-    lidarLite.begin(0, true);   
-    lidarLite.configure(0); 
-  
+    // Calibrate ultra sonic sensor
+    
     int distSum = 0;
-    for (int i=0; i<99; i++) {
-      distSum = distSum + lidarLite.distance();
+    for (int i=0; i<100; i++) {
+      distSum = distSum + analogRead(0);
+      delay(49); // maximum cycle time for LV-MaxSonar MB1000
     }
-    distSum = distSum + lidarLite.distance(false);
     distSum = distSum / 100;
     Serial.print("refDist = ");
     Serial.print(distSum);
     Serial.println(" cm");
-    //#######################################
+
     return distSum;
 }

@@ -1,10 +1,4 @@
 
-//////////////////////////////////////////////// Sensor setup ///////////////////////////////////////////////////////////////////////////
-
-#include <LIDARLite.h>
-LIDARLite lidarLite;
-
-
 //////////////////////////////////////////////// Alarm Control Panel setup ///////////////////////////////////////////////////////////////////////////
 
 #include <LiquidCrystal_I2C.h>
@@ -258,40 +252,14 @@ void loop(){
  if ( millis() > t_start + t_wait) {
 
     ////////////////// Sensor specific loop code here //////////////////
-    
-    if (refDist == -1) {
-      refDist = getRefDist();
-    }
 
-    int dist;
- 
-    // Correct for receiver bias every 100 reads
-    if ( cal_cnt == 0 ) {
-      dist = lidarLite.distance();      // With bias correction
-    } else {
-      dist = lidarLite.distance(false); // Without bias correction
-    }
-  
-    // Increment read counter
-    cal_cnt++;
-    cal_cnt = cal_cnt % 100;
-
-    if (dist > refDist + 30 || dist < refDist - 30) {
-      distCnt+=3;
-    }
-    else if (dist > refDist + 10 || dist < refDist - 10) {
-      distCnt++;
-    }
-    else {
-      if (distCnt > 0) {
-        distCnt--;
-      }
-    }
-    if (distCnt >= 10 && armFlag == 1) {
+    // trigger if the PIR output is high
+    if (analogRead(0) > 500 && armFlag == 1) {
       Serial.println("ALARM!");
-      distCnt = 0;
       alarmFlag = 1;
     }
+    
+
   }
   ////////////////////////////////////////////////////////////////////
   
@@ -402,20 +370,19 @@ bool panicButton() {
 ////////////////// Sensor specific non-loop code here //////////////////
   
 int getRefDist() {
-    //#######################################
-    // for Lidar
-    lidarLite.begin(0, true);   
-    lidarLite.configure(0); 
-  
+  /*
+    // Calibrate ultra sonic sensor
+    
     int distSum = 0;
-    for (int i=0; i<99; i++) {
-      distSum = distSum + lidarLite.distance();
+    for (int i=0; i<100; i++) {
+      distSum = distSum + analogRead(0);
+      delay(49); // maximum cycle time for LV-MaxSonar MB1000
     }
-    distSum = distSum + lidarLite.distance(false);
     distSum = distSum / 100;
     Serial.print("refDist = ");
     Serial.print(distSum);
     Serial.println(" cm");
-    //#######################################
+
     return distSum;
+  */
 }
