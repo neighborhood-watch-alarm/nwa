@@ -1,3 +1,4 @@
 # nwa
 Nabohjælp Alarmsystem (Neighborhood Watch Alarm System). 
-Danish open source LoRa-based home security system.
+Open source LoRa-based neighborhood security system. 
+Developed with intention of offering a service to local communities, especially members of the Danish Neighborhood Watch, Nabohjælp.
