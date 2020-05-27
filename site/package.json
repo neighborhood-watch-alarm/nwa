@@ -1,13 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "initiates both backend and frontend",
+  "main": "backend/index.js",
   "scripts": {
     "start": "cd backend && node index.js",
     "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
-  "author": "",
+  "author": "Neihgborhood Watch Alarm System",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"
