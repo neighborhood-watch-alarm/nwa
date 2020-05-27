@@ -4,7 +4,9 @@ const path = require("path");
 const app = express();
 
 // BACKEND API ROUTES
-const email_route = require("./api/routes/email");
+app.use(express.static(path.join(__dirname + "/../frontend/build")));
+
+const email_route = require("./api/routes/email_route");
 app.use("/api/email", email_route);
 
 // REDIRECT TO REACT APP FOR ALL OTHER ROUTES
@@ -13,11 +15,11 @@ app.use("*", (req, res) => {
 });
 
 // PORT AND ERROR HANDLING
-PORT = process.env.PORT || 5000;
+PORT = process.env.PORT || 3001;
 app.listen(PORT, (err, res) => {
   if (err) {
     console.log(err);
   } else {
-    console.log("APP WORKS");
+    console.log("BACKEND RUNNING");
   }
 });
