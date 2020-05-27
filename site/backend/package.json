@@ -4,14 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd backend && node index.js",
-    "heroku-postbuild": "cd frontend && npm install && npm run build",
-    "install": "cd backend && npm install"
+    "start": "node index.js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
-    "nodemailer": "^6.4.6"
+    "express": "^4.17.1"
   }
 }
