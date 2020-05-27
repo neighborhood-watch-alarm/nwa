@@ -19,22 +19,29 @@ jobs:
         node-version: [10.x, 12.x, 14.x]
 
     steps:
+    # GITHUB ACTION SETUP
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     # CI FOR BACKEND
-    - run: npm ci
+    - name: Install backend
+      run: npm ci
       working-directory: site/backend
-    - run: npm run build --if-present
+    - name: Build backend
+      run: npm run build --if-present
       working-directory: site/backend
-    - run: npm test
+    - name: Test backend
+      run: npm test
       working-directory: site/backend
     # CI FOR FRONTEND
-    - run: npm ci
+    - name: Install frontend
+      run: npm ci
       working-directory: site/frontend
-    - run: npm run build --if-present
+    - name: Build frontend
+      run: npm run build --if-present
       working-directory: site/frontend
-    - run: npm test
+    - name: Test frontend
+      run: npm test
       working-directory: site/frontend
