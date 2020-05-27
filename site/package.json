@@ -1,11 +1,14 @@
 {
-  "name": "site",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "website for neighboorhood watch alarm system",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "cd backend && npm install && npm start",
-    "heroku-postbuild": "cd frontend && npm install && npm run build"
+    "start": "node index.js"
   },
-  "author": "Neighborhood Watch Alarm System",
-  "license": "MIT"
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

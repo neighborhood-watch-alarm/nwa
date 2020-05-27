@@ -28,9 +28,9 @@ jobs:
     - name: Build backend
       run: npm run build --if-present
       working-directory: site/backend
-    - name: Test backend
-      run: npm test
-      working-directory: site/backend
+    #- name: Test backend
+    #  run: npm test
+    #  working-directory: site/backend
     # CI FOR FRONTEND
     - name: Install frontend
       run: npm ci
@@ -38,6 +38,6 @@ jobs:
     - name: Build frontend
       run: npm run build --if-present
       working-directory: site/frontend
-    - name: Test frontend
-      run: npm test
-      working-directory: site/frontend
+    #- name: Test frontend
+    #  run: npm test
+    #  working-directory: site/frontend
