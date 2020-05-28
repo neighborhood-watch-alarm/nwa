@@ -15,7 +15,7 @@ class App extends Component {
       .then(res => res.json())
       .then(resJSON => {
         this.setState({
-          message: resJSON.message
+          message: "Backend: " + resJSON.message
         });
       });
   }
