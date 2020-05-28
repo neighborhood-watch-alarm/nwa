@@ -5,7 +5,7 @@ name: Node.js site/frontend CI
 
 on:
   push:
-    branches: [ master ],
+    branches: [ master ]
     paths: site/frontend/**
   pull_request:
     branches: [ master ]
