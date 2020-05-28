@@ -1,4 +1,3 @@
-
 //////////////////////////////////////////////// Sensor setup ///////////////////////////////////////////////////////////////////////////
 
 #include <LIDARLite.h>
@@ -65,9 +64,9 @@ uint8_t longMessage[] = {1, 1, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 
 int t_start = 0;
 int t_wait = 10000; // time in ms to wait until sensors activate to guarantee correct calibration
 
-static const u1_t NWKSKEY[16] = { 0x6E, 0xA5, 0xD8, 0x03, 0x4C, 0xB7, 0xBB, 0x93, 0x65, 0xBB, 0xDE, 0x95, 0x1D, 0x2F, 0x01, 0x3B };
-static const u1_t APPSKEY[16] = { 0x31, 0x52, 0x01, 0x40, 0x8A, 0xAE, 0x74, 0xDE, 0x59, 0x03, 0x49, 0xC0, 0x4A, 0x41, 0x88, 0x7D };
-static const u4_t DEVADDR = 0x26011C80;
+static const u1_t NWKSKEY[16] = { 0xA4, 0x6C, 0xE3, 0x48, 0x16, 0xB1, 0xC7, 0x2E, 0x20, 0x54, 0x13, 0x8C, 0x0E, 0x88, 0x81, 0xFC };
+static const u1_t APPSKEY[16] = { 0x04, 0xA8, 0x15, 0xC8, 0xE4, 0x04, 0xC1, 0x3D, 0xDA, 0xDC, 0xDC, 0x58, 0x87, 0xBD, 0x4C, 0x50 };
+static const u4_t DEVADDR = 0x260112A1;
 
 // The LMIC library requires that these variables are set, but they are not used.
 void os_getArtEui (u1_t* buf) { }
@@ -221,7 +220,7 @@ void setup(){
   LMIC.dn2Dr = DR_SF9;
 
   // Uplink datarate is set to SF7 to reduce airtime as much as possible
-  LMIC_setDrTxpow(DR_SF12,14);
+  LMIC_setDrTxpow(DR_SF7,14);
 
 
   // Read frame counters from non-volatile memory
@@ -265,16 +264,7 @@ void loop(){
 
     int dist;
  
-    // Correct for receiver bias every 100 reads
-    if ( cal_cnt == 0 ) {
-      dist = lidarLite.distance();      // With bias correction
-    } else {
-      dist = lidarLite.distance(false); // Without bias correction
-    }
-  
-    // Increment read counter
-    cal_cnt++;
-    cal_cnt = cal_cnt % 100;
+    dist = analogRead(0);
 
     if (dist > refDist + 30 || dist < refDist - 30) {
       distCnt+=3;
@@ -292,6 +282,7 @@ void loop(){
       distCnt = 0;
       alarmFlag = 1;
     }
+    delay(49); // maximum time needed between reads  
   }
   ////////////////////////////////////////////////////////////////////
   
@@ -403,19 +394,17 @@ bool panicButton() {
   
 int getRefDist() {
     //#######################################
-    // for Lidar
-    lidarLite.begin(0, true);   
-    lidarLite.configure(0); 
-  
-    int distSum = 0;
-    for (int i=0; i<99; i++) {
-      distSum = distSum + lidarLite.distance();
-    }
-    distSum = distSum + lidarLite.distance(false);
-    distSum = distSum / 100;
-    Serial.print("refDist = ");
-    Serial.print(distSum);
-    Serial.println(" cm");
+    // Calibrate ultra sonic sensor  
+      
+    int distSum = 0;  
+    for (int i=0; i<100; i++) { 
+      distSum = distSum + analogRead(0);  
+      delay(49); // maximum cycle time for LV-MaxSonar MB1000 
+    } 
+    distSum = distSum / 100;  
+    Serial.print("refDist = "); 
+    Serial.print(distSum);  
+    Serial.println(" cm");  
     //#######################################
     return distSum;
 }
