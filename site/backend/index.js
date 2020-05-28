@@ -20,6 +20,6 @@ app.listen(PORT, (err, res) => {
   if (err) {
     console.log(err);
   } else {
-    console.log("BACKEND RUNNING");
+    console.log("BACKEND RUNNING ON PORT " + PORT);
   }
 });
