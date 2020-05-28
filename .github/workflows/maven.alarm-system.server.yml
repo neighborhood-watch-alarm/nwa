@@ -6,8 +6,10 @@ name: Java/Maven alarm-system/server CI
 on:
   push:
     branches: [ master ]
+    paths: alarm-system/server/**
   pull_request:
     branches: [ master ]
+    paths: alarm-system/server/**
 
 jobs:
   test:

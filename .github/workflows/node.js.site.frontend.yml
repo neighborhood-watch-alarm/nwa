@@ -5,12 +5,14 @@ name: Node.js site/frontend CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master ],
+    paths: site/frontend/**
   pull_request:
     branches: [ master ]
+    paths: site/frontend/**
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -23,7 +25,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     # CI FOR FRONTEND
     - name: Install frontend
-      run: npm ci
+      run: npm ci #installs for ci
       working-directory: site/frontend
     - name: Build frontend
       run: npm run build --if-present
