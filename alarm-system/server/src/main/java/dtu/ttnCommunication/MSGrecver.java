@@ -11,9 +11,9 @@ import org.thethingsnetwork.data.mqtt.Client;
 
 public class MSGrecver
 {
-	String region = "";
-	String appID = "";
-	String appAccessKey = "";
+	String region = "eu";
+	String appID = "ttn-app-nwa";
+	String appAccessKey = "ttn-account-v2.G6nsXG8sNWA0ioM7RuAuv6RcOyWgeI2pPGAhkellphE";
 	
 	
 	public Client setupRecver() throws URISyntaxException

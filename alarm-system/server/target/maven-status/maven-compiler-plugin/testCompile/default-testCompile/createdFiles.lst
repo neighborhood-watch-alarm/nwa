@@ -1,0 +1,7 @@
+dtu\house\HouseIDValueUnitTest.class
+dtu\components\ComponentIDValueUnitTest.class
+dtu\house\HouseImplementationUnitTest.class
+dtu\database\DatabaseArrayListUnitTest.class
+dtu\house\PhoneAddressImplementationUnitTest.class
+dtu\database\AddressValueUnitTest.class
+dtu\components\ComponentSignalUnitTest.class

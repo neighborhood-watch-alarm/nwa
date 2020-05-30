@@ -12,7 +12,7 @@
   <url>http://maven.apache.org</url>
 
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
      <plugins>
 		<plugin>
 		  <artifactId>maven-compiler-plugin</artifactId>
@@ -62,6 +62,12 @@
    		<version>2.0.2-beta</version>
     	<scope>test</scope>
 	</dependency>
-    
+    <dependency>
+         <groupId>SimpleHash</groupId>
+         <artifactId>SimpleHash</artifactId>
+         <scope>system</scope>
+         <version>1.0</version>
+         <systemPath>${basedir}/SimpleHash.jar</systemPath>
+      </dependency>
   </dependencies>
 </project>
