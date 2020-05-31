@@ -8,7 +8,7 @@ Open source LoRa-based neighborhood security system.
 
 The alarm system is split into **alarms** and **servers**.
 
-The alarm components are build with **arduino** code, and the server is build using **java**.
+The alarm components are build with **arduino** code, and the server is build using **java** and run from a raspberry pi. The communication between the alarm compontents and the server is facilitated by a **TTN Gateway**.
 
 The respective source code for alarms and server can be found in the two subfolders inside *alarm-system*.
 
