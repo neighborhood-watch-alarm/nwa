@@ -400,7 +400,7 @@ public class Main_Method
 	 */
 	public boolean houseNoBackoffPeriodExists(House house)
 	{
-		//Hvis der er ingen backoff returner den true, hvis der er ingen backoff skal den returne false
+		//If no backup period it returns true, if there is it returns false
 		return (timeBetweenSMS <= 0) ? true : checkNoHouseBackoffPeriod(house);
 	}
 	

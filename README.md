@@ -20,7 +20,7 @@ The frontend is build using **React.js** and the backend is build with **Express
 
 The two servers connect to each other using API calls.
 
-Both servers are hosted on [Heroku](https://www.Heroku.com)
+Both servers are hosted on [Heroku](https://www.Heroku.com).
 
 The source code regarding both the frontend and backend can be found in the respective subfolders inside *site*.
 
