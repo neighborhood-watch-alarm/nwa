@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { Container } from "reactstrap";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
+import TopNavbar from "./Components/TopNavbar";
+import HomeJumbotron from "./Components/HomeJumbotron";
+import ServerSideNav from "./Components/ServerSideNav";
 
 class App extends Component {
   constructor(props) {
@@ -23,10 +28,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <TopNavbar className="App-navbar"></TopNavbar>
+        <Switch>
+          <Route exact path="/">
+            <Container className="App-container">
+              <HomeJumbotron className="App-greeting"></HomeJumbotron>
+            </Container>
+          </Route>
+          <Route path="/server/" component={ServerSideNav} />
+          <Redirect to="/" />
+        </Switch>
+        {/*<header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>{this.state.message}</p>
         </header>
+        */}
       </div>
     );
   }

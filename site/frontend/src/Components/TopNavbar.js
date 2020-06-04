@@ -14,7 +14,7 @@ import {
   NavbarText
 } from "reactstrap";
 
-const Navbar = props => {
+const TopNavbar = props => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -22,35 +22,38 @@ const Navbar = props => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <NavbarBrand href="/">NWA</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink href="/Server/">Server</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
-              </NavLink>
+              <NavLink href="/Alarms/">Alarms</NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
+          </Nav>
+          <Nav className="mr-right" navbar>
+            <NavItem>
+              <NavLink href="/Help/">Help</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/Contribute/">Contribute</NavLink>
+            </NavItem>
+            <UncontrolledDropdown setActiveFromChild>
               <DropdownToggle nav caret>
-                Options
+                Language
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
+                <DropdownItem>English</DropdownItem>
+                <DropdownItem>Danish</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>Simple Text</NavbarText>
         </Collapse>
       </Navbar>
     </div>
   );
 };
 
-export default Navbar;
+export default TopNavbar;
