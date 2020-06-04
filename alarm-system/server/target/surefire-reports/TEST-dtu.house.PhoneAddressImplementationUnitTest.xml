@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="dtu.house.PhoneAddressImplementationUnitTest" time="0.005" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="dtu.house.PhoneAddressImplementationUnitTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\bin"/>
@@ -28,7 +28,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\mikke\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf1162439334736290460.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\mikke\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf2888550413964397869.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_171/bin/server;C:/Program Files/Java/jre1.8.0_171/bin;C:/Program Files/Java/jre1.8.0_171/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_144\bin;C:\Program Files\MiKTeX 2.9\miktex\bin\x64\;C:\Program Files\SourceGear\Common\DiffMerge\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;C:\Program Files\PuTTY\;C:\Users\mikke\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Microsoft VS Code\bin;C:\Users\mikke\.nuget\packages\fslexyacc\7.0.6\build;C:\Users\mikke\AppData\Roaming\npm;C:\Program Files\MongoDB\Server\4.0\bin;C:\Users\mikke\AppData\Local\atom\bin;C:\Program Files\heroku\bin;C:\WINDOWS\system32;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -63,7 +63,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="dtu.house.PhoneAddressImplementationUnitTest" name="testCreate" time="0.001"/>
-  <testcase classname="dtu.house.PhoneAddressImplementationUnitTest" name="testGetNumber" time="0.002"/>
-  <testcase classname="dtu.house.PhoneAddressImplementationUnitTest" name="testGetHouseID" time="0.002"/>
+  <testcase classname="dtu.house.PhoneAddressImplementationUnitTest" name="testCreate" time="0"/>
+  <testcase classname="dtu.house.PhoneAddressImplementationUnitTest" name="testGetNumber" time="0"/>
+  <testcase classname="dtu.house.PhoneAddressImplementationUnitTest" name="testGetHouseID" time="0"/>
 </testsuite>

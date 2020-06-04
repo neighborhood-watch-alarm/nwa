@@ -1,6 +1,7 @@
 package dtu.alarmSystemBackend;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,6 +45,8 @@ import dtu.smsComm.SMSSender;
 import dtu.smsComm.SMSSenderBash;
 import dtu.ttnCommunication.MSGrecver;
 
+import dtu.exampleFile.SetupExample;;
+
 /**
  * The runner class for the NWS
  */
@@ -81,6 +84,7 @@ public class Main_Method
 	 */
 	public static void main(String[] args) throws MqttException, Exception
 	{
+		//SetupExample.testing(args); //UNCOMMENT TO REFRESH DATABASE
 		new Main_Method();
 	}
 	
@@ -301,7 +305,6 @@ public class Main_Method
            output.addProperty("armStatus", house.getArmStatus());
            return Optional.of(output);
        }
-       
        return Optional.empty();
 	}
 	
@@ -326,7 +329,7 @@ public class Main_Method
 			messageCount = messageCount + 1;
 		}
 		device.updateDailyMessageCount(messageCount);
-		return messageCount <= DAILYMESSAGELIMIT;
+		return messageCount >= DAILYMESSAGELIMIT;
 	}
 	
 	

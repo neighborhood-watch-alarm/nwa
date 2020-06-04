@@ -72,7 +72,7 @@ public class SetupExample {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Done");
+		System.out.println("Database Setup Done");
 	}
 	
 
