@@ -1,6 +1,6 @@
 import React from "react";
 import { Jumbotron, Button, Container, Row, Col } from "reactstrap";
-import { Link, NavLink as RouterNavLink } from "react-router-dom";
+import { NavLink as RouterNavLink } from "react-router-dom";
 import logo from "../Images/nwa_logo.png";
 
 const HomePage = props => {
@@ -28,7 +28,12 @@ const HomePage = props => {
           </Jumbotron>
         </Col>
         <Col sm="4">
-          <img className="photo-logo" src={logo} style={{ paddingTop: "50px", height: "400px" }} />
+          <img
+            className="photo-logo"
+            src={logo}
+            alt="Image of nwa system"
+            style={{ paddingTop: "50px", height: "400px" }}
+          />
         </Col>
       </Row>
     </Container>

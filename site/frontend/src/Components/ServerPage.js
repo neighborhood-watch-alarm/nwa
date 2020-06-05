@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import ServerSideNav from "./ServerSideNav";
-import { Route, NavLink as RouterNavLink, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import ServerDevices from "./ServerDevices";
 import ServerSetup from "./ServerSetup";
 import ServerWelcome from "./ServerWelcome";

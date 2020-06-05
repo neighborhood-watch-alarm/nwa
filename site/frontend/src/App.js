@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { Container } from "reactstrap";
-import { Route, NavLink as RouterNavLink, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import TopNavbar from "./Components/TopNavbar";
 import HomePage from "./Components/HomePage";
 import ServerPage from "./Components/ServerPage";
