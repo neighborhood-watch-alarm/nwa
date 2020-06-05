@@ -28,12 +28,7 @@ const HomePage = props => {
           </Jumbotron>
         </Col>
         <Col sm="4">
-          <img
-            className="photo-logo"
-            src={logo}
-            alt="Image of nwa system"
-            style={{ paddingTop: "50px", height: "400px" }}
-          />
+          <img className="photo-logo" src={logo} alt="nwa system" style={{ paddingTop: "50px", height: "400px" }} />
         </Col>
       </Row>
     </Container>

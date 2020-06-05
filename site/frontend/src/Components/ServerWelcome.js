@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "reactstrap";
-import { Link, NavLink as RouterNavLink } from "react-router-dom";
+import { NavLink as RouterNavLink } from "react-router-dom";
 
 const ServerWelcome = props => {
   return (
