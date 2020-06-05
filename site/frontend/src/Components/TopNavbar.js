@@ -13,6 +13,8 @@ import {
   DropdownItem,
   NavbarText
 } from "reactstrap";
+import { Link, NavLink as RouterNavLink } from "react-router-dom";
+import "../App.css";
 
 const TopNavbar = props => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,24 +23,34 @@ const TopNavbar = props => {
 
   return (
     <div>
-      <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">NWA</NavbarBrand>
+      <Navbar dark expand="md" className="fixed-top bg-danger text-white" style={{ fontWeight: "600" }}>
+        <NavbarBrand tag={RouterNavLink} to="/">
+          NWA
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/Server/">Server</NavLink>
+              <NavLink tag={RouterNavLink} to="/Server/">
+                Server
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/Alarms/">Alarms</NavLink>
+              <NavLink tag={RouterNavLink} to="/Alarms/" activeClassName="active">
+                Alarms
+              </NavLink>
             </NavItem>
           </Nav>
           <Nav className="mr-right" navbar>
             <NavItem>
-              <NavLink href="/Help/">Help</NavLink>
+              <NavLink tag={RouterNavLink} to="/Help/" activeClassName="active">
+                Help
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/Contribute/">Contribute</NavLink>
+              <NavLink tag={RouterNavLink} to="/Contribute/" activeClassName="active">
+                Contribute
+              </NavLink>
             </NavItem>
             <UncontrolledDropdown setActiveFromChild>
               <DropdownToggle nav caret>
