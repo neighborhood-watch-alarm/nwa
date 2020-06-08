@@ -264,8 +264,7 @@ public class Main_Method
     	   pw[i] = temp.get(i).getAsInt();
        }
  
-       
-       System.out.println("panic: " + panicRecv);
+       System.out.println("\npanic: " + panicRecv);
        System.out.println("status: " + statusRecv);
        System.out.println("armStatus: " + deviceArmStatus);
        System.out.println("password: ");
@@ -292,7 +291,7 @@ public class Main_Method
     		   System.out.println("login failed");
     	   }
        }
-       else if (statusRecv && panicRecv)
+       else if (/*statusRecv &&*/ panicRecv)
        {
     	   alarm(house);
        }

@@ -1,0 +1,2 @@
+# Ensures bash files have the proper line ending
+*.sh        eol=lf
