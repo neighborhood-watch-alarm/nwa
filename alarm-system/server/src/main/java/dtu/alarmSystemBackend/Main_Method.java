@@ -1,6 +1,7 @@
 package dtu.alarmSystemBackend;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,6 +45,8 @@ import dtu.smsComm.SMSSender;
 import dtu.smsComm.SMSSenderBash;
 import dtu.ttnCommunication.MSGrecver;
 
+import dtu.exampleFile.SetupExample;;
+
 /**
  * The runner class for the NWS
  */
@@ -81,6 +84,7 @@ public class Main_Method
 	 */
 	public static void main(String[] args) throws MqttException, Exception
 	{
+		//SetupExample.testing(args); //UNCOMMENT TO REFRESH DATABASE
 		new Main_Method();
 	}
 	
@@ -260,8 +264,7 @@ public class Main_Method
     	   pw[i] = temp.get(i).getAsInt();
        }
  
-       
-       System.out.println("panic: " + panicRecv);
+       System.out.println("\npanic: " + panicRecv);
        System.out.println("status: " + statusRecv);
        System.out.println("armStatus: " + deviceArmStatus);
        System.out.println("password: ");
@@ -288,7 +291,7 @@ public class Main_Method
     		   System.out.println("login failed");
     	   }
        }
-       else if (statusRecv && panicRecv)
+       else if (/*statusRecv &&*/ panicRecv)
        {
     	   alarm(house);
        }
@@ -301,7 +304,6 @@ public class Main_Method
            output.addProperty("armStatus", house.getArmStatus());
            return Optional.of(output);
        }
-       
        return Optional.empty();
 	}
 	
@@ -326,7 +328,7 @@ public class Main_Method
 			messageCount = messageCount + 1;
 		}
 		device.updateDailyMessageCount(messageCount);
-		return messageCount <= DAILYMESSAGELIMIT;
+		return messageCount >= DAILYMESSAGELIMIT;
 	}
 	
 	
@@ -400,7 +402,7 @@ public class Main_Method
 	 */
 	public boolean houseNoBackoffPeriodExists(House house)
 	{
-		//Hvis der er ingen backoff returner den true, hvis der er ingen backoff skal den returne false
+		//If no backup period it returns true, if there is it returns false
 		return (timeBetweenSMS <= 0) ? true : checkNoHouseBackoffPeriod(house);
 	}
 	

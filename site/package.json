@@ -1,0 +1,11 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "website for neighboorhood watch alarm system",
+  "scripts": {
+    "start": "cd backend && npm install && npm start",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
+  },
+  "author": "Neighborhood Watch Alarm System",
+  "license": "MIT"
+}

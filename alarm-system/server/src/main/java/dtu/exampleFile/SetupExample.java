@@ -37,7 +37,7 @@ public class SetupExample {
 	    Component device1 = new ComponentSignal("device_01", houseID);
 	    Component device2 = new ComponentSignal("device_02", houseID);
 	    
-	    PhoneAddress phoneNumber = new PhoneAddressImplementation("TEMP NUMBER", houseID);
+	    PhoneAddress phoneNumber = new PhoneAddressImplementation("+4529869690", houseID);
 		
 		
 		houseDB.add(house);
@@ -72,7 +72,7 @@ public class SetupExample {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Done");
+		System.out.println("Database Setup Done");
 	}
 	
 
