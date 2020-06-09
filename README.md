@@ -1,7 +1,4 @@
-# NWA
-
-Neighborhood Watch Alarm System (NWA).
-
+# Neighborhood Watch Alarm System (NWA)
 NWA is an open source client-server-based neighborhood security system that is assembled and managed locally. 
 
 The system consists of Arduino-based sensor devices placed in the home and a Raspberry Pi server. The devices communicate via LoRa signals and a TTN Gateway. The server sends text-messages when an alarm is triggered.
