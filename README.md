@@ -2,27 +2,9 @@
 
 Neighborhood Watch Alarm System. 
 
-Open source LoRa-based neighborhood security system.
+Open source client-server LoRa-based neighborhood security system that sends text-messages in case of a break-in.
 
-## Alarm System
-
-The alarm system is split into **alarms** and **servers**.
-
-The alarm components are built of an **arduino** with a LoRa shield, and the server is build using **java** and run from a **raspberry pi**. The communication between the alarm compontents and the server is facilitated by a **TTN Gateway**.
-
-The respective source code for alarms and server can be found in the two subfolders inside *alarm-system*.
-
-## Site
-
-The site "..." is build with **Node.js** and split into two servers: **frontend** and **backend**.
-
-The frontend is build using **React.js** and the backend is build with **Express.js**.
-
-The two servers connect to each other using API calls.
-
-Both servers are hosted on [Heroku](https://www.Heroku.com).
-
-The source code regarding both the frontend and backend can be found in the respective subfolders inside *site*.
+Please see the [wiki](https://github.com/simoneengelbr/nwa/wiki) for development material.
 
 # Code Status
 
