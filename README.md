@@ -1,7 +1,7 @@
 # Neighborhood Watch Alarm System (NWA)
 NWA is an open source client-server-based neighborhood security system that is assembled and managed locally. 
 
-The system consists of Arduino-based sensor devices placed in the home and a Raspberry Pi server. The devices communicate via LoRa signals and a TTN Gateway. The server sends text-messages when an alarm is triggered.
+The system consists of *Arduino*-based sensor devices placed in the home and a *Raspberry Pi* server. The devices communicate via LoRa signals and a *TTN Gateway*. The server sends text-messages when an alarm is triggered.
 
 For general and installation related information, see the [**main site**](https://nwa-site.herokuapp.com/)
 
@@ -24,6 +24,6 @@ Frontend status:
 
 ![Node.js site/frontend CI](https://github.com/simoneengelbr/nwa/workflows/Node.js%20site/frontend%20CI/badge.svg)
 
-Backend s´tatus:
+Backend status:
 
 ![Node.js site/backend CI](https://github.com/simoneengelbr/nwa/workflows/Node.js%20site/backend%20CI/badge.svg)
