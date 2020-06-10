@@ -5,7 +5,7 @@ We really appreciate your interest in contributing to the project! We need volun
 This document includes guidelines for contributing to the NWA project. Feel free to propose changes to this document in a pull request. 
 
 ### Important resources
-**Mailing list**: We would love to see you on our developer mailing list at **TBA**
+**Mailing list**: We would love to see you on our developer mailing list at **TBA**</br>
 **Code of Conduct**: Please read our [Code of Conduct TODO]() before contributing to this project. 
 
 ## Bugs and feature requests
@@ -35,5 +35,5 @@ Contributors so far:
 - [mikkelgthang](https://github.com/mikkelgthang)
 - [simoneengelbr](https://github.com/simoneengelbr)
 
-Best, 
+Best, </br>
 simoneengelbr and mikkelgthang
