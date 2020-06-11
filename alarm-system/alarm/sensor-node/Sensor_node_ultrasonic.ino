@@ -164,6 +164,7 @@ void setup(){
   Serial.begin(9600);
   Serial.println("booting");
 
+  // Sensor specific activation of pins
   pinMode(A0, INPUT);
   pinMode(A1, INPUT);
   
