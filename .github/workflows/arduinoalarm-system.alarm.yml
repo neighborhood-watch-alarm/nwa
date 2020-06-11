@@ -63,4 +63,4 @@ jobs:
       # Finally, we compile the sketch, using the FQBN that was set
       # in the build matrix.
       - name: Compile Sketch
-        run: arduino-cli compile --fqbn ${{ matrix.fqbn }} ./sensor-node
+        run: arduino-cli compile --fqbn ${{ matrix.fqbn }} ./alarm-system/alarm/sensor-node/Sensor_node_Lidar
