@@ -4,7 +4,7 @@ We really appreciate your interest in contributing to the project! We need volun
 
 This document includes guidelines for contributing to the NWA project. Feel free to propose changes to this document in a pull request. 
 
-We recommend you gain familiarity with the project by setting up your own NWA system based on the guide on the [website](nwa-site.herokuapp.com). However, this is not a necessity, and the system can also be developed on with no hardware. Issues that require hardware are labeled with the 'hardware required' label.
+We recommend you gain familiarity with the project by setting up your own NWA system based on installation guides on the [main site](nwa-site.herokuapp.com). This way, you have a setup to test the software on. However, this is not a necessity, and you can definitely still contribute with no hardware. Issues that require hardware are labeled with the 'hardware required' label.
 
 ### Important resources
 **Mailing list**: We would love to see you on our developer mailing list at **TBA**</br>
