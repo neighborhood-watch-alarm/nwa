@@ -14,7 +14,8 @@ All accepted source code goes through a **Continues Integration** pipeline using
 The current status for the different pipelines can be seen below:
 
 Alarm status:
-*N/A*
+
+![Arduino alarm-system/alarm CI](https://github.com/simoneengelbr/nwa/workflows/Arduino%20alarm-system/alarm%20CI/badge.svg)
 
 Server status:
 
