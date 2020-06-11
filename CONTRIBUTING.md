@@ -4,9 +4,11 @@ We really appreciate your interest in contributing to the project! We need volun
 
 This document includes guidelines for contributing to the NWA project. Feel free to propose changes to this document in a pull request. 
 
+We recommend you gain familiarity with the project by setting up your own NWA system based on the guide on the [website](nwa-site.herokuapp.com). However, this is not a necessity, and the system can also be developed on with no hardware. Issues that require hardware are labeled with the 'hardware required' label.
+
 ### Important resources
 **Mailing list**: We would love to see you on our developer mailing list at **TBA**</br>
-**Code of Conduct**: Please read our [Code of Conduct TODO]() before contributing to this project. 
+**Code of Conduct**: Please read our [Code of Conduct](https://github.com/simoneengelbr/nwa/CODE_OF_CONDUCT.md) before contributing to this project. 
 
 ## Bugs and feature requests
 You are welcome to report a bug or suggest a new feature. This is done by creating an [Issue](https://help.github.com/en/enterprise/2.15/user/articles/creating-an-issue).
