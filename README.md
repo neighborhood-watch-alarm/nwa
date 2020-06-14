@@ -32,5 +32,5 @@ Backend status:
 
 # Current Project Team Members
 ## Maintainers
-* [simoneengelbr](https://github.com/simoneengelbr)
 * [mikkelgthang](https://github.com/mikkelgthang)
+* [simoneengelbr](https://github.com/simoneengelbr)
