@@ -28,3 +28,9 @@ Frontend status:
 Backend status:
 
 ![Node.js site/backend CI](https://github.com/simoneengelbr/nwa/workflows/Node.js%20site/backend%20CI/badge.svg)
+
+
+# Current Project Team Members
+## Maintainers
+* [simoneengelbr](https://github.com/simoneengelbr)
+* [mikkelgthang](https://github.com/mikkelgthang)
