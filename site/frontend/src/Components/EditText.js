@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { useTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
 
 const EditText = props => {
   const { buttonLabel, link, fileName } = props;
@@ -18,12 +19,17 @@ const EditText = props => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>{t("improve.popup.title")}</ModalHeader>
         <ModalBody>
-          As NWA is an open source project, all the material regarding both the alarmsystem and this website is public
-          available on <a href="https://github.com/simoneengelbr/nwa">Github</a>. The written material showcased in this
-          guide is loaded from the file <code>{fileName}</code>, divided into different categories representing the
-          different sections. By editing a category in this file, the corresponding section on this page will be changed
-          automatically. For security reasons all requested updates will be checked by an authorized contributer before
-          launching.
+          <Trans i18nKey="improve.popup.description">
+            As NWA is an open source project, all the material regarding both the alarmsystem and this website is public
+            available on
+            <a href="https://github.com/simoneengelbr/nwa" target="_blank">
+              Github
+            </a>
+            . The written material showcased in this guide is loaded from the file <code>{{ fileName }}</code>, divided
+            into different categories representing the different sections. By editing a category in this file, the
+            corresponding section on this page will be changed automatically. For security reasons all requested updates
+            will be checked by an authorized contributer before launching.
+          </Trans>
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={toggle} href={link} target="_blank">

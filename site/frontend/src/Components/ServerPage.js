@@ -18,7 +18,7 @@ const ServerPage = props => {
             <ServerSideNav></ServerSideNav>
           </Col>
           <hr />
-          <Col sm="7" style={{ padding: "3rem" }}>
+          <Col sm="7" style={{ padding: "3rem", borderTop: "1px solid #0000001a" }}>
             <Switch>
               <Route exact path="/server" component={ServerWelcome} />
               <Route exact path="/server/devices" component={ServerDevices} />
@@ -27,12 +27,20 @@ const ServerPage = props => {
             </Switch>
           </Col>
           <Col sm="1"></Col>
-          <Col sm="2" style={{ padding: "1.5rem", paddingTop: "2rem", borderLeft: "1px solid #0000001a" }}>
+          <Col
+            sm="2"
+            style={{
+              padding: "1.5rem",
+              paddingTop: "2rem",
+              borderLeft: "1px solid #0000001a",
+              borderTop: "1px solid #0000001a"
+            }}
+          >
             <p>{t("general:improve.intro")}</p>
             <EditText
               buttonLabel={t("general:improve.button")}
               link="https://github.com/simoneengelbr/nwa"
-              fileName="server.json"
+              fileName="server_v1.json"
             ></EditText>
           </Col>
         </Row>

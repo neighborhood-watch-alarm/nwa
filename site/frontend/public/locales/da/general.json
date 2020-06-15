@@ -14,7 +14,7 @@
         "button": "Opdater Guide",
         "popup": {
             "title": "Hjælp med at forbedre det skriftlige materiale",
-            "description": "",
+            "description": "Eftersom NWA er distruberet som open source er al materiale vedr. både alarmsystemet og hjemmesiden tilgængeligt på <1>Github</1>. Alt skriftligt materiale i denne guide er generet fra filen <3>{{fileName}}</3>, hvor diverse kategorier repræsenterer de forskellige sektioner i denne guide. Ved at redigere en kategori i denne fil vil den korresponderende section på denne side blive ændret automatisk. Af sikkerhedsmæssige årsager tjekkes alle anmodninger vedr. ændringer i materialet af en autoriseret bidrager",
             "link": "Rediger på Github",
             "cancel": "Tilbage"
         }
