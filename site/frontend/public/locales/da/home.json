@@ -1,0 +1,9 @@
+{
+    "title": "Velkommen til NWA!",
+    "subtitle": "Det første open source LoRa-baseret nabohjælp alarmsystem!",
+    "description": "Nabohjælp alarmsystem er opdelt i server- og alarmenheder. Alarmkomponenterne består af en Arduino med et LoRa-skjold, og serveren kører som et java-program på en Raspberry Pi. Kommunikationen mellem alarmenhederne og serveren er faciliteret vha. en TTN Gateway.",
+    "button": {
+        "server": "Sæt en server op",
+        "alarm": "Konfigurer alarmer"
+    }
+}

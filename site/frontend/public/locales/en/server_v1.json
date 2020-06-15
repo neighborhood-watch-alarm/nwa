@@ -1,0 +1,25 @@
+{
+    "navigation": {
+        "hardware": "Hardware Setup",
+        "devices": "Devices",
+        "setup": "Setup",
+        "os": "OS Flashing",
+        "software": "Software Setup",
+        "ttn": "TTN Connection",
+        "database": "Database Setup",
+        "integration": "Hardware Integration"
+    },
+    "intro": {
+        "title": "Server",
+        "version": "The material in this guide is based on the latest version of the system. For former versions, please select from the dropdown.",
+        "latest": "latest",
+        "server": {
+            "description": "To setup your own running server you must first acquire and set up the neccesarry hardware. Follow the button below for instructions regarding this hardware and their usage.",
+            "link": "Hardware Setup"
+        },
+        "hardware": {
+            "description": "If you have already set up the hardware properply, you're ready to install the neccessary software. Follow the button below for instructions on how to setup this software.",
+            "link": "Software Setup"
+        }
+    }
+}

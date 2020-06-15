@@ -1,14 +1,17 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
+import "./i18n";
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Suspense fallback="Loading...">
+      <App />
+    </Suspense>
   </BrowserRouter>,
   document.getElementById("root")
 );

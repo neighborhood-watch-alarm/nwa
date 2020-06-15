@@ -1,28 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Label } from "reactstrap";
 import { NavLink as RouterNavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ServerWelcome = props => {
+  const { t } = useTranslation("server_v1");
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+
   return (
     <div>
-      <h2 className="display-5">Server Setup</h2>
-      <hr />
+      <h1 className="display-5">{t("intro.title")}</h1>
       <p>
-        To setup your own running server you must first acquire and set up the neccesarry hardware. Follow the button
-        below for instructions regarding this hardware and their usage.
+        <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+          <Label for="backdrop">{t("intro.version")}</Label>
+          <DropdownToggle caret color="link">
+            v1.0
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem disabled>v1.0 ({t("intro.latest")})</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem tag={RouterNavLink} to="/docs/server/v0.1">
+              v0.1
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </p>
+      <hr />
+      <p>{t("intro.server.description")}</p>
       <p className="lead">
         <Button tag={RouterNavLink} to="/Server/Devices/" color="danger">
-          Harware Setup
+          {t("intro.server.link")}
         </Button>
       </p>
-      <p>
-        If you have already set up the hardware properply, you're ready to install the neccessary software. Follow the
-        button below for instructions on how to setup this software.
-      </p>
+      <p>{t("intro.hardware.description")}</p>
       <p className="lead">
         <Button tag={RouterNavLink} to="/Server/TTNConnection/" outline color="danger">
-          Software Setup
+          {t("intro.hardware.link")}
         </Button>
       </p>
     </div>

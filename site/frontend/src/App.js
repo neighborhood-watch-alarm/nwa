@@ -4,9 +4,10 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import TopNavbar from "./Components/TopNavbar";
 import HomePage from "./Components/HomePage";
 import ServerPage from "./Components/ServerPage";
+import ServerVersionRouter from "./Components/Docs/ServerVersionRouter.js";
 
 class App extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     this.state = {
       message: ""
@@ -21,29 +22,23 @@ class App extends Component {
           message: "Backend: " + resJSON.message
         });
       });
-  }
+  }*/
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <>
+        <div className="App-header">
           <TopNavbar></TopNavbar>
-        </header>
-        <body className="App-body" style={{ paddingTop: "50px" }}>
+        </div>
+        <div className="App-body" style={{ paddingTop: "50px" }}>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/server" component={ServerPage} />
+            <Route path="/docs/server" component={ServerVersionRouter} />
             <Redirect to="/" />
           </Switch>
-        </body>
-        <footer className="App-footer">
-          {/*<header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>{this.state.message}</p>
-        </header>
-        */}
-        </footer>
-      </div>
+        </div>
+      </>
     );
   }
 }

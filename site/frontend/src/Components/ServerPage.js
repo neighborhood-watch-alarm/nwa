@@ -1,12 +1,15 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-import ServerSideNav from "./ServerSideNav";
 import { Route, Switch, Redirect } from "react-router-dom";
+import ServerSideNav from "./ServerSideNav";
 import ServerDevices from "./ServerDevices";
 import ServerSetup from "./ServerSetup";
 import ServerWelcome from "./ServerWelcome";
+import EditText from "./EditText";
+import { useTranslation } from "react-i18next";
 
 const ServerPage = props => {
+  const { t } = useTranslation(["general"]);
   return (
     <>
       <Container className="themed-container clearfix" fluid={true}>
@@ -15,17 +18,22 @@ const ServerPage = props => {
             <ServerSideNav></ServerSideNav>
           </Col>
           <hr />
-          <Col sm="6" style={{ padding: "3rem" }}>
+          <Col sm="7" style={{ padding: "3rem" }}>
             <Switch>
-              <Route exact path="/Server" component={ServerWelcome} />
-              <Route exact path="/server/Devices" component={ServerDevices} />
-              <Route exact path="/server/Setup" component={ServerSetup} />
-              <Redirect to="/Server" />
+              <Route exact path="/server" component={ServerWelcome} />
+              <Route exact path="/server/devices" component={ServerDevices} />
+              <Route exact path="/server/setup" component={ServerSetup} />
+              <Redirect to="/server" />
             </Switch>
           </Col>
-          <Col sm="2"></Col>
+          <Col sm="1"></Col>
           <Col sm="2" style={{ padding: "1.5rem", paddingTop: "2rem", borderLeft: "1px solid #0000001a" }}>
-            Perhaps Scrollspy
+            <p>{t("general:improve.intro")}</p>
+            <EditText
+              buttonLabel={t("general:improve.button")}
+              link="https://github.com/simoneengelbr/nwa"
+              fileName="server.json"
+            ></EditText>
           </Col>
         </Row>
       </Container>

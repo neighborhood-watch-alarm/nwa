@@ -1,0 +1,22 @@
+{
+    "navigation": {
+        "title": "NWA",
+        "server": "Server",
+        "alarm": "Alarms",
+        "help": "Help",
+        "contribute": "Contribute",
+        "language": "Language",
+        "en": "English",
+        "da": "Danish"
+    },
+    "improve": {
+        "intro": "The guided material on this page is written by fellow users of the alarmsystem. We appreciate all the help we can get, so if you're interested in improving the material for yourself and others, please press the button bellow.",
+        "button": "Improve Guide",
+        "popup": {
+            "title": "Help improve the written material",
+            "description": "",
+            "link": "Edit on Github",
+            "cancel": "Cancel"
+        }
+    }
+}

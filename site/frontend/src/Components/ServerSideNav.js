@@ -1,44 +1,46 @@
 import React from "react";
 import { Nav, NavItem, NavLink } from "reactstrap";
 import { NavLink as RouterNavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ServerSideNav = props => {
+  const { t } = useTranslation("server_v1");
   return (
     <div>
-      <p>Hardware Setup</p>
+      <p>{t("navigation.hardware")}</p>
       <Nav vertical>
         <NavItem>
           <NavLink tag={RouterNavLink} to="/Server/Devices" className="text-muted">
-            Devices
+            {t("navigation.devices")}
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink tag={RouterNavLink} to="/Server/Setup" activeClassName="active" className="text-muted">
-            Setup
+            {t("navigation.setup")}
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink tag={RouterNavLink} to="/Server/OSFlashing" activeClassName="active" className="text-muted">
-            OS Flashing
+            {t("navigation.os")}
           </NavLink>
         </NavItem>
       </Nav>
       <hr />
-      <p>Software installation</p>
+      <p>{t("navigation.software")}</p>
       <Nav vertical>
         <NavItem>
           <NavLink tag={RouterNavLink} to="#" className="text-muted">
-            TTN Connection
+            {t("navigation.ttn")}
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink tag={RouterNavLink} to="#" className="text-muted">
-            Database Setup
+            {t("navigation.database")}
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink tag={RouterNavLink} to="#" className="text-muted">
-            Hardware Integration
+            {t("navigation.integration")}
           </NavLink>
         </NavItem>
       </Nav>

@@ -1,0 +1,28 @@
+{
+    "navigation": {
+        "hardware": "Hardware Konfiguartion",
+        "devices": "Komponenter",
+        "setup": "Konfiguartion",
+        "os": "OS Flashing",
+        "software": "Software Konfiguartion",
+        "ttn": "TTN forbindelse",
+        "database": "Database Konfiguartion",
+        "integration": "Hardware Integration"
+    },
+    "intro": {
+        "title": "Server",
+        "version": "Nuværende version: ",
+        "latest": "seneste",
+        "server": {
+            "description": "Hvis du ønsker at sætte din egen server op, må du først erhverve dig de nødvendige hardwarekomponenter. Følg knappen nedenfor for information vedr. disse komponenter.",
+            "link": "Hardware Konfiguartion"
+        },
+        "hardware": {
+            "description": "Hvis du allerede har anskaffet og klargjort de nødvendige harwarekompontner, er du klar til at installere den tilhørende software. Følg knappen nedenfor for information og instruktioner angående denne opsætning",
+            "link": "Software Konfiguartion"
+        }
+    },
+    "devices": {
+        "intro": ""
+    }
+}

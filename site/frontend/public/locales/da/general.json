@@ -1,0 +1,22 @@
+{
+    "navigation": {
+        "title": "NWA",
+        "server": "Server",
+        "alarm": "Alarmer",
+        "help": "Hjælp",
+        "contribute": "Bidrag",
+        "language": "Sprog",
+        "en": "Engelsk",
+        "da": "Dansk"
+    },
+    "improve": {
+        "intro": "Guidematerialet på denne side er skrevet af brugere som dig. Vi sætter pris på al den hjælp vi kan få, så hvis du er interesseret i at forbedre materialet for dig selv og andre, så følg knappen nedenfor.",
+        "button": "Opdater Guide",
+        "popup": {
+            "title": "Hjælp med at forbedre det skriftlige materiale",
+            "description": "",
+            "link": "Rediger på Github",
+            "cancel": "Tilbage"
+        }
+    }
+}
