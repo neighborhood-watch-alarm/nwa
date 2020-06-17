@@ -1,18 +1,18 @@
 import React from "react";
 import { Alert } from "reactstrap";
-import { NavLink as RouterNavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const VersionAlert = props => {
-  const { message, link } = props;
+  const { t } = useTranslation("general");
+  const { link } = props;
   return (
     <div>
       <Alert color="danger">
-        {" "}
-        This is a primary alert with{" "}
-        <a href="/server" className="alert-link">
-          an example link
-        </a>
-        . Give it a click if you like.
+        {t("docs.oldVersion")}
+        <Link to={link} className="alert-link">
+          {t("docs.clickHere")}
+        </Link>
       </Alert>
     </div>
   );

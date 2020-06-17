@@ -18,5 +18,9 @@
             "link": "Rediger på Github",
             "cancel": "Tilbage"
         }
+    },
+    "docs": {
+        "oldVersion": "Dette materiale dækker en ældre forældet version af NWA. ",
+        "clickHere": "For nyeste version, klik her."
     }
 }

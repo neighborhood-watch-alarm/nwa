@@ -18,5 +18,9 @@
             "link": "Edit on Github",
             "cancel": "Cancel"
         }
+    },
+    "docs": {
+        "oldVersion": "This material covers an older deprecated version of NWA. ",
+        "clickHere": "For the latest version, click here."
     }
 }
