@@ -1,15 +1,16 @@
 {
     "navigation": {
-        "hardware": "Hardware Setup",
-        "devices": "Devices",
-        "setup": "Setup",
-        "os": "OS Flashing",
-        "software": "Software Setup",
-        "ttn": "TTN Connection",
-        "database": "Database Setup",
-        "integration": "Hardware Integration"
+        "design-h": "Tilpas din løsning",
+        "design": "Design",
+        "guide-h": "Installationsvejledninger",
+        "cp-lidar": "Kontrolpanel - LIDAR",
+        "cp-pir": "Kontrolpanel - PIR",
+        "cp-us": "Kontrolpanel - Ultralyd",
+        "sn-lidar": "Sensornode - LIDAR",
+        "sn-pir": "Sensornode - PIR",
+        "sn-us": "Sensornode - Ultralyd"
     },
-    "intro": {
+    "welcome": {
         "title": "Server",
         "version": "The material in this guide is based on the latest version of the system. For former versions, please select from the dropdown.",
         "latest": "latest",
@@ -20,6 +21,33 @@
         "hardware": {
             "description": "If you have already set up the hardware properply, you're ready to install the necessary software. Follow the button below for instructions on how to setup this software.",
             "link": "Software Setup"
+        }
+    },
+    "design":{
+
+    },
+    "control-panel":{
+
+        "lidar":{
+
+        },
+        "pir":{
+            
+        },
+        "ultrasound":{
+            
+        }
+    },
+    "sensor-node":{
+        
+        "lidar":{
+
+        },
+        "pir":{
+            
+        },
+        "ultrasound":{
+            
         }
     }
 }

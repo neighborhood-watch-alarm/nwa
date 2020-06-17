@@ -1,15 +1,16 @@
 {
     "navigation": {
-        "hardware": "Hardware Setup",
-        "devices": "Devices",
-        "setup": "Setup",
-        "os": "OS Flashing",
-        "software": "Software Setup",
-        "ttn": "TTN Connection",
-        "database": "Database Setup",
-        "integration": "Hardware Integration"
+        "design-h": "Customize to You",
+        "design": "Design",
+        "guide-h": "Installation Guides",
+        "cp-lidar": "Control Panel - LIDAR",
+        "cp-pir": "Control Panel - PIR",
+        "cp-us": "Control Panel - Ultrasonic",
+        "sn-lidar": "Sensor Node - LIDAR",
+        "sn-pir": "Sensor Node - PIR",
+        "sn-us": "Sensor Node - Ultrasonic"
     },
-    "intro": {
+    "welcome": {
         "title": "Server",
         "version": "The material in this guide is based on the latest version of the system. For former versions, please select from the dropdown.",
         "latest": "latest",
@@ -21,5 +22,8 @@
             "description": "If you have already set up the hardware properply, you're ready to install the necessary software. Follow the button below for instructions on how to setup this software.",
             "link": "Software Setup"
         }
+    },
+    "design":{
+
     }
 }

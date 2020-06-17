@@ -19,7 +19,7 @@ const HomePage = props => {
               <Button tag={RouterNavLink} to="/Server/" color="danger">
                 {t("button.server")}
               </Button>{" "}
-              <Button tag={RouterNavLink} to="/Alarms/" outline color="danger">
+              <Button tag={RouterNavLink} to="/alarms/" outline color="danger">
                 {t("button.alarm")}
               </Button>
             </p>
