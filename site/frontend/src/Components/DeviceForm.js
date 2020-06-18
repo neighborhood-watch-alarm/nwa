@@ -5,7 +5,7 @@ import PartsTable from "./PartsTable";
 
 
 class DeviceForm extends Component {
-  deviceTypes = ["Control Panel", "Sensor Node"];
+  deviceTypes = ["Control Panel - LIDAR", "Control Panel - PIR", "Control Panel - Ultrasonic", "Sensor Node - LIDAR", "Sensor Node - PIR", "Sensor Node - Ultrasonic"];
   defaultDevice = this.deviceTypes[0];
   state = {
     inputs: [
@@ -13,8 +13,10 @@ class DeviceForm extends Component {
         name: "",
         device: this.defaultDevice
       }
-    ]
+    ],
+    partsList: []
   };
+
 
   //constructor(props){
   //  super(props);
@@ -70,7 +72,7 @@ class DeviceForm extends Component {
   }
   
   inputsToJSON = () => {
-    let inputsList = this.state.inputs.slice();
+    let inputsList = JSON.parse(JSON.stringify(this.state.inputs));
 
     inputsList.forEach((item, idx) => {
       item.name=(idx + 1).valueOf().toString().concat(". ", item.name)
@@ -81,7 +83,21 @@ class DeviceForm extends Component {
 
 
   onSubmit = () => {
+    const response = [
+      {
+          model: "PIR",
+          amount: 2,
+          link: "facebook.com"
+      },
+      {
+          model: "LIDAR-Lite v3",
+          amount: 1,
+          link: "twitter.com"
+      }
+    ];
     console.log("submit: ", this.inputsToJSON());
+
+    this.setState({partsList: response});
   };
 
   onEmailSubmit = () => {
@@ -89,7 +105,6 @@ class DeviceForm extends Component {
   };
 
   render() {
-
     const post = {"devicec": [
       {
           "name": "01-office",
@@ -104,20 +119,6 @@ class DeviceForm extends Component {
           "type": "cp-lidar"
       }
     ]};
-  
-    const response = {"parts": [
-      {
-          "model": "PIR",
-          "amount": "2",
-          "link": "facebook.com"
-      },
-      {
-          "model": "LIDAR-Lite v3",
-          "amount": "1",
-          "link": "twitter.com"
-      },
-    ]};
-
 
     console.log(this.state);
     const { errors, values } = this.state;
@@ -134,7 +135,7 @@ class DeviceForm extends Component {
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>{idx+1}.</InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" name="text" value={this.state.inputs[idx].name} id={idx} placeholder="Name" onChange={(e) => this.onNameChange(idx, e)}/>  
+                      <Input type="text" name="text" value={this.state.inputs[idx].name} id={idx} onChange={(e) => this.onNameChange(idx, e)}/>  
                     </InputGroup>
                   </div>
                   <div className="col" style={{maxWidth:"300px" }}>
@@ -144,19 +145,19 @@ class DeviceForm extends Component {
                       )}
                     </Input>
                   </div>
-                  <Button close onClick={()=> this.removeInput(idx)}/>
+                  <Button close style={{marginRight:"10px"}} onClick={()=> this.removeInput(idx)}/>
                 </div>
               </CardBody>
             </Card>
           )}
           <Button color="danger" outline block onClick={this.addInput}>Add device</Button>{' '}
-          <Button className="float-right" block color="danger"style={{marginTop:"10px", marginBottom:"30px"}} onClick={this.onSubmit}>Build parts list</Button>
+          <Button className="float-right" block color="danger" style={{marginTop:"10px", marginBottom:"30px"}} onClick={this.onSubmit}>Build parts list</Button>
           <PartsTable partsList={this.state.partsList} />
           <FormGroup>
             <Label for="email">Address</Label>
-            <Input type="email" name="email" value={this.state.email} placeholder="example@domain.com" style={{maxWidth:"100%"}} onChange={(e) => this.onEmailChange}/>  
+            <Input type="email" name="email" value={this.state.email} style={{maxWidth:"100%"}} onChange={(e) => this.onEmailChange}/>  
           </FormGroup>
-          <Button className="float-right" block color="danger"style={{marginTop:"10px", marginBottom:"30px"}} onClick={this.onEmailSubmit}>Send email</Button>
+          <Button className="float-right" block color="danger" style={{marginTop:"10px", marginBottom:"30px"}} onClick={this.onEmailSubmit}>Send email</Button>
         </Form>
 
       </div>

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, Link } from "react";
 import { Tooltip, Table } from "reactstrap";
 import exampleImage from "../Images/alarmDesign-example.png";
+import { NavLink as RouterNavLink } from "react-router-dom";
 import DeviceForm from "./DeviceForm";
 
 
@@ -69,9 +70,7 @@ const AlarmDesign = props => {
       
       <DeviceForm></DeviceForm>
       
-      
-
-
+      <p>There need to be a Neighborhood Watch Alarm System Server set up in your Neighborhood for the alarms to function. If there isn't yet a server, please consider building one by visiting the server page of this site.</p>
     </div>
   );
 };
