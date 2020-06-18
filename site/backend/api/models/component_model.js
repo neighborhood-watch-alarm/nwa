@@ -68,7 +68,7 @@ const sensorNode = [
 ];
 //CONTROL PANEL SETUPS
 const cpPir = {
-  name: "cp-pir",
+  name: "Control Panel - PIR",
   type: controlPanel,
   components: [
     {
@@ -90,7 +90,7 @@ const cpPir = {
   ]
 };
 const cpLidar = {
-  name: "cp-lidar",
+  name: "Control Panel - LIDAR",
   type: controlPanel,
   components: [
     {
@@ -112,7 +112,7 @@ const cpLidar = {
   ]
 };
 const cpUs = {
-  name: "cp-us",
+  name: "Control Panel - Ultrasonic",
   type: controlPanel,
   components: [
     {
@@ -135,7 +135,7 @@ const cpUs = {
 };
 //SENSOR NODES SETUPS
 const snPir = {
-  name: "sn-pir",
+  name: "Sensor Node - PIR",
   type: sensorNode,
   components: [
     {
@@ -157,7 +157,7 @@ const snPir = {
   ]
 };
 const snLidar = {
-  name: "sn-lidar",
+  name: "Sensor Node - LIDAR",
   type: sensorNode,
   components: [
     {
@@ -179,7 +179,7 @@ const snLidar = {
   ]
 };
 const snUs = {
-  name: "sn-us",
+  name: "Sensor Node - Ultrasonic",
   type: sensorNode,
   components: [
     {

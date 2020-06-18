@@ -38,7 +38,7 @@ function print(devices) {
     componentList = componentList + item.amount + "x " + item.model + "\n";
   });
   var finalMessage =
-    "\nOnce you have required the necessary components, head back to our website for installationsguides.\n\nBest regards, NWA.";
+    "\nOnce you have required the necessary components, head back to our website for installationsguides.\n\nNB: In order for the system to work, your devices must first be registered to your neighborhood server.\n\nBest regards, NWA.";
   return deviceIntro + deviceList + componentIntro + componentList + finalMessage;
 }
 
@@ -67,9 +67,9 @@ exports.componentDetails = function(req, res, next) {
     if (req.body.hasOwnProperty("email")) {
       var emailText = print(req.body.devices);
       mailOptions = {
-        from: process.env.EMAIL,
+        from: "NWA <neighborhood.watch.alarm@gmail.com>",
         to: req.body.email,
-        subject: "NWA: Componentlist for personal setup",
+        subject: "[NWA] Component list for alarm setup",
         text: emailText
       };
       transporter.sendMail(mailOptions, function(error, info) {
@@ -88,11 +88,14 @@ exports.componentDetails = function(req, res, next) {
   }
 };
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+//process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 var transporter = nodemailer.createTransport({
-  service: "hotmail",
+  service: "gmail",
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD
+  },
+  tls: {
+    rejectUnauthorized: false
   }
 });

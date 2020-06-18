@@ -14,7 +14,14 @@ const ServerPage = props => {
         <p>{t("description")}</p>
         <p>{t("download")}</p>
         <p className="lead">
-          <Button tag={RouterNavLink} to="/Alarms/" outline color="danger">
+          <Button
+            href
+            to="https://github.com/neighborhood-watch-alarm/nwa/tree/11d83f00f9597f55a790fb084a7eba421de260ca"
+            target="_blank"
+            rel="noopener noreferrer"
+            outline
+            color="danger"
+          >
             {t("button")}
           </Button>
         </p>
