@@ -1,5 +1,5 @@
 import React from "react";
-import { Jumbotron, Button, Container, Row, Col } from "reactstrap";
+import { Jumbotron, Button } from "reactstrap";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -8,13 +8,14 @@ const ServerPage = props => {
   return (
     <>
       <Jumbotron style={{ backgroundColor: "white" }}>
-        <h1 className="display-3">Server v0.5</h1>
-        <p className="lead">Intro to old deprecated version</p>
+        <h1 className="display-3">{t("title")}</h1>
+        <p className="lead">{t("intro")}</p>
         <hr className="my-2" />
-        <p>Describtion of old deprecated version</p>
+        <p>{t("description")}</p>
+        <p>{t("download")}</p>
         <p className="lead">
           <Button tag={RouterNavLink} to="/Alarms/" outline color="danger">
-            Download software
+            {t("button")}
           </Button>
         </p>
       </Jumbotron>

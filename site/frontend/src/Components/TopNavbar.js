@@ -15,6 +15,7 @@ import {
 import { NavLink as RouterNavLink } from "react-router-dom";
 import "../App.css";
 import { useTranslation } from "react-i18next";
+import logo from "../Images/nwa-logo.png";
 
 const TopNavbar = props => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,12 @@ const TopNavbar = props => {
     <div>
       <Navbar dark expand="md" className="fixed-top bg-danger text-white" style={{ fontWeight: "600" }}>
         <NavbarBrand tag={RouterNavLink} to="/">
-          {t("navigation.title")}
+          <img
+            className="photo-logo"
+            src={logo}
+            alt="nwa system"
+            style={{ display: "flex", width: "40px", height: "auto" }}
+          />
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

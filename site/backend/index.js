@@ -2,12 +2,14 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+require("dotenv").config();
 
 // BACKEND API ROUTES
 app.use(express.static(path.join(__dirname + "/../frontend/build")));
+app.use(express.json());
 
-const email_route = require("./api/routes/email_route");
-app.use("/api/email", email_route);
+const component_route = require("./api/routes/component_route");
+app.use("/api/component", component_route);
 
 // REDIRECT TO REACT APP FOR ALL OTHER ROUTES
 app.use("*", (req, res) => {

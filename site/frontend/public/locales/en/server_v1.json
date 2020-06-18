@@ -11,7 +11,7 @@
     },
     "intro": {
         "title": "Server",
-        "version": "The material in this guide is based on the latest version of the system. For former versions, please select from the dropdown.",
+        "version": "The material in this guide is based on the latest version of the system: ",
         "latest": "latest",
         "server": {
             "description": "To setup your own running server you must first acquire and set up the necessary hardware. Follow the button below for instructions regarding this hardware and their usage.",

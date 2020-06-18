@@ -9,7 +9,7 @@ import EditText from "./EditText";
 import { useTranslation } from "react-i18next";
 
 const ServerPage = props => {
-  const { t } = useTranslation(["general"]);
+  const { t } = useTranslation("general");
   return (
     <>
       <Container className="themed-container clearfix" fluid={true}>
@@ -38,7 +38,7 @@ const ServerPage = props => {
           >
             <p>{t("general:improve.intro")}</p>
             <EditText
-              buttonLabel={t("general:improve.button")}
+              buttonLabel={t("improve.button")}
               link="https://github.com/simoneengelbr/nwa"
               fileName="server_v1.json"
             ></EditText>
