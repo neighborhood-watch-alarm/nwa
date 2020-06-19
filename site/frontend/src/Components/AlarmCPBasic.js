@@ -35,7 +35,7 @@ const AlarmCPBasic = () => {
         <h3>2. Connect a breadboard</h3>
         <p>
             A
-            <ToolDescription id="breadboard-cp" name="breadboard." description="A board with interconnected pins that can be used to connect wires without soldering"/>
+            <ToolDescription id="breadboard-cp" name="breadboard" description="A board with interconnected pins that can be used to connect wires without soldering"/>
             has pins that are connected in two connected outer rows on each side, and half columns in between, as shown in yellow on the below diagram. Plugging a wire into a pin on a row or column connects the wire to all pins on that row/column.
         </p>
         <img

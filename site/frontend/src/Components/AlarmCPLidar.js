@@ -27,7 +27,7 @@ const AlarmCPLidar = props => {
         will display information when you hover your mouse over them.
       </p>
       
-      <Nav tabs>
+      <Nav tabs style={{marginBottom:"30px"}}>
         <NavItem>
           <NavLink
             className={classnames({ active: activeTab === '1' })}
@@ -112,18 +112,23 @@ const AlarmCPLidar = props => {
             <li>1 USB A to B cable</li>
           </ul>
           <p>
-            First, download and install the {" "}
-            <Link to="/server" className="alert-link">
-              Arduino IDE
-            </Link>{" "}
-            supplied on the official Arduino webpage to your computer.
+            First, go to the official Arduino webpage and download and install the {" "}
+            <a href="https://www.arduino.cc/en/main/software" target="_blank" rel="noopener noreferrer">Arduino IDE</a>{" "}
+            on to your computer. The
+            <ToolDescription id="ide-cplidar" name="IDE" description="Integrated Development Environment, used to edit code"/>
+            is needed to edit and upload the software to the Control Panel.
           </p>
 
           <h3>Importing libraries</h3>
-          <p>siphash</p>
-          <p>lmic</p>
-          <p>lmic</p>
-          <h3>Installing the Contol Panel code</h3>
+          <p>
+            The code uses
+            <ToolDescription id="lib-cplidar" name="libraries" description="In software, a library is a collection of files that can be referenced in code."/>
+            to function as needed.
+          </p>
+          <p>Installer direkte:lcd, keypad, og lidar</p>
+          <p>Download og importer: siphash, lmic</p>
+          
+          <h3>Installing the Control Panel code</h3>
           <p>File download</p>
           <p>Define TTN values in code.</p>
           <p>Connect and configure Arduino</p>
@@ -134,13 +139,14 @@ const AlarmCPLidar = props => {
         </TabPane>
         <TabPane tabId="3">
           <h2>Using the Control Panel</h2>
-          <p>Power</p>
-          <p>placement, secure sensor</p>
-          <p>Startup takes a few moments as the sensor calibrates</p>
-          <p>Arming</p>
-          <p>Somewhere on the surface of the Arduino, there is a small button. When pressed, the Arduino and its software effectively restarts. If a device is restarted while the house is armed, the device will be unarmed for a few minutes before becoming armed.</p>
-          <p>Panic</p>
-          <p>panic + arm delay. If the device is restarted before the message is sent, it will not be transmitted.</p>
+          <p>The Control Panel is powered by plugging it into a 9V power supply. Alternately, the USB A to B cable used for intallation along with a 5V wall mount USB adaptor can also power the device.</p>
+          <p>When placing the alarm device in your home, try to place it in a discreet position, and if possible, secure the sensor. When the device is moved, you run the risk of connections falling out. An ideal placement would be out of the way of daily movement, stored inside a box or casing with a cutout for the sensor. This would also help protect the device from dust.</p>
+          <p>When starting up the device, the sensors recalibrate. This takes a few moments.</p>
+          <p>Somewhere on the surface of the Arduino, there is a small button. When pressed, the Arduino and its software restarts. If a device is restarted while the house is armed, the device will be unarmed for a few minutes before becoming armed.</p>
+          <p>In order to arm or disarm the system, type your PIN-code on the keypad followed by #. The LCD should indicate how many numbers you have typed. If you want to clear what you've typed, press *. When the pin code is sent, the screen will display a "Waiting for ack" message to indicate that it is expecting a response from the server. This may take several minutes, and your house is not armed before the response from the server arrives. Any other active alarm devices in your home will become armed within a few more minutes.</p>
+          <p>Regardless of whether your house is armed, you can press the panic button to set off the alarm and notify your neighbors of a potential danger.</p>
+          <p>Please note that your alarm device communicates with the server at a regular interval of a few minutes. This includes information on the panic and arming status of your home. If you have pressed the panic button or entered your PIN-code, you may have up to a few minutes before information is transmitted to the server. If your alarm is restarted within this time period, no information will be transmitted.</p>
+          <p>If an alarm device stops communicating to the server, the server will sound the alarm. If your house is armed, your neighbors will be notified of the alarm. If not, only you will receive a text notofication on the status of your device.</p>
         </TabPane>
       </TabContent>
     </div>
