@@ -11,7 +11,7 @@ const ToolDescription = props => {
   return (
     <>
       {" "}
-      <span style={{ textDecoration: "", color: "blue" }} href="#" id={id}>
+      <span style={{ textDecoration: "", color: "grey" }} href="#" id={id}>
         {name}
       </span>{" "}
       <Tooltip placement="right" isOpen={tooltipOpen} target={id} toggle={toggle}>

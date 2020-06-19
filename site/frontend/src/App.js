@@ -38,6 +38,7 @@ class App extends Component {
             <Route path="/server" component={ServerPage} />
             <Route path="/alarms" component={AlarmPage} />
             <Route path="/docs/server" component={ServerVersionRouter} />
+            <Route path="/docs/alarms" component={AlarmVersionRouter} />
             <Redirect to="/" />
           </Switch>
         </div>
