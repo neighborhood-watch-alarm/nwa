@@ -2,8 +2,8 @@
     "navigation": {
         "hardware": "Hardware Setup",
         "devices": "Devices",
-        "setup": "Setup",
-        "os": "OS Flashing",
+        "ttnSetup": "The Things Network",
+        "raspiSetup": "Raspberry Pi OS",
         "software": "Software Setup",
         "ttn": "TTN Connection",
         "database": "Database Setup",
@@ -21,5 +21,25 @@
             "description": "If you have already set up the hardware properply, you're ready to install the necessary software. Follow the button below for instructions on how to setup this software.",
             "link": "Software Setup"
         }
+    },
+    "devices": {
+        "title": ""
+    },
+    "ttn": {
+        "title": "The Things Network Setup",
+        "videoIntro": "In the video below TTN guides you through how to setup your Gateway with The Things Network step by step as decribed above.",
+        "videoLicense": "The video is embedded as a link to TTN's own Youtube channel and used under Youtube's fair use policy."
+    },
+    "raspian": {
+        "title": ""
+    },
+    "connection": {
+        "title": ""
+    },
+    "database": {
+        "title": ""
+    },
+    "integration": {
+        "title": ""
     }
 }

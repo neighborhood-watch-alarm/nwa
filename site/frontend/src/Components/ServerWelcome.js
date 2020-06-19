@@ -15,7 +15,7 @@ const ServerWelcome = props => {
 
   return (
     <div>
-      <h1 className="display-5">{t("intro.title")}</h1>
+      <h1>{t("intro.title")}</h1>
       <Dropdown isOpen={dropdownOpen} toggle={toggleVersion}>
         <Label for="backdrop">{t("intro.version")}</Label>
         <DropdownToggle caret color="link">
@@ -32,35 +32,39 @@ const ServerWelcome = props => {
       <hr />
       <p>
         The server consist of a
-        <ToolDescription id="rasp" name="Raspberry Pi" description="Single board computer"></ToolDescription>
+        <ToolDescription id="rasp" name="Raspberry Pi" description="Single board computer" />
         and a
         <ToolDescription
           id="ttn"
           name="TTN Gateway"
-          description="Bridge between LoRaWAN devices and The Things Network's online platform"
-        ></ToolDescription>
+          description="Bridge between LoRaWAN devices and The Things Network's online services"
+        />
         . The gateway handles the communication back and forward with all the connected devices (
         <Link to="/alarms" className="alert-link">
           visit the alarms section for more info
-        </Link>{" "}
-        ), and the server interprets the passed information. In case of a break in or if a device malfunctions, the
-        server notifices either the entire neighborhood or specific individuals by SMS, depending on the issue.
+        </Link>
+        ), and the server interprets this passed information. In case of a break in or if a device malfunctions, the
+        server notifices either the entire neighborhood or specific individuals by SMS - depending on the issue.
+      </p>
+      <p>
+        The diagram below shows the general communication flow between the different devices in the overall system,
+        where the TTN cloud and the NWA server house represents what will be referred to as just the server.
       </p>
       <img
         className="photo-logo"
         src={systemPreview}
         alt="nwa system overview"
-        style={{ paddingRight: "50px", height: "auto", maxWidth: "100%" }}
+        style={{ paddingBottom: "20px", height: "auto", maxWidth: "100%" }}
       />
       <p>{t("intro.server.description")}</p>
       <p className="lead">
-        <Button tag={RouterNavLink} to="/Server/Devices/" color="danger">
+        <Button tag={RouterNavLink} to="/server/devices/" color="danger">
           {t("intro.server.link")}
         </Button>
       </p>
       <p>{t("intro.hardware.description")}</p>
       <p className="lead">
-        <Button tag={RouterNavLink} to="/Server/TTNConnection/" outline color="danger">
+        <Button tag={RouterNavLink} to="/server/ttn-connection/" outline color="danger">
           {t("intro.hardware.link")}
         </Button>
       </p>

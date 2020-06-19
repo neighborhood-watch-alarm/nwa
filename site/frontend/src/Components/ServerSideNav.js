@@ -10,18 +10,18 @@ const ServerSideNav = props => {
       <p>{t("navigation.hardware")}</p>
       <Nav vertical>
         <NavItem>
-          <NavLink tag={RouterNavLink} to="/Server/Devices" className="text-muted">
+          <NavLink tag={RouterNavLink} to="/server/devices" className="text-muted">
             {t("navigation.devices")}
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink tag={RouterNavLink} to="/Server/Setup" activeClassName="active" className="text-muted">
-            {t("navigation.setup")}
+          <NavLink tag={RouterNavLink} to="/server/ttn" activeClassName="active" className="text-muted">
+            {t("navigation.ttnSetup")}
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink tag={RouterNavLink} to="/Server/OSFlashing" activeClassName="active" className="text-muted">
-            {t("navigation.os")}
+          <NavLink tag={RouterNavLink} to="/server/os" activeClassName="active" className="text-muted">
+            {t("navigation.raspiSetup")}
           </NavLink>
         </NavItem>
       </Nav>
@@ -29,17 +29,17 @@ const ServerSideNav = props => {
       <p>{t("navigation.software")}</p>
       <Nav vertical>
         <NavItem>
-          <NavLink tag={RouterNavLink} to="#" className="text-muted">
+          <NavLink tag={RouterNavLink} to="/server/connection" className="text-muted">
             {t("navigation.ttn")}
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink tag={RouterNavLink} to="#" className="text-muted">
+          <NavLink tag={RouterNavLink} to="/server/database" className="text-muted">
             {t("navigation.database")}
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink tag={RouterNavLink} to="#" className="text-muted">
+          <NavLink tag={RouterNavLink} to="/server/integration" className="text-muted">
             {t("navigation.integration")}
           </NavLink>
         </NavItem>
