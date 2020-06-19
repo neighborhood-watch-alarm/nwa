@@ -18,7 +18,7 @@ const AlarmPage = props => {
             <AlarmSideNav></AlarmSideNav>
           </Col>
           <hr />
-          <Col sm="7" style={{ padding: "3rem", borderTop: "1px solid #0000001a"}}>
+          <Col sm="7" style={{ padding: "3rem", borderTop: "1px solid #0000001a" }}>
             <Switch>
               <Route exact path="/alarms" component={AlarmWelcome} />
               <Route exact path="/alarms/design" component={AlarmDesign} />
@@ -32,11 +32,19 @@ const AlarmPage = props => {
             </Switch>
           </Col>
           <Col sm="1"></Col>
-          <Col sm="2" style={{ padding: "1.5rem", paddingTop: "2rem", borderLeft: "1px solid #0000001a", borderTop: "1px solid #0000001a" }}>
+          <Col
+            sm="2"
+            style={{
+              padding: "1.5rem",
+              paddingTop: "2rem",
+              borderLeft: "1px solid #0000001a",
+              borderTop: "1px solid #0000001a"
+            }}
+          >
             <p>{t("general:improve.intro")}</p>
             <EditText
               buttonLabel={t("general:improve.button")}
-              link="https://github.com/neighborhood-watch-alarm/nwa"
+              link={t("improve.popup.linkToAlarm")}
               fileName="alarm_v1.json"
             ></EditText>
           </Col>

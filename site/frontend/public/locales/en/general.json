@@ -16,7 +16,9 @@
             "title": "Help improve the written material",
             "description": "As NWA is an open source project, all the material regarding both the alarmsystem and this website is public available on <1>Github</1>. The written material showcased in this guide is loaded from the file <3>{{fileName}}</3>, divided into different categories representing the different sections. By editing a category in this file, the corresponding section on this page will be changed automatically. For security reasons all requested updates will be checked by an authorized contributer before launching.",
             "link": "Edit on Github",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "linkToServer": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/en/server_v1.json",
+            "linkToAlarm": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/en/alarm_v1.json"
         }
     },
     "docs": {

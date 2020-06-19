@@ -39,7 +39,7 @@ const ServerPage = props => {
             <p>{t("general:improve.intro")}</p>
             <EditText
               buttonLabel={t("improve.button")}
-              link="https://github.com/simoneengelbr/nwa"
+              link={t("improve.popup.linkToServer")}
               fileName="server_v1.json"
             ></EditText>
           </Col>

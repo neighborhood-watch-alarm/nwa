@@ -22,7 +22,7 @@ const EditText = props => {
           <Trans i18nKey="improve.popup.description">
             As NWA is an open source project, all the material regarding both the alarmsystem and this website is public
             available on
-            <a href="https://github.com/simoneengelbr/nwa" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/neighborhood-watch-alarm/nwa" target="_blank" rel="noopener noreferrer">
               Github
             </a>
             . The written material showcased in this guide is loaded from the file <code>{{ fileName }}</code>, divided

@@ -1,6 +1,5 @@
 import React from "react";
 import { Jumbotron, Button } from "reactstrap";
-import { NavLink as RouterNavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const ServerPage = props => {
