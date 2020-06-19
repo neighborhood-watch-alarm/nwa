@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Nav, NavItem, NavLink, TabContent, TabPane, Col, Row, Button } from "reactstrap";
-import { Link } from "react-router-dom";
 
 import ToolDescription from "./ToolDescription.js";
 import classnames from 'classnames';
@@ -129,7 +128,9 @@ const AlarmCPLidar = props => {
           <p>Download og importer: siphash, lmic</p>
           
           <h3>Installing the Control Panel code</h3>
-          <p>File download</p>
+          <p>File download{" "}
+           <a href="https://www.arduino.cc/en/main/software" target="_blank" rel="noopener noreferrer">Arduino IDE</a>{" "}
+          </p>
           <p>Define TTN values in code.</p>
           <p>Connect and configure Arduino</p>
           <p>Flash code to arduino.</p>
