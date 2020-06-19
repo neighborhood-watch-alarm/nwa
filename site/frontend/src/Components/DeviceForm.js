@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import {
   Button,
   Card,
@@ -9,11 +9,7 @@ import {
   Form,
   Input,
   FormGroup,
-  Label,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
+  Label
 } from "reactstrap";
 import PartsTable from "./PartsTable";
 
@@ -141,23 +137,6 @@ class DeviceForm extends Component {
   };
 
   render() {
-    const post = {
-      devicec: [
-        {
-          name: "01-office",
-          type: "cp-lidar"
-        },
-        {
-          name: "02-bedroom",
-          type: "sn-us"
-        },
-        {
-          name: "03-door",
-          type: "cp-lidar"
-        }
-      ]
-    };
-
     console.log(this.state);
     return (
       <div>
@@ -231,8 +210,6 @@ class DeviceForm extends Component {
             color="danger"
             style={{ marginTop: "10px", marginBottom: "30px" }}
             onClick={() => {
-              this.disabled = true;
-              this.value = "Email sent";
               this.onEmailSubmit();
             }}
           >

@@ -74,8 +74,8 @@ const AlarmDesign = props => {
       </p>
       <p>
         If you would like to build one or more alarms for your own home, you can compile a list of all the parts needed
-        for your alarm setup below. If you give each device a descriptive name, like "Living room", it may be easier to
-        keep track alarms during installation and maintenance.
+        for your alarm setup below. You can choose to give a device a descriptive name, like "Living room" in order to
+        keep track of your alarms during installation and maintenance.
       </p>
       <p>
         Somewhere in here is a device{" "}
@@ -91,12 +91,12 @@ const AlarmDesign = props => {
       <DeviceForm></DeviceForm>
 
       <p>
-        There need to be a Neighborhood Watch Alarm System Server set up in your Neighborhood for the alarms to
-        function. If there isn't yet a server, please cons ider building one by visiting{" "}
+        A Neighborhood Watch Alarm System Server set up in your Neighborhood is necessary for your alarms to
+        function. If there isn't yet a server in your area, please consider building one by visiting{" "}
         <Link to="/server" className="alert-link">
           the server page
-        </Link>{" "}
-        of this site.
+        </Link>
+        . Before installation, contact the administrator of your local server and ensure that your house, devices, and phone number are registered. When registering, you need to supply a PIN-code that you will use to arm and disarm your house. Your server administrator will have access to this PIN-code, so please be sure to create a new PIN-code that you do not use for other security-related purposes.
       </p>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Table} from 'reactstrap';
 
 const PartsTable = props => {
@@ -19,7 +19,7 @@ const PartsTable = props => {
                     <tr>
                         <td>{part["amount"]}</td>
                         <td>{part["model"]}</td>
-                        <td><a href={part["link"]} target="_blank">{part["link"]}</a></td>
+                        <td><a href={part["link"]} target="_blank" rel="noopener noreferrer">{part["link"]}</a></td>
                     </tr>
             )}
           </tbody>
