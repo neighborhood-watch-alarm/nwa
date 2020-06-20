@@ -13,7 +13,7 @@ const EditText = props => {
 
   return (
     <div>
-      <Button color="danger" onClick={toggle}>
+      <Button outline color="danger" onClick={toggle}>
         {buttonLabel}
       </Button>
       <Modal isOpen={modal} toggle={toggle}>

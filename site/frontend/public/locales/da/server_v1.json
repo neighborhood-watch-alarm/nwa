@@ -2,10 +2,10 @@
     "navigation": {
         "hardware": "Hardware Konfiguration",
         "devices": "Komponenter",
-        "setup": "Konfiguration",
-        "os": "OS Flashing",
+        "ttnSetup": "The Things Network",
+        "raspiSetup": "Raspberry Pi",
         "software": "Software Konfiguration",
-        "ttn": "TTN forbindelse",
+        "server": "Server forbindelse",
         "database": "Database Konfiguration",
         "integration": "Hardware Integration"
     },
@@ -23,6 +23,23 @@
         }
     },
     "devices": {
-        "intro": ""
+        "title": ""
+    },
+    "ttn": {
+        "title": "The Things Network opsætning",
+        "videoIntro": "I videoen nedenfor guider en talsperson for TTN dig igennem alle de nødvendige skridt for at sætte din Gateway op med The Things Network, præcis som beskrevet ovenfor.",
+        "videoLicense": "Videoen afspilles som et link til TTN's egen profil på Youtube og benyttes under Youtube's regler for rimelig brug."
+    },
+    "raspian": {
+        "title": ""
+    },
+    "connection": {
+        "title": ""
+    },
+    "database": {
+        "title": ""
+    },
+    "integration": {
+        "title": ""
     }
 }
