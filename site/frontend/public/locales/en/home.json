@@ -1,7 +1,7 @@
 {
     "title": "Welcome to NWA!",
     "subtitle": "The first open source LoRa-based neighborhood security system!",
-    "description": "Neighborhood Watch Alarmsystem is divided into servers and alarms. The alarm components are built of an arduino with a LoRa shield, and the server is build using java and run from a raspberry pi. The communication between the alarm compontents and the server is facilitated by a TTN Gateway.",
+    "description": "The Neighborhood Watch Alarm (NWA) system is divided into servers and alarms. The alarm devices are built with an Arduino, and the server is build using Java and run from a Raspberry Pi. The communication between the alarm devices and the server is facilitated by LoRa and The Things Network.",
     "button": {
         "server": "Setup a server",
         "alarm": "Configure alarms"
