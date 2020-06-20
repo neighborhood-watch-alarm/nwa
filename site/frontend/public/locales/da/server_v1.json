@@ -3,9 +3,9 @@
         "hardware": "Hardware Konfiguration",
         "devices": "Komponenter",
         "ttnSetup": "The Things Network",
-        "raspiSetup": "Raspberry Pi OS",
+        "raspiSetup": "Raspberry Pi",
         "software": "Software Konfiguration",
-        "ttn": "TTN forbindelse",
+        "server": "Server forbindelse",
         "database": "Database Konfiguration",
         "integration": "Hardware Integration"
     },

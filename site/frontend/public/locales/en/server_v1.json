@@ -3,9 +3,9 @@
         "hardware": "Hardware Setup",
         "devices": "Devices",
         "ttnSetup": "The Things Network",
-        "raspiSetup": "Raspberry Pi OS",
+        "raspiSetup": "Raspberry Pi",
         "software": "Software Setup",
-        "ttn": "TTN Connection",
+        "server": "Server Connection",
         "database": "Database Setup",
         "integration": "Hardware Integration"
     },
@@ -14,7 +14,7 @@
         "version": "The material in this guide is based on the latest version of the system: ",
         "latest": "latest",
         "server": {
-            "description": "To setup your own running server you must first acquire and set up the necessary hardware. Follow the button below for instructions regarding this hardware and their usage.",
+            "description": "To setup your own running server you must first acquire and set up the necessary hardware. Follow the button below for instructions regarding this hardware and their usage. Note that NWA always encourage you to follow the recommended options, unless you are absolutely sure about what you are doing. These guides do not cover alternative methods thoroughly.",
             "link": "Hardware Setup"
         },
         "hardware": {

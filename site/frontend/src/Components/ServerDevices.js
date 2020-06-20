@@ -33,7 +33,8 @@ const ServerDevices = props => {
       <p>
         You need a simple computer to act as a server that interacts with the information passing through The Things
         Network. NWA recommends Raspberry Pi 3 B+, as this is the device that the system was developed with, but newer
-        versions should work as well. This can be bought from{" "}
+        versions should work as well. To power up the Raspberry Pi, you also need a Micro USB cable that can connect to
+        a power outlet. The Raspberry Pi can be bought from{" "}
         <a
           href="https://let-elektronik.dk/shop/340-boards-raspberry-pi/14643-raspberry-pi-3-b/"
           target="_blank"
@@ -45,7 +46,8 @@ const ServerDevices = props => {
       <h4>Micro SD Card</h4>
       <p>
         As the Raspberry Pi doesn't ship with memory, you need to acquire a compatible Micro SD card. It is a
-        requirement that it has a minimum of 3gb available. This can be bought from{" "}
+        requirement that it has a minimum of 3gb available. You also need a computer that can read Micro SD cards
+        directly or a dongle that enables this functionality. An appropiate memory card can be bought from{" "}
         <a
           href="https://let-elektronik.dk/shop/1000-hukommelse/15051-microsd-card---16gb-class-10/"
           target="_blank"
@@ -68,11 +70,9 @@ const ServerDevices = props => {
           here.
         </a>
       </p>
-      <p className="lead">
-        <Button tag={RouterNavLink} to="/server/ttn" color="danger">
-          Next
-        </Button>
-      </p>
+      <Button className="float-right" tag={RouterNavLink} to="/server/ttn" color="danger">
+        Next: TTN Setup
+      </Button>
     </div>
   );
 };

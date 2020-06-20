@@ -29,8 +29,8 @@ const ServerSetup = props => {
         <a href="https://activate.thethingsnetwork.org/" target="_blank" rel="noopener noreferrer">
           https://activate.thethingsnetwork.org/
         </a>
-        . First you need to register an account if you don't have one already. After loggin in, press the button "Let's
-        Get Started!". From here, you will be guided through the following four steps:
+        . You need to register an account if you don't have one already. When logged in, press the button "Let's Get
+        Started!". From here, you will be guided through the following four steps:
         <ol style={{ paddingTop: "10px" }}>
           <li>
             Choosing a uniquie ID for the gateway and a frequency plan (make sure to pick the area you're located in).
@@ -92,8 +92,8 @@ const ServerSetup = props => {
           database guide.
         </Link>
       </p>
-      <Button tag={RouterNavLink} to="/server/raspian" color="danger">
-        Next
+      <Button className="float-right" tag={RouterNavLink} to="/server/os" color="danger">
+        Next: Raspberry Pi Setup
       </Button>
     </div>
   );

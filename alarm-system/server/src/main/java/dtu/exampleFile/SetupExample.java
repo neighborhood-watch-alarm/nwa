@@ -36,15 +36,13 @@ public class SetupExample {
 		House house = new HouseImplementation("temp addr", houseID, "1234", salt);
 	    Component device1 = new ComponentSignal("device_01", houseID);
 	    Component device2 = new ComponentSignal("device_02", houseID);
-	    
 	    PhoneAddress phoneNumber = new PhoneAddressImplementation("+4529869690", houseID);
-		
 		
 		houseDB.add(house);
 		deviceDB.add(device1);
 		deviceDB.add(device2);
 		phoneAddrDB.add(phoneNumber);
-
+		
 		
 		FileOutputStream f1;
 		try {

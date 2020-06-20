@@ -30,7 +30,7 @@ const ServerSideNav = props => {
       <Nav vertical>
         <NavItem>
           <NavLink tag={RouterNavLink} to="/server/connection" className="text-muted">
-            {t("navigation.ttn")}
+            {t("navigation.server")}
           </NavLink>
         </NavItem>
         <NavItem>
