@@ -13,8 +13,10 @@
         "title": "Server",
         "version": "Nuværende version: ",
         "latest": "seneste",
+        "devices": "Serveren består af en <1>Raspberry Pi</1> og en <3>TTN Gateway</3>. Gatewayen håndtere kommunikationen frem og tilbage mellem de tilknyttede enheder (<5>se alarmsektionen for mere info</5>), mens serveren står for at fortolke den givne information. Hvis et indbrud opstår eller en enhed er defekt, står serveren for at alarmere de relevante husstande i nabolaget via SMS.",
+        "diagram": "Diagrammet nedenfor beskriver den overordnede kommunikation mellem systemets forskellige enheder, hvor TTN skyen og NWA serveren house repræsentere hvad der i disse vejledninger vil blive betegnet som den samlede serverenhed.",
         "server": {
-            "description": "Hvis du ønsker at sætte din egen server op, må du først erhverve dig de nødvendige hardwarekomponenter. Følg knappen nedenfor for information vedr. disse komponenter.",
+            "description": "Hvis du ønsker at sætte din egen server op, må du først erhverve dig de nødvendige hardwarekomponenter. Følg knappen nedenfor for information og vejledning omkring disse komponenter. Bemærk at NWA opfordrer til altid at benytte de anbefalede løsninger, medmindre du føler dig yderst sikker på, hvad du laver. Vejledningerne dækker ikke alternative løsninger grundigt!",
             "link": "Hardware Konfiguration"
         },
         "hardware": {
@@ -23,14 +25,24 @@
         }
     },
     "devices": {
-        "title": ""
+        "title": "Enheder",
+        "intro": "Enhederne nedenfor repræsenterer alle de nødvenige enheder der kræves for at få systemet op og køre. Sørg for at erhverve alle disse enheder, før du bevæger dig videre til de næste sektioner",
+        "ttnTitle": "TTN Gateway",
+        "ttnSection": "For at modtage <1>LoRaWAN</1> signalerne fra de forbundede enheder i nabolaget er det nødvendigt at sætte en TTN gatway op. Denne kan købes <3>herfra</3>.",
+        "rasTitle": "Raspberry Pi",
+        "rasSection": "Det er nødvendigt at sætte en form for computer op til at agere som server der kan interagere med informationen der går gennem TTN. NWA anbefaler at benytte Raspberry Pi 3 B+ til dette, da dette er hvad systemet blev udviklet med. Nyere versioner burde dog virke upåklageligt. Vær opmærksom på, at det kræver et mikro USB kabel for at tænde Raspberry Pi'en. Du kan købe en Raspberry Pi <1>herfra</1>.",
+        "sdTitle": "Mikro SD Kort",
+        "sdSection": "Da en Raspberry Pi ikker kommer med præinstalleret hukommelse, er det nødvendigt at anskaffe et mikro sd kort. Dette skal minimum have 3GB ledig hukommelse. Det er samtidigt nødvendigt at du enten har en computer der kan aflæse mikro sd kort eller en adapter der kan. Du kan købe et passende hukommelseskort <1>herfra</1>.",
+        "simIntro": "Huawei Modem + SIM kort",
+        "simSection": "For at benytte systemets SMS funktionaliteter er det nødvendigt at have et aktiveret SIM kort der kan sende SMS-meddelelser. Da SIM-kort ikke kan indsættes direkte i Raspberry Pi'en er det ligeledes nødvendigt at anskaffe et trådløst internetmodem. NWA anbefaler Huawei E3372H, da dette er hvad systemet er blevet udviklet med. Bemærk at andre modems kan kræve kodeændringer for at fungere. Det omtalte modem kan købes <1>herfra</1>.",
+        "next": "Næste: TTN Setup"
     },
     "ttn": {
         "title": "The Things Network opsætning",
         "videoIntro": "I videoen nedenfor guider en talsperson for TTN dig igennem alle de nødvendige skridt for at sætte din Gateway op med The Things Network, præcis som beskrevet ovenfor.",
         "videoLicense": "Videoen afspilles som et link til TTN's egen profil på Youtube og benyttes under Youtube's regler for rimelig brug."
     },
-    "raspian": {
+    "os": {
         "title": ""
     },
     "connection": {
