@@ -26,7 +26,7 @@ const AlarmCPBasic = () => {
           <ToolDescription id="lora-cp" name={t("tooltip.loraname")} description={t("tooltip.loradesc")}/>
           {t("guides.lora-intro2")}
         </p>
-        <ReactPlayer controls="true" url="https://www.youtube.com/watch?v=9bZkp7q19f0" style={{ display: "block", marginLeft: "auto",
+        <ReactPlayer controls="true" url="https://www.youtube.com/watch?v=0t-FHww_4uY" style={{ display: "block", marginLeft: "auto",
             marginRight: "auto" }} />
         <ul>
             <li>{t("guides.lora-list0")}</li>

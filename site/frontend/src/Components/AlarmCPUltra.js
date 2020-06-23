@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import ToolDescription from "./ToolDescription.js";
 import classnames from 'classnames';
-import lidarDiagram from "../Images/Fritzing/Images/ControlLIDAR.png";
+import ultraDiagram from "../Images/Fritzing/Images/ControlUS.png";
 import newFile from "../Images/arduino-new.png";
 import libManager from "../Images/arduino-lib-man.png";
 import ttnCode from "../Images/arduino-ttn-code.png";
@@ -13,7 +13,7 @@ import AlarmCPBasic from "./AlarmCPBasic.js";
 import AlarmCPUse from "./AlarmCPUse.js";
 
 
-const AlarmCPLidar = props => {
+const AlarmCPUltra = () => {
   const { t } = useTranslation("alarm_v1");
 
   const [activeTab, setActiveTab] = useState('1');
@@ -27,7 +27,7 @@ const AlarmCPLidar = props => {
 
   return (
     <div>
-      <h1>{t("navigation.cp-lidar")}
+      <h1>{t("navigation.cp-us")}
         <ButtonDropdown isOpen={dropdownOpen} size="sm" toggle={toggleVersion} style={{paddingLeft: "10px", display: "inline-block"}}>
           <DropdownToggle outline caret>
             {t("guides.version")}
@@ -38,11 +38,11 @@ const AlarmCPLidar = props => {
         </ButtonDropdown>
       </h1>
       
-      <p>{t("guides.cp-lidar-intro")}
+      <p>{t("guides.cp-ultra-intro")}
       </p>
       <p>
         {t("guides.tooltip-explain0")}
-        <ToolDescription id="tooltip-cplidar" name={t("tooltip.tooltipname")} description={t("tooltip.tooltipdesc")}/>
+        <ToolDescription id="tooltip-cpultra" name={t("tooltip.tooltipname")} description={t("tooltip.tooltipdesc")}/>
         {t("guides.tooltip-explain1")}
       </p>
       
@@ -77,8 +77,8 @@ const AlarmCPLidar = props => {
           <Row>
             <Col>
               <img
-                src={lidarDiagram}
-                alt="LIDAR Control Panel hookup diagram"
+                src={ultraDiagram}
+                alt="Ultrasonic Control Panel hookup diagram"
                 style={{ height: "auto", maxWidth: "100%" }}
               />
             </Col>
@@ -92,29 +92,26 @@ const AlarmCPLidar = props => {
                 <li>1 {t("guides.part.breadboard")}</li>
                 <li>1 {t("guides.part.button")}</li>
                 <li>1 &gt;1kω {t("guides.part.resistor")}</li>
-                <li>1 {t("guides.part.lidar")}</li>
+                <li>1 {t("guides.part.ultra")}</li>
                 <li>5 {t("guides.part.m2m")}</li>
-                <li>2 {t("guides.part.jump")}</li>
+                <li>5 {t("guides.part.jump")}</li>
                 <li>4 {t("guides.part.f2m")}</li>
               </ul>
             </Col>
           </Row>
           <AlarmCPBasic/>
-          <h3>{t("guides.lidar-title")}</h3>
-          <p>{t("guides.lidar-intro")}</p>
-          
+          <h3>{t("guides.ultra-title")}</h3>          
           <img
-            src={lidarDiagram}
-            alt="LIDAR Control Panel hookup diagram"
+            src={ultraDiagram}
+            alt="Ultrasonic Control Panel hookup diagram"
             style={{ height: "auto", width: "100%", display: "block", marginLeft: "auto",
             marginRight: "auto", maxWidth: "700px" }}          />        
           
           <ul>
-            <li>{t("guides.lidar-list0")}</li>
-            <li>{t("guides.lidar-list1")}</li>
-            <li>{t("guides.lidar-list2")}</li>
-            <li>{t("guides.lidar-list3")}</li>
-            <li>{t("guides.lidar-list4")}</li>
+            <li>{t("guides.ultra-list0")}</li>
+            <li>{t("guides.ultra-list1-cp")}</li>
+            <li>{t("guides.ultra-list2-cp")}</li>
+            <li>{t("guides.ultra-list3")}</li>
           </ul>
           <p>{t("guides.cp-hardware-outro")}</p>
           <Button className="float-right" color="danger" onClick={() => { toggle('2'); window.scrollTo(0, 0);}}>{t("guides.next-tab")}{t("guides.tab-software")}</Button>
@@ -124,7 +121,7 @@ const AlarmCPLidar = props => {
           <p>{t("guides.software.ide-intro")}</p>
           <h3>{t("guides.parts-list")}</h3>
           <ul>
-            <li>{t("guides.software.a-lidar-cp")}</li>
+            <li>{t("guides.software.a-ultra-cp")}</li>
             <li>{t("guides.software.list-ttn")}</li>
             <li>{t("guides.software.list-computer")}</li>
             <li>{t("guides.software.list-cable")}</li>
@@ -135,7 +132,7 @@ const AlarmCPLidar = props => {
               Arduino IDE
             </a>{" "}
             {t("guides.software.ide-install1")}
-            <ToolDescription id="ide-cplidar" name={t("tooltip.idename")} description={t("tooltip.idedesc")}/>
+            <ToolDescription id="ide-cpultra" name={t("tooltip.idename")} description={t("tooltip.idedesc")}/>
             {t("guides.software.ide-install2")}
           </p>
           <p>{t("guides.software.new-file")}</p>
@@ -148,16 +145,16 @@ const AlarmCPLidar = props => {
           />          
           <p>
             {t("guides.software.cp-code0")}{" "}
-            <a href="https://raw.githubusercontent.com/neighborhood-watch-alarm/nwa/master/alarm-system/alarm/control-panel/Alarm_control_panel_Lidar.ino" target="_blank" rel="noopener noreferrer">
-            {t("guides.software.cp-code-lidar")}
+            <a href="https://raw.githubusercontent.com/neighborhood-watch-alarm/nwa/master/alarm-system/alarm/control-panel/Alarm_control_panel_ultrasonic.ino" target="_blank" rel="noopener noreferrer">
+            {t("guides.software.cp-code-ultra")}
             </a>{" "}
             {t("guides.software.cp-code1")}
           </p>
-
+          
           <h3>{t("guides.software.lib-title")}</h3>
           <p>
             {t("guides.software.lib-intro0")}
-            <ToolDescription id="lib-cplidar" name={t("tooltip.libname")} description={t("tooltip.libdesc")}/>
+            <ToolDescription id="lib-cpultra" name={t("tooltip.libname")} description={t("tooltip.libdesc")}/>
             {t("guides.software.lib-intro1")}
           </p>
           
@@ -192,8 +189,7 @@ const AlarmCPLidar = props => {
           
           <h3>{t("guides.software.upload-title")}</h3>
           <p>{t("guides.software.upload-ttn")}</p>
-          <p>{t("guides.software.upload-save")} "01_cp_lidar.ino".</p>
-
+          
           <img
             src={ttnCode}
             alt="Code section with NWKSKEY, APPSKEY, and DEVADDR which must be specified"
@@ -205,7 +201,7 @@ const AlarmCPLidar = props => {
           
           <p>{t("guides.software.upload-connect-cp")}</p>
           <p>{t("guides.software.upload-cp")}</p>
-          <p>{t("guides.software.save")} "01_cp_lidar.ino".</p>
+          <p>{t("guides.software.save")} "01_cp_ultra.ino".</p>
 
           <img
             src={serial}
@@ -225,4 +221,4 @@ const AlarmCPLidar = props => {
   );
 };
 
-export default AlarmCPLidar;
+export default AlarmCPUltra;

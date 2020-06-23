@@ -4,16 +4,16 @@ import { useTranslation } from "react-i18next";
 
 import ToolDescription from "./ToolDescription.js";
 import classnames from 'classnames';
-import lidarDiagram from "../Images/Fritzing/Images/ControlLIDAR.png";
+import lidarDiagram from "../Images/Fritzing/Images/NodeLIDAR.png";
 import newFile from "../Images/arduino-new.png";
 import libManager from "../Images/arduino-lib-man.png";
 import ttnCode from "../Images/arduino-ttn-code.png";
 import serial from "../Images/arduino-serial.png";
-import AlarmCPBasic from "./AlarmCPBasic.js";
-import AlarmCPUse from "./AlarmCPUse.js";
+import AlarmSNBasic from "./AlarmSNBasic.js";
+import AlarmSNUse from "./AlarmSNUse.js";
 
 
-const AlarmCPLidar = props => {
+const AlarmSNLidar = props => {
   const { t } = useTranslation("alarm_v1");
 
   const [activeTab, setActiveTab] = useState('1');
@@ -27,7 +27,7 @@ const AlarmCPLidar = props => {
 
   return (
     <div>
-      <h1>{t("navigation.cp-lidar")}
+      <h1>{t("navigation.sn-lidar")}
         <ButtonDropdown isOpen={dropdownOpen} size="sm" toggle={toggleVersion} style={{paddingLeft: "10px", display: "inline-block"}}>
           <DropdownToggle outline caret>
             {t("guides.version")}
@@ -42,7 +42,7 @@ const AlarmCPLidar = props => {
       </p>
       <p>
         {t("guides.tooltip-explain0")}
-        <ToolDescription id="tooltip-cplidar" name={t("tooltip.tooltipname")} description={t("tooltip.tooltipdesc")}/>
+        <ToolDescription id="tooltip-snlidar" name={t("tooltip.tooltipname")} description={t("tooltip.tooltipdesc")}/>
         {t("guides.tooltip-explain1")}
       </p>
       
@@ -68,7 +68,7 @@ const AlarmCPLidar = props => {
             className={classnames({ active: activeTab === '3' })}
             onClick={() => { toggle('3'); }}
           >
-            {t("guides.tab-use-cp")}
+            {t("guides.tab-use-sn")}
           </NavLink>
         </NavItem>
       </Nav>
@@ -78,7 +78,7 @@ const AlarmCPLidar = props => {
             <Col>
               <img
                 src={lidarDiagram}
-                alt="LIDAR Control Panel hookup diagram"
+                alt="LIDAR Sensor Node hookup diagram"
                 style={{ height: "auto", maxWidth: "100%" }}
               />
             </Col>
@@ -99,7 +99,7 @@ const AlarmCPLidar = props => {
               </ul>
             </Col>
           </Row>
-          <AlarmCPBasic/>
+          <AlarmSNBasic breadboard={true}/>
           <h3>{t("guides.lidar-title")}</h3>
           <p>{t("guides.lidar-intro")}</p>
           
@@ -135,7 +135,7 @@ const AlarmCPLidar = props => {
               Arduino IDE
             </a>{" "}
             {t("guides.software.ide-install1")}
-            <ToolDescription id="ide-cplidar" name={t("tooltip.idename")} description={t("tooltip.idedesc")}/>
+            <ToolDescription id="ide-snlidar" name={t("tooltip.idename")} description={t("tooltip.idedesc")}/>
             {t("guides.software.ide-install2")}
           </p>
           <p>{t("guides.software.new-file")}</p>
@@ -147,17 +147,17 @@ const AlarmCPLidar = props => {
             marginRight: "auto", maxWidth: "400px", paddingBottom: "30px"}}
           />          
           <p>
-            {t("guides.software.cp-code0")}{" "}
+            {t("guides.software.sn-code0")}{" "}
             <a href="https://raw.githubusercontent.com/neighborhood-watch-alarm/nwa/master/alarm-system/alarm/control-panel/Alarm_control_panel_Lidar.ino" target="_blank" rel="noopener noreferrer">
-            {t("guides.software.cp-code-lidar")}
+            {t("guides.software.sn-code-lidar")}
             </a>{" "}
-            {t("guides.software.cp-code1")}
+            {t("guides.software.sn-code1")}
           </p>
-
+          
           <h3>{t("guides.software.lib-title")}</h3>
           <p>
             {t("guides.software.lib-intro0")}
-            <ToolDescription id="lib-cplidar" name={t("tooltip.libname")} description={t("tooltip.libdesc")}/>
+            <ToolDescription id="lib-snlidar" name={t("tooltip.libname")} description={t("tooltip.libdesc")}/>
             {t("guides.software.lib-intro1")}
           </p>
           
@@ -173,17 +173,10 @@ const AlarmCPLidar = props => {
           
           <p>{t("guides.software.lib-ide-intro1")}</p>
           <ul>
-            <li><b>Keypad</b>{" "}{t("guides.software.lib-by")}{" "}<b>Mark Stanley, Alexander Bevig</b>{" "}{t("guides.software.lib-version")}{" "}<b>3.1.1</b></li>
             <li><b>LIDAR-Lite</b>{" "}{t("guides.software.lib-by")}{" "}<b>Garmin</b>{" "}{t("guides.software.lib-version")}{" "}<b>3.0.2</b></li>
-            <li><b>LiquidCrystal I2C</b>{" "}{t("guides.software.lib-by")}{" "}<b>Frank de Brabander</b>{" "}{t("guides.software.lib-version")}{" "}<b>1.1.2</b></li>
           </ul>
           
           <h4>{t("guides.software.lib-zip-title")}</h4>
-          <p>
-            {t("guides.software.lib-zip-siphash0")}{" "}
-            <a href="http://www.forward.com.au/pfod/SipHashLibrary/" target="_blank" rel="noopener noreferrer">{t("guides.software.lib-zip-siphash1")}</a>{" "}
-            {t("guides.software.lib-zip-siphash2")}
-            </p>
           <p>
             {t("guides.software.lib-zip-lmic0")}{" "}
             <a href="https://github.com/matthijskooijman/arduino-lmic" target="_blank" rel="noopener noreferrer">{t("guides.software.lib-zip-lmic1")}</a>{" "}
@@ -192,7 +185,7 @@ const AlarmCPLidar = props => {
           
           <h3>{t("guides.software.upload-title")}</h3>
           <p>{t("guides.software.upload-ttn")}</p>
-          <p>{t("guides.software.upload-save")} "01_cp_lidar.ino".</p>
+          <p>{t("guides.software.save")} "01_sn_lidar.ino".</p>
 
           <img
             src={ttnCode}
@@ -201,12 +194,11 @@ const AlarmCPLidar = props => {
             marginRight: "auto", maxWidth: "1000px", paddingBottom: "30px" }}
           /> 
           
-          <p>{t("guides.software.upload-board-mega")}</p>
+          <p>{t("guides.software.upload-board-uno")}</p>
           
-          <p>{t("guides.software.upload-connect-cp")}</p>
-          <p>{t("guides.software.upload-cp")}</p>
-          <p>{t("guides.software.save")} "01_cp_lidar.ino".</p>
-
+          <p>{t("guides.software.upload-connect-sn")}</p>
+          <p>{t("guides.software.upload-sn")}</p>
+          
           <img
             src={serial}
             alt="Serial monitor output example."
@@ -214,15 +206,15 @@ const AlarmCPLidar = props => {
             marginRight: "auto", maxWidth: "400px", paddingBottom: "30px" }}
           />
           
-  <p>{t("guides.software.outro-cp")}</p>
+  <p>{t("guides.software.outro-sn")}</p>
           <Button className="float-right" color="danger" onClick={() => { toggle('3'); window.scrollTo(0, 0);}}>{t("guides.next-tab")}{t("guides.tab-use-cp")}</Button>
         </TabPane>
         <TabPane tabId="3">
-          <AlarmCPUse/>
+          <AlarmSNUse/>
         </TabPane>
       </TabContent>
     </div>
   );
 };
 
-export default AlarmCPLidar;
+export default AlarmSNLidar;
