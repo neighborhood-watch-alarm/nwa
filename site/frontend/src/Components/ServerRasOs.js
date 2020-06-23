@@ -231,14 +231,16 @@ const ServerRaspian = props => {
       <p>Otherwise the setup looks pretty much like the one described above.</p>
       <h3>Cellular Service</h3>
       <p>
-        To setup the Huawei USB Modem, simply pop off the back of the modem, insert the SIM card at the top, and plug it
-        into your computer. Make sure the SIM card is activated beforehand. You should now automatically be directed to{" "}
+        To setup the Huawei USB Modem, simply pop off the back of the modem, insert the SIM card at the top (keep it in
+        the big container), and plug it into your computer. Make sure the SIM card is activated beforehand. You should
+        now automatically be directed to{" "}
         <a href="http://192.168.8.1/" target="_blank" rel="noopener noreferrer">
           http://192.168.8.1/
         </a>
         . If not, follow this link. From here enter the SIM Card's PIN code, and everything should be up and running
         shortly after. Once a connection is succesfully established, remove the USB modem from your computer and plug it
-        into the Raspberry Pi.
+        into the Raspberry Pi. Remember the number of the SIM Card, as this is the number every household will get
+        messages from.
       </p>
       <Button className="float-right" tag={RouterNavLink} to="/server/connection" color="danger">
         Next: Software Connection

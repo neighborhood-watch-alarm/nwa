@@ -45,12 +45,22 @@ const ServerIntegration = props => {
         convinience. Remember to retransfer the database files every time they are updated!
       </p>
       <p>
-        Proceed to connect to the Raspberry Pi with PuTTY - also described in the raspberry pi section. You can check if
-        the SMS capabilities work by directly running the bash script <code>send_sms.sh</code> with the following
-        command (make sure to run it inside the same folder):
+        Proceed to connect to the Raspberry Pi with PuTTY - also described in the raspberry pi section. Move to the
+        destination of the files. If you have placed the files at Desktop, simply type in the command:
       </p>
       <Breadcrumb>
-        <BreadcrumbItem active>./send_sms.sh &lt;your_number&gt; &lt;content&gt;</BreadcrumbItem>
+        <BreadcrumbItem active>$cd Desktop</BreadcrumbItem>
+      </Breadcrumb>
+      <p>
+        To grant acces to the bash file <code>send_sms.sh</code> - which is necessary for the SMS capabilities - type in
+        the command:
+      </p>
+      <Breadcrumb>
+        <BreadcrumbItem active>$chmod +x ./send_sms.sh</BreadcrumbItem>
+      </Breadcrumb>
+      <p>You can check if the SMS capabilities work by directly running the bash script with the following command:</p>
+      <Breadcrumb>
+        <BreadcrumbItem active>$./send_sms.sh &lt;your_number&gt; &lt;content&gt;</BreadcrumbItem>
       </Breadcrumb>
       <p>If set up properly, you should recieve an SMS text shortly after with the given content.</p>
       <h3>Run Server</h3>
@@ -59,7 +69,7 @@ const ServerIntegration = props => {
         <b>connected to the backend...</b>".
       </p>
       <Breadcrumb>
-        <BreadcrumbItem active>java -jar server.jar</BreadcrumbItem>
+        <BreadcrumbItem active>$java -jar server.jar</BreadcrumbItem>
       </Breadcrumb>
       <Button className="float-right" tag={RouterNavLink} to="/server" color="danger">
         Done! Head back to main server page
