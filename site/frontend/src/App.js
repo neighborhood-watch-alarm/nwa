@@ -6,6 +6,9 @@ import HomePage from "./Components/HomePage";
 import ServerPage from "./Components/ServerPage";
 import ServerVersionRouter from "./Components/Docs/ServerVersionRouter.js";
 import AlarmPage from "./Components/AlarmPage";
+import HelpPage from "./Components/HelpPage";
+import ContributePage from "./Components/ContributePage";
+
 
 class App extends Component {
   /*constructor(props) {
@@ -36,6 +39,8 @@ class App extends Component {
             <Route exact path="/" component={HomePage} />
             <Route path="/server" component={ServerPage} />
             <Route path="/alarms" component={AlarmPage} />
+            <Route exact path="/help" component={HelpPage} />
+            <Route exact path="/contribute" component={ContributePage} />
             <Route path="/docs/server" component={ServerVersionRouter} />
             <Redirect to="/" />
           </Switch>

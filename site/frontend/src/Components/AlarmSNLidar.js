@@ -38,7 +38,7 @@ const AlarmSNLidar = props => {
         </ButtonDropdown>
       </h1>
       
-      <p>{t("guides.cp-lidar-intro")}
+      <p>{t("guides.sn-lidar-intro")}
       </p>
       <p>
         {t("guides.tooltip-explain0")}
@@ -85,27 +85,21 @@ const AlarmSNLidar = props => {
             <Col>
               <h3>{t("guides.parts-list")}</h3>
               <ul>
-                <li>1 {t("guides.part.mega")}</li>
+                <li>1 {t("guides.part.uno")}</li>
                 <li>1 {t("guides.part.lora")}</li>
-                <li>1 {t("guides.part.keypad")}</li>
-                <li>1 {t("guides.part.lcd")}</li>
                 <li>1 {t("guides.part.breadboard")}</li>
-                <li>1 {t("guides.part.button")}</li>
-                <li>1 &gt;1kω {t("guides.part.resistor")}</li>
                 <li>1 {t("guides.part.lidar")}</li>
-                <li>5 {t("guides.part.m2m")}</li>
-                <li>2 {t("guides.part.jump")}</li>
-                <li>4 {t("guides.part.f2m")}</li>
+                <li>2 {t("guides.part.m2m")}</li>
               </ul>
             </Col>
           </Row>
           <AlarmSNBasic breadboard={true}/>
-          <h3>{t("guides.lidar-title")}</h3>
+          <h3>{t("guides.lidar-title-sn")}</h3>
           <p>{t("guides.lidar-intro")}</p>
           
           <img
             src={lidarDiagram}
-            alt="LIDAR Control Panel hookup diagram"
+            alt="LIDAR Sensor Node hookup diagram"
             style={{ height: "auto", width: "100%", display: "block", marginLeft: "auto",
             marginRight: "auto", maxWidth: "700px" }}          />        
           
@@ -116,7 +110,7 @@ const AlarmSNLidar = props => {
             <li>{t("guides.lidar-list3")}</li>
             <li>{t("guides.lidar-list4")}</li>
           </ul>
-          <p>{t("guides.cp-hardware-outro")}</p>
+          <p>{t("guides.sn-hardware-outro")}</p>
           <Button className="float-right" color="danger" onClick={() => { toggle('2'); window.scrollTo(0, 0);}}>{t("guides.next-tab")}{t("guides.tab-software")}</Button>
         </TabPane>
         <TabPane tabId="2">
@@ -124,7 +118,7 @@ const AlarmSNLidar = props => {
           <p>{t("guides.software.ide-intro")}</p>
           <h3>{t("guides.parts-list")}</h3>
           <ul>
-            <li>{t("guides.software.a-lidar-cp")}</li>
+            <li>{t("guides.software.a-lidar-sn")}</li>
             <li>{t("guides.software.list-ttn")}</li>
             <li>{t("guides.software.list-computer")}</li>
             <li>{t("guides.software.list-cable")}</li>
@@ -148,7 +142,7 @@ const AlarmSNLidar = props => {
           />          
           <p>
             {t("guides.software.sn-code0")}{" "}
-            <a href="https://raw.githubusercontent.com/neighborhood-watch-alarm/nwa/master/alarm-system/alarm/control-panel/Alarm_control_panel_Lidar.ino" target="_blank" rel="noopener noreferrer">
+            <a href="https://raw.githubusercontent.com/neighborhood-watch-alarm/nwa/master/alarm-system/alarm/sensor-node/Sensor_node_Lidar.ino" target="_blank" rel="noopener noreferrer">
             {t("guides.software.sn-code-lidar")}
             </a>{" "}
             {t("guides.software.sn-code1")}

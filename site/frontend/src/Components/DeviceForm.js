@@ -23,6 +23,7 @@ class DeviceForm extends Component {
     "Sensor Node - PIR",
     "Sensor Node - Ultrasonic"
   ];
+  version = "v1.0";
   defaultDevice = this.deviceTypes[0];
   state = {
     inputs: [
@@ -123,6 +124,7 @@ class DeviceForm extends Component {
   onEmailSubmit = () => {
     var post = JSON.parse(this.inputsToJSON());
     post.email = this.state.email;
+    post.version = this.version;
     post = JSON.stringify(post);
 
     const requestDetails = {

@@ -19,7 +19,15 @@ const AlarmDesign = () => {
         <ToolDescription id="arm-design" name={t("tooltip.armname")} description={t("tooltip.armdesc")}/> 
         {t("design.devicetypes1")}
       </p>
-      <p>{t("design.sensors")}</p>
+      <p>
+        {t("design.sensors0")}
+        <ToolDescription id="lidar-design" name={t("tooltip.lidarname")} description={t("tooltip.lidardesc")}/> 
+        {t("design.sensors1")}
+        <ToolDescription id="pir-design" name={t("tooltip.pirname")} description={t("tooltip.pirdesc")}/> 
+        {t("design.sensors2")}
+        <ToolDescription id="ultra-design" name={t("tooltip.ultraname")} description={t("tooltip.ultradesc")}/> 
+        {t("design.sensors3")}
+        </p>
       <Table bordered striped>
         <thead>
           <tr>
@@ -73,7 +81,7 @@ const AlarmDesign = () => {
       </p>
       <p>{t("design.deviceformintro")}</p>
       <DeviceForm/>
-      <p>{t("design.outo0")}{" "}
+      <p>{t("design.outro0")}{" "}
         <Link to="/server" className="alert-link">
           {t("design.outro1")}
         </Link>

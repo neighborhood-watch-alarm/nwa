@@ -91,11 +91,12 @@ const AlarmCPPir = () => {
                 <li>1 {t("guides.part.lcd")}</li>
                 <li>1 {t("guides.part.breadboard")}</li>
                 <li>1 {t("guides.part.button")}</li>
-                <li>1 &gt;1kω {t("guides.part.resistor")}</li>
                 <li>1 {t("guides.part.pir")}</li>
-                <li>5 {t("guides.part.m2m")}</li>
-                <li>5 {t("guides.part.jump")}</li>
+                <li>1 {t("guides.part.mosfet")}</li>
+                <li>1 {t("guides.part.resistor")}</li>
+                <li>9 {t("guides.part.m2m")}</li>
                 <li>4 {t("guides.part.f2m")}</li>
+                <li>4 {t("guides.part.jump")}</li>
               </ul>
             </Col>
           </Row>

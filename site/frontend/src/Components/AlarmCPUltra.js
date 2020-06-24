@@ -94,8 +94,8 @@ const AlarmCPUltra = () => {
                 <li>1 &gt;1kω {t("guides.part.resistor")}</li>
                 <li>1 {t("guides.part.ultra")}</li>
                 <li>5 {t("guides.part.m2m")}</li>
-                <li>5 {t("guides.part.jump")}</li>
                 <li>4 {t("guides.part.f2m")}</li>
+                <li>5 {t("guides.part.jump")}</li>
               </ul>
             </Col>
           </Row>

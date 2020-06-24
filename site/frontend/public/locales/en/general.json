@@ -18,7 +18,9 @@
             "link": "Edit on Github",
             "cancel": "Cancel",
             "linkToServer": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/en/server_v1.json",
-            "linkToAlarm": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/en/alarm_v1.json"
+            "linkToAlarm": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/en/alarm_v1.json",
+            "linkToHelp": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/en/help.json",
+            "linkToContribute": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/en/contribute.json"
         }
     },
     "docs": {

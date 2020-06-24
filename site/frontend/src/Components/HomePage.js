@@ -10,25 +10,28 @@ const HomePage = props => {
     <Container>
       <Row>
         <Col sm="8">
-          <Jumbotron style={{ backgroundColor: "white" }}>
-            <h1 className="display-3">{t("title")}</h1>
+            <h1 className="display-3" style={{paddingTop:"60px"}}>{t("title")}</h1>
             <p className="lead">{t("subtitle")}</p>
-            <hr className="my-2" />
             <p>{t("description")}</p>
-            <p className="lead">
-              <Button tag={RouterNavLink} to="/Server/" color="danger">
-                {t("button.server")}
-              </Button>{" "}
-              <Button tag={RouterNavLink} to="/alarms/" outline color="danger">
-                {t("button.alarm")}
-              </Button>
-            </p>
-          </Jumbotron>
         </Col>
         <Col sm="4">
           <img className="photo-logo" src={logo} alt="nwa system" style={{ paddingTop: "50px", height: "400px" }} />
         </Col>
       </Row>
+          <Jumbotron fluid style={{ backgroundColor: "white", paddingTop:"20px"}}>
+            <hr className="my-2" />
+            <p>{t("alarm-system")}</p>
+            <p>{t("lora")}</p>
+            <p>{t("tech")}</p>
+            <p>{t("server")}</p>
+            <Button block tag={RouterNavLink} to="/Server/" color="danger" style={{marginBottom:"20px"}}>
+              {t("button.server")}
+            </Button>{" "}
+            <p>{t("alarm")}</p>
+            <Button block tag={RouterNavLink} to="/alarms/" outline color="danger">
+              {t("button.alarm")}
+            </Button>
+          </Jumbotron>      
     </Container>
   );
 };

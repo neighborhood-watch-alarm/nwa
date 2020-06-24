@@ -1,9 +1,14 @@
 {
-    "title": "Velkommen til NWA!",
-    "subtitle": "Det første open source LoRa-baseret nabohjælp alarmsystem!",
-    "description": "Nabohjælp alarmsystem er opdelt i server- og alarmenheder. Alarmkomponenterne består af en Arduino med et LoRa-skjold, og serveren kører som et java-program på en Raspberry Pi. Kommunikationen mellem alarmenhederne og serveren er faciliteret vha. en TTN Gateway.",
+    "title": "Neighborhood Watch Alarm",
+    "subtitle": "Pas på dit nabolag - Byg et alarmsystem der automatisk sender dig og dine naboer en SMS i tilfælde af et indbrud i en af jeres huse.",
+    "description": "Neighborhood Watch Alarm (NWA) er et open source projekt, der udbyder et nabolag-baseret alarmsystem. Softwaren til systemet er gratis at hente og bruge, og lader dig opstille et alarmsystem lokalt mellem dig og dine naboer uafhængigt af administrering udefra.",
+    "alarm-system": "Alarmsystemet består af en server og et antal alarmenheder. Serveren placeres centralt i nabolaget, og der bør udpejes en person i nabolaget til at agere administrator for serveren. Husstande beskyttes ved installation af en række alarmenheder udstyret med sensorer, som har mulighed for at opdage eventuelle indbrud.",
+    "lora": "Alarmenheder kommunikerer med serveren gennem en Long Range Low Power netværksteknologi kaldet LoRa, hvilket giver mulighed for at skabe kontakt mellem enheder uafhængigt af de enkelte hjems WiFi-forbindelse.",
+    "tech": "Du kan bygge server og alarmenheder ud fra lettilgængeligt hardware ved at følge trin-for-trin installationsvejledninger her på siden. Installér vores gratis software på dine enheder for at opsætte dit alarmsystem og beskytte dit hjem og nabolag.",
+    "server": "For at påbegynde installationen af et alarmsystem i dit nabolag, skal en server opsættes:",
+    "alarm": "Er der allerede en server i dit nabolag? Så kan du skræddersy og bygge et system af alarmenheder til din husstand:",
     "button": {
         "server": "Sæt en server op",
-        "alarm": "Konfigurer alarmer"
+        "alarm": "Byg dine egne alarmenheder"
     }
 }

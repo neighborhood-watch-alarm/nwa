@@ -18,7 +18,10 @@
             "link": "Rediger på Github",
             "cancel": "Tilbage",
             "linkToServer": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/da/server_v1.json",
-            "linkToAlarm": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/da/alarm_v1.json"
+            "linkToAlarm": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/da/alarm_v1.json",
+            "linkToHelp": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/da/help.json",
+            "linkToContribute": "https://github.com/neighborhood-watch-alarm/nwa/blob/master/site/frontend/public/locales/da/contribute.json"
+            
         }
     },
     "docs": {

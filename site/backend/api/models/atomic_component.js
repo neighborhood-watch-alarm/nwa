@@ -45,15 +45,15 @@ exports.usbCharger = {
   link: "https://let-elektronik.dk/shop/70-stroemforsyning/14943-wall-mount-ac-adapters-3w-5v-06a-eu-usb-a-/"
 };
 exports.maleToMaleWire = {
-  name: "Male-to-male wires",
-  link: "https://www.trab.dk/da/kabler-og-ledning/32-jumper-kabler-han-til-han.html?search_query=kabler&results=13"
+  name: "Male-to-male wires (40pc)",
+  link: "https://www.trab.dk/da/kabler-og-ledning/32-jumper-kabler-han-til-han.html?search_query=kabler&results=13#/59-laengde-10cm"
 };
 exports.maleToFemaleWire = {
-  name: "Male-to-female wires",
-  link: "https://www.trab.dk/da/kabler-og-ledning/34-jumper-kabler-han-til-hun.html?search_query=cable&results=9"
+  name: "Male-to-female wires (40pc)",
+  link: "https://www.trab.dk/da/kabler-og-ledning/34-jumper-kabler-han-til-hun.html?search_query=cable&results=9#/59-laengde-10cm"
 };
 exports.smallWire = {
-  name: "Small wires",
+  name: "Small wires (140pcs)",
   link: "https://let-elektronik.dk/shop/1120-ledninger/124-jumper-wire-kit---140pcs/"
 };
 exports.lidar = {

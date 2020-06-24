@@ -1,7 +1,6 @@
 const nodemailer = require("nodemailer");
 const cm = require("../models/component_model.js");
 
-var chosenDevices;
 var components;
 
 function pushComponent(component) {
@@ -26,7 +25,7 @@ function roundUpAmounts() {
   }
 }
 
-function print(devices) {
+function print(devices, version) {
   var deviceIntro = "You have chosen the following devices for your setup on our website:\n";
   var deviceList = "";
   devices.forEach(item => {
@@ -38,8 +37,14 @@ function print(devices) {
     componentList = componentList + item.amount + "x " + item.model + "\n";
   });
   var finalMessage =
-    "\nOnce you have required the necessary components, head back to our website for installationsguides.\n\nNB: In order for the system to work, your devices must first be registered to your neighborhood server.\n\nBest regards, NWA.";
-  return deviceIntro + deviceList + componentIntro + componentList + finalMessage;
+    "\nOnce you have acquired the necessary components, head back to our website to find installation guides for your alarm devices.\n\nNB: In order for the system to work, your devices must first be registered to your neighborhood server.\n\nBest regards, NWA.";
+  
+    var versionMessage = "";
+  if (!(version.length === 0)){
+    versionMessage = "This alarm device setup is designed for " + version + ". When accessing installation guides, make sure to select the version appropriate for you devices at the top of the installation guide page.";
+  }
+  
+    return deviceIntro + deviceList + componentIntro + componentList + finalMessage;
 }
 
 exports.componentDetails = function(req, res, next) {
@@ -65,7 +70,11 @@ exports.componentDetails = function(req, res, next) {
     });
     roundUpAmounts();
     if (req.body.hasOwnProperty("email")) {
-      var emailText = print(req.body.devices);
+      var version = "";
+      if (req.body.hasOwnProperty("version")){
+        version = req.body.version;
+      }
+      var emailText = print(req.body.devices, version);
       mailOptions = {
         from: "NWA <neighborhood.watch.alarm@gmail.com>",
         to: req.body.email,

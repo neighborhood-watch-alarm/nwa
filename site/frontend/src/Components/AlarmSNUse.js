@@ -6,13 +6,14 @@ const AlarmSNUse = () => {
   return (
     <div>
       <h2>{t("guides.tab-use-sn")}</h2>
-      <p>{t("guides.use.power")}</p>
-      <p>{t("guides.use.placement")}</p>
+      <p>{t("guides.use.sn-intro")}</p>
       <p>{t("guides.use.calibrate")}</p>
       <p>{t("guides.use.alarm")}</p>
       <p>{t("guides.use.restart")}</p>
       <p>{t("guides.use.interval-sn")}</p>
       <p>{t("guides.use.offline")}</p>
+      <p>{t("guides.use.power")}</p>
+      <p>{t("guides.use.placement")}</p>
     </div>
   );
 };

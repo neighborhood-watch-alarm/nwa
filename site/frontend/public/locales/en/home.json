@@ -1,9 +1,14 @@
 {
-    "title": "Welcome to NWA!",
-    "subtitle": "The first open source LoRa-based neighborhood security system!",
-    "description": "The Neighborhood Watch Alarm (NWA) system is divided into servers and alarms. The alarm devices are built with an Arduino, and the server is build using Java and run from a Raspberry Pi. The communication between the alarm devices and the server is facilitated by LoRa and The Things Network.",
+    "title": "Neighborhood Watch Alarm",
+    "subtitle": "Watch out for your community - Build an alarm system that contacts you and your neighbors by text if a break-in is detected in your neighborhood.",
+    "description": "Neighborhood Watch Alarm (NWA) is an open source neighborhood security project that has developed an alarm system technology. The required software is free to use and enables you to set up a security system locally in your neighborhood - No outside management needed.",
+    "alarm-system": "The alarm system is divided into servers and alarms. A server is placed centrally in the neighborhood, and should be managed by an appointed server administrator. Homes are protected by a series of alarm devices outfitted with sensors to detect potential unwanted intrusions.",
+    "lora": "The alarm devices communicate with the server using a Long Range Low Power network technology called LoRa, which enables data transmission independently of your home WiFi network.",
+    "tech": "Build your own server and alarm devices from readily available hardware by following our step-by-step guides, and download our free software to your devices to start protecting you house and community.",
+    "server": "To get started with setting up an alarm system, set up a server for your neighborhood:",
+    "alarm": "Already have a server set up? Build a system of alarm devices for your home:",
     "button": {
-        "server": "Setup a server",
-        "alarm": "Configure alarms"
+        "server": "Set up a server",
+        "alarm": "Build your own alarm devices"
     }
 }

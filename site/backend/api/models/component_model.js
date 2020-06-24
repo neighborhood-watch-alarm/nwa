@@ -22,6 +22,10 @@ const controlPanel = [
     amount: 1
   },
   {
+    ac: ac.resistor,
+    amount: 1
+  },
+  {
     ac: ac.breadboard,
     amount: 1
   },
@@ -33,10 +37,6 @@ const controlPanel = [
     ac: ac.powerSupply,
     amount: 1
   },
-  {
-    ac: ac.usbCharger,
-    amount: 1
-  }
 ];
 
 //SENSOR NODE
@@ -50,10 +50,6 @@ const sensorNode = [
     amount: 1
   },
   {
-    ac: ac.breadboard,
-    amount: 1
-  },
-  {
     ac: ac.cable,
     amount: 1
   },
@@ -61,10 +57,6 @@ const sensorNode = [
     ac: ac.powerSupply,
     amount: 1
   },
-  {
-    ac: ac.usbCharger,
-    amount: 1
-  }
 ];
 //CONTROL PANEL SETUPS
 const cpPir = {
@@ -76,16 +68,24 @@ const cpPir = {
       amount: 1
     },
     {
-      ac: ac.maleToMaleWire,
+      ac: ac.resistor,
       amount: 1
+    },
+    {
+      ac: ac.mosfet,
+      amount: 1
+    },
+    {
+      ac: ac.maleToMaleWire,
+      amount: 0.225
     },
     {
       ac: ac.maleToFemaleWire,
-      amount: 1
+      amount: 0.1
     },
     {
       ac: ac.smallWire,
-      amount: 1
+      amount: 0.029
     }
   ]
 };
@@ -99,15 +99,15 @@ const cpLidar = {
     },
     {
       ac: ac.maleToMaleWire,
-      amount: 10
+      amount: 0.125
     },
     {
       ac: ac.maleToFemaleWire,
-      amount: 10
+      amount: 0.1
     },
     {
       ac: ac.smallWire,
-      amount: 10
+      amount: 0.015
     }
   ]
 };
@@ -121,15 +121,15 @@ const cpUs = {
     },
     {
       ac: ac.maleToMaleWire,
-      amount: 100
+      amount: 0.125
     },
     {
       ac: ac.maleToFemaleWire,
-      amount: 100
+      amount: 0.1
     },
     {
       ac: ac.smallWire,
-      amount: 100
+      amount: 0.036
     }
   ]
 };
@@ -143,16 +143,24 @@ const snPir = {
       amount: 1
     },
     {
-      ac: ac.maleToMaleWire,
-      amount: 0.3
+      ac: ac.breadboard,
+      amount: 1
     },
     {
-      ac: ac.maleToFemaleWire,
-      amount: 0.5
+      ac: ac.mosfet,
+      amount: 1
+    },
+    {
+      ac: ac.resistor,
+      amount: 1
+    },
+    {
+      ac: ac.maleToMaleWire,
+      amount: 0.15
     },
     {
       ac: ac.smallWire,
-      amount: 0.8
+      amount: 0.015
     }
   ]
 };
@@ -165,16 +173,12 @@ const snLidar = {
       amount: 1
     },
     {
+      ac: ac.breadboard,
+      amount: 1
+    },
+    {
       ac: ac.maleToMaleWire,
-      amount: 1
-    },
-    {
-      ac: ac.maleToFemaleWire,
-      amount: 1
-    },
-    {
-      ac: ac.smallWire,
-      amount: 1
+      amount: 0.05
     }
   ]
 };
@@ -187,16 +191,8 @@ const snUs = {
       amount: 1
     },
     {
-      ac: ac.maleToMaleWire,
-      amount: 1.5
-    },
-    {
-      ac: ac.maleToFemaleWire,
-      amount: 1.5
-    },
-    {
       ac: ac.smallWire,
-      amount: 1.5
+      amount: 0.022
     }
   ]
 };

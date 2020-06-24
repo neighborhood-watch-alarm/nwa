@@ -12,6 +12,7 @@ const AlarmCPBasic = () => {
   const { t } = useTranslation("alarm_v1");
   return (
     <div>
+        <p>{t("guides.basic-intro")}</p>
         <h2>{t("guides.cp-title")}</h2>
         <p>
             {t("guides.cp-intro0")}

@@ -10,6 +10,7 @@ const AlarmSNBasic = props => {
   const { t } = useTranslation("alarm_v1");
   return (
     <div>
+        <p>{t("guides.basic-intro")}</p>
         <h2>{t("guides.sn-title")}</h2>
         <p>
             {t("guides.sn-intro0")}
@@ -24,7 +25,7 @@ const AlarmSNBasic = props => {
           <ToolDescription id="lora-cp" name={t("tooltip.loraname")} description={t("tooltip.loradesc")}/>
           {t("guides.lora-intro2")}
         </p>
-        <ReactPlayer controls="true" url="https://www.youtube.com/watch?v=0t-FHww_4uY" style={{ display: "block", marginLeft: "auto",
+        <ReactPlayer controls="true" url="https://www.youtube.com/watch?v=Mj7ApN0wvi8&t=7s" style={{ display: "block", marginLeft: "auto",
             marginRight: "auto" }} />
         <ul>
             <li>{t("guides.lora-list0")}</li>
@@ -61,7 +62,7 @@ const AlarmSNBasic = props => {
             </ul>
             </div>
         }
-        <p>{t("guides.cp-basic-outro")}</p>
+        <p>{t("guides.sn-basic-outro")}</p>
       </div>
   );
 };
