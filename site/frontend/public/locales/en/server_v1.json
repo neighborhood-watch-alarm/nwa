@@ -16,11 +16,11 @@
         "devices": "The server consist of a <1>Raspberry Pi</1> and a <3>TTN Gateway</3>. The gateway handles the communication back and forward with all the connected devices (<5>visit the alarms section for more info</5>), and the server interprets this passed information. In case of a break in or if a device malfunctions, the server notifices either the entire neighborhood or specific individuals by SMS - depending on the issue.",
         "diagram": "The diagram below shows the general communication flow between the different devices in the overall system, where the TTN cloud and the NWA server house represents what will be referred to as just the server.",
         "server": {
-            "description": "To setup your own running server you must first acquire and set up the necessary hardware. Follow the button below for instructions regarding this hardware and their usage. Note that NWA always encourage you to follow the recommended options, unless you are absolutely sure about what you are doing. These guides do not cover alternative methods thoroughly.",
+            "description": "To get a server up and running, you must first acquire and set up the necessary hardware. Follow the button below for instructions regarding this hardware and its usage. Note that NWA always encourages you to follow the recommended options, unless you are absolutely sure about what you are doing. These guides do not thoroughly cover alternative methods of setup.",
             "link": "Hardware Setup"
         },
         "hardware": {
-            "description": "If you have already set up the hardware properply, you're ready to install the necessary software. Follow the button below for instructions on how to setup this software.",
+            "description": "If you have already set up the hardware properly, you're ready to install the necessary software. Follow the button below for instructions on how to set up this software.",
             "link": "Software Setup"
         },
         "tooltips": {

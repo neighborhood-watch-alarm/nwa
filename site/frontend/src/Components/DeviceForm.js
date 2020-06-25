@@ -11,6 +11,7 @@ import {
   FormGroup,
   Label
 } from "reactstrap";
+import { withTranslation } from "react-i18next";
 import PartsTable from "./PartsTable";
 
 class DeviceForm extends Component {
@@ -137,6 +138,7 @@ class DeviceForm extends Component {
   };
 
   render() {
+    const { t } = this.props;
     console.log(this.state);
     return (
       <div>
@@ -182,7 +184,7 @@ class DeviceForm extends Component {
             </Card>
           ))}
           <Button color="danger" outline block onClick={this.addInput}>
-            Add device
+            {t("design.device-form.add-device")}
           </Button>{" "}
           <Button
             className="float-right"
@@ -191,15 +193,16 @@ class DeviceForm extends Component {
             style={{ marginTop: "10px", marginBottom: "30px" }}
             onClick={this.onSubmit}
           >
-            Build parts list
+            {t("design.device-form.build-parts-list")}
           </Button>
           <PartsTable partsList={this.state.partsList} />
           <FormGroup>
-            <Label for="email">Address</Label>
+            <Label for="email">{t("design.device-form.email-label")}</Label>
             <Input
               type="email"
               name="email"
               value={this.state.email}
+              placeholder={t("design.device-form.email-placeholder")}
               style={{ maxWidth: "100%" }}
               onChange={e => this.onEmailChange(e)}
             />
@@ -213,7 +216,7 @@ class DeviceForm extends Component {
               this.onEmailSubmit();
             }}
           >
-            Send email
+            {t("design.device-form.email-send")}
           </Button>
         </Form>
       </div>
@@ -221,4 +224,4 @@ class DeviceForm extends Component {
   }
 }
 
-export default DeviceForm;
+export default withTranslation("alarm_v1")(DeviceForm);

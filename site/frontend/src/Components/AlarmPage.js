@@ -5,6 +5,9 @@ import AlarmSideNav from "./AlarmSideNav";
 import AlarmWelcome from "./AlarmWelcome";
 import AlarmDesign from "./AlarmDesign";
 import AlarmCPLidar from "./AlarmCPLidar";
+import AlarmCPPir from "./AlarmCPPir";
+import AlarmCPUltra from "./AlarmCPUltra";
+import AlarmSNLidar from "./AlarmSNLidar";
 import EditText from "./EditText";
 import { useTranslation } from "react-i18next";
 
@@ -23,9 +26,9 @@ const AlarmPage = props => {
               <Route exact path="/alarms" component={AlarmWelcome} />
               <Route exact path="/alarms/design" component={AlarmDesign} />
               <Route exact path="/alarms/cp-lidar" component={AlarmCPLidar} />
-              <Route exact path="/alarms/cp-pir" component={AlarmDesign} />
-              <Route exact path="/alarms/cp-ultrasonic" component={AlarmDesign} />
-              <Route exact path="/alarms/sn-lidar" component={AlarmDesign} />
+              <Route exact path="/alarms/cp-pir" component={AlarmCPPir} />
+              <Route exact path="/alarms/cp-ultrasonic" component={AlarmCPUltra} />
+              <Route exact path="/alarms/sn-lidar" component={AlarmSNLidar} />
               <Route exact path="/alarms/sn-pir" component={AlarmDesign} />
               <Route exact path="/alarms/sn-ultrasonic" component={AlarmDesign} />
               <Redirect to="/alarms" />

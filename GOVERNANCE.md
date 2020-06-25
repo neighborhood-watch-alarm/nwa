@@ -1,12 +1,12 @@
-# NWS Project Governance
-This document is adapted from the [nodejs/node GOVERNANCE.md](https://github.com/nodejs/node/blob/master/GOVERNANCE.md). 
+# NWA Project Governance
+This document is adapted from [nodejs/node GOVERNANCE.md](https://github.com/nodejs/node/blob/master/GOVERNANCE.md). 
 
 ## Roles
 * Contributor: Anyone who has made any kind of contribution to NWA
 * Maintainer: A trusted contributor responsible for maintaining the NWA Github repository
 
 ## Project goals & values
-The NWS project is self-sustaining and essentially owned by the group of Maintainers. The goals of the project are the goals of its contributors.
+The NWA project is self-sustaining and essentially owned by the group of Maintainers. The goals of the project are the goals of its contributors.
 
 One of the primary goals of this project is to make home security accessible by creating a user friendly system.
 Furthermore, we want to encourage further development of the project by minimizing the barrier of entry for new developers and maintaining a friendly and inclusive discourse.
@@ -14,9 +14,9 @@ Furthermore, we want to encourage further development of the project by minimizi
 You are expected to follow *and* hold others accountable to the [Code of Conduct][].
 
 # Maintainers
-NWS Maintainers have commit access to the [simoneengelbr/nwa][] Github repository and maintain the repository.
+NWA Maintainers have commit access to the [neighborhood-watch-alarm/nwa][] Github repository and maintain the repository.
 
-Both Maintainers and non-Maintainer Contributors may propose changes to the NWS source code. 
+Both Maintainers and non-Maintainer Contributors may propose changes to the NWA source code. 
 The mechanism to propose such a change is a GitHub pull request as described in the guidelines for [Contributing].
 Maintainers review and merge pull requests.
 
@@ -42,7 +42,7 @@ See:
 * Merging pull requests
 * Project governance and process (including this policy)
 
-Maintainers can be removed if they commit a significant or repeated violation of the [CODE_OF_CONDUCT.md]
+Maintainers can be removed if they commit a significant or repeated violation of the [Code of Conduct][].
 
 Maintainers as a group have final authority over this project, including:
 * Technical direction
@@ -74,14 +74,14 @@ should show significant commitment to the project and its development.
 To nominate a new Maintainer, open an issue in the [simoneengelbr/nsw][] repository.
 Provide a summary of the nominee's contributions. For example:
 
-* Commits in the [simoneengelbr/nwa][] repository.
-  * Use the link `https://github.com/simoneengelbr/nwa/commits?author=GITHUB_ID`
-* Pull requests and issues opened in the [simoneengelbr/nwa][] repository.
-  * Use the link `https://github.com/simoneengelbr/nwa/issues?q=author:GITHUB_ID`
-* Comments on pull requests and issues in the [simoneengelbr/nwa][] repository
-  * Use the link `https://github.com/simoneengelbr/nwa/issues?q=commenter:GITHUB_ID`
-* Reviews on pull requests in the [simoneengelbr/nwa][] repository
-  * Use the link `https://github.com/simoneengelbr/nwa/pulls?q=reviewed-by:GITHUB_ID`
+* Commits in the [neighborhood-watch-alarm/nwa][] repository.
+  * Use the link `https://github.com/neighborhood-watch-alarm/nwa/commits?author=GITHUB_ID`
+* Pull requests and issues opened in the [neighborhood-watch-alarm/nwa][] repository.
+  * Use the link `https://github.com/neighborhood-watch-alarm/nwa/issues?q=author:GITHUB_ID`
+* Comments on pull requests and issues in the [neighborhood-watch-alarm/nwa][] repository
+  * Use the link `https://github.com/neighborhood-watch-alarm/nwa/issues?q=commenter:GITHUB_ID`
+* Reviews on pull requests in the [neighborhood-watch-alarm/nwa][] repository
+  * Use the link `https://github.com/neighborhood-watch-alarm/nwa/pulls?q=reviewed-by:GITHUB_ID`
 * Help provided to end-users and novice contributors
 * Participation in other projects, teams, and working groups of the open source community 
 
@@ -102,13 +102,13 @@ nomination.
 
 ## Onboarding
 New Maintainer checklist:
-1. Become a member of the Maintainer-team on the [neighborhood-watch-alarm][] GitHub organization. In order to join the organization, two-factor authentification must be activated.
-1. Consider making your membership in the [neighborhood-watch-alarm][] GitHub organization public. This makes it easier to identify Collaborators. Instructions on how to do that are available at [Publicizing or hiding organization membership][].
-1. If you haven't already, join the developer mailing list
-1. Join the governance mailing list
-1. Gain commit-access on the [simoneengelbr/nwa][] repository. This must be granted by a current Maintainer.
+1. Become a member of the Maintainer-team on the [neighborhood-watch-alarm][] GitHub organization.
+1. Consider making your membership in the [neighborhood-watch-alarm][] GitHub organization public. This makes it easier to identify Maintainers. Instructions on how to do that are available at [Publicizing or hiding organization membership][].
+1. If you haven't already, join the [developer mailing list](https://groups.google.com/u/1/g/nwa-forum/join).
+1. Join the [governance mailing list](https://groups.google.com/u/1/g/nwa-gov/join)
+1. Gain commit-access on the [neighborhood-watch-alarm/nwa][] repository. This must be granted by a current Maintainer.
 1. Use [https://github.com/notifications](https://github.com/notifications) or set up email
-1. Become familiar with the [Code of Conduct].
+1. Become familiar with the [Code of Conduct][].
 1. Make a PR adding yourself to the [README][]. Collaborators are in alphabetical order by GitHub username.
   
 ## Managing the issue tracker
@@ -158,9 +158,9 @@ New Maintainer checklist:
     * Use `Changes requested` to indicate that you are considering some of your
       comments to block the PR from landing.
 
-* What belongs in NWS:
+* What belongs in NWA:
   * Opinions vary – it’s good to have a broad collaborator base for that reason!
-  * Some changes may solve a niche need without contributing to the general use of NWS. In this case, consider whether changes should be accepted in the main repository or kept with the developer.
+  * Some changes may solve a niche need without contributing to the general use of NWA. In this case, consider whether changes should be accepted in the main repository or kept with the developer.
   
 ## Final notes
 * Don't worry about making mistakes: everybody makes them, there's a lot to
@@ -169,10 +169,9 @@ New Maintainer checklist:
 * The existing Maintainers trust you and are grateful for your help!
 
 
-[simoneengelbr/nwa]: https://github.com/simoneengelbr/nwa
+[neighborhood-watch-alarm/nwa]: https://github.com/simoneengelbr/nwa
 [Publicizing or hiding organization membership]: https://help.github.com/articles/publicizing-or-hiding-organization-membership/
-[two-factor authentication]: https://help.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/
-[Code of Conduct]: https://github.com/simoneengelbr/nwa/blob/master/CODE_OF_CONDUCT.md
-[README]: https://github.com/simoneengelbr/nwa/blob/master/README.md
-[Contributing]: https://github.com/simoneengelbr/nwa/blob/master/CONTRIBUTING.md
+[Code of Conduct]: https://github.com/neighborhood-watch-alarm/nwa/blob/master/CODE_OF_CONDUCT.md
+[README]: https://github.com/neighborhood-watch-alarm/nwa/blob/master/README.md
+[Contributing]: https://github.com/neighborhood-watch-alarm/nwa/blob/master/CONTRIBUTING.md
 [neighborhood-watch-alarm]: https://github.com/org/neighborhood-watch-alarm

@@ -6,7 +6,6 @@ import HomePage from "./Components/HomePage";
 import ServerPage from "./Components/ServerPage";
 import ServerVersionRouter from "./Components/Docs/ServerVersionRouter.js";
 import AlarmPage from "./Components/AlarmPage";
-import AlarmVersionRouter from "./Components/Docs/AlarmVersionRouter.js";
 
 class App extends Component {
   /*constructor(props) {
@@ -38,7 +37,6 @@ class App extends Component {
             <Route path="/server" component={ServerPage} />
             <Route path="/alarms" component={AlarmPage} />
             <Route path="/docs/server" component={ServerVersionRouter} />
-            <Route path="/docs/alarms" component={AlarmVersionRouter} />
             <Redirect to="/" />
           </Switch>
         </div>
