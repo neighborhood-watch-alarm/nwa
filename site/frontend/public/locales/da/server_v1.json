@@ -22,11 +22,15 @@
         "hardware": {
             "description": "Hvis du allerede har anskaffet og klargjort de nødvendige harwarekompontner, er du klar til at installere den tilhørende software. Følg knappen nedenfor for information og instruktioner angående denne opsætning",
             "link": "Software Konfiguration"
+        },
+        "tooltips": {
+            "raspPi": "Single board computer",
+            "ttn": "Bro mellem LoRaWAN enheder og The Things Network's online servicer"
         }
     },
     "devices": {
         "title": "Enheder",
-        "intro": "Enhederne nedenfor repræsenterer alle de nødvenige enheder der kræves for at få systemet op og køre. Sørg for at erhverve alle disse enheder, før du bevæger dig videre til de næste sektioner",
+        "intro": "Enhederne nedenfor repræsenterer alle de nødvenige enheder der kræves for at få systemet op og køre. Sørg for at erhverve alle disse enheder, før du bevæger dig videre til de næste sektioner.",
         "ttnTitle": "TTN Gateway",
         "ttnSection": "For at modtage <1>LoRaWAN</1> signalerne fra de forbundede enheder i nabolaget er det nødvendigt at sætte en TTN gatway op. Denne kan købes <3>herfra</3>.",
         "rasTitle": "Raspberry Pi",
@@ -38,20 +42,146 @@
         "next": "Næste: TTN Setup"
     },
     "ttn": {
-        "title": "The Things Network opsætning",
-        "videoIntro": "I videoen nedenfor guider en talsperson for TTN dig igennem alle de nødvendige skridt for at sætte din Gateway op med The Things Network, præcis som beskrevet ovenfor.",
-        "videoLicense": "Videoen afspilles som et link til TTN's egen profil på Youtube og benyttes under Youtube's regler for rimelig brug."
+        "title": "The Things Network Setup",
+        "intro": "I denne sektion vil det blive forklaret hvordan du sætter din Gateway op korrekt, efterfulgt af instruktioner om hvordan du skal konfigurere NWA appen.",
+        "gateway": {
+            "title": "Gateway Setup",
+            "intro": "Først skal du samle din Gateway som forklaret i manualen. Processen er lige ud af landevejen, da du blot behøver at skrue den medfølgende antenne fast på fronten, og tilslutte enheden strøm via det medfølgende kabel",
+            "activate": "For at aktivere Gatewayen skal du besøge <1>https://activate.thethingsnetwork.org/</1>. Hvis du ikke allerede har en konto, skal du registrere en nu. Tryk på knappen \"Let's Get Started!\" når du er logget ind. Herfra vil du blive guidet igennem følgende skridt:",
+            "1": "Vælg et unikt id for gatewayen og en frekvensplan (sørg for at vælge en, der understøtter området du bor i).",
+            "2": "Forbind din computer til Gatewayen ved at vælge den som internetrouter i netværksindstillingerne på din pc. Angiv \"thethings\" som adgangskode.",
+            "3": "Vælg om du ønsker at oprette forbindelse til internettet trådløst eller via LAN.",
+            "4": "Vent på at Gatewayen succesfuldt forbinder til nettet. Når dette lykkedes, følg linket til <1>Console Application Site</1> præsenteret. I tilfælde af problemer, benyt LED-lysene på Gateayen som indikatorer. Se manualen for yderligere forklaring.",
+            "tooltip4": "TTN grafisk brugergrænseflade app til at overvåge og manipulere udveklsing af data",
+            "videoIntro": "I videoen nedenfor guider en talsperson for TTN dig igennem alle de nødvendige skridt for at sætte din Gateway op med The Things Network, præcis som beskrevet ovenfor.",
+            "videoLicense": "Videoen afspilles som et link til TTN's egen profil på Youtube og benyttes under Youtube's regler for rimelig brug."
+        },
+        "app": {
+            "title": "Application Setup",
+            "intro": "Efter succesfuldt at have forbundet Gatewayen til TTN og flugt linket <1>https://console.thethingsnetwork.org/applications</1>, tryk på \"add application\" for at oprette en NWA app. Vælg et nyt unikt id, en kort beskrivelse og en passende handler. Efter dette er gjort, gå ind på applikationen og scroll ned til bunden. Kopier nøglen \"default key\" i base64 format og gem denne et sted. Du får brug for den senere når du skal forberede <3>softwaren</3>.",
+            "devices": {
+                "title": "Tilføj devices",
+                "intro": "Dette skridt kan udføres nu eller senere. Det er dog nødvendigt at gøre med alle bestilte alarmkomponenter i nabolaget. Før en enhed er blevet tilføjet til appen, vil serveren ikke være i stand til at kommunikere med denne! Dette skal derfor ligeledes gøres, hver gang naboer bestiller nye komponenter.",
+                "add": "Du tilføjer en enhed ved at trykke på \"register device\" i \"Devices\" fanen. Angiv enndu engang et unikt id og vælg autogenering af EUI og App key. Registrer herefter enheden",
+                "method": "Efter at have tilføjet et device, klik på det og gå ind i settings fanen. Sørg for ændre OTAA til ABP under ”Activation Method”, og vælg 16 i stedet for 32 bit under ”Frame Counter Width”. Nu skulle TTN gerne være klar til, at håndtere informationen vedr. denne enhed. Sørg for at enheden er sat op som forklaret i afsnittet <1>database konfiguration</1>."
+            }
+        },
+        "next": "Næste: Raspberry Pi Setup"
     },
     "os": {
-        "title": ""
+        "title": "Raspberry Pi Setup",
+        "intro": "Denne sektion dækker beskrivelser omkring hvordan systemet klargøres, samt hvilke filer der skal installeres, for at få Raspberry Pien og styrestemet hertil op og køre. Det vil ligeledes blive forklaret hvordan WiFi modemet og SIM kortet skal sættes op.",
+        "os": {
+            "title": "Raspberry Pi OS / Raspbian",
+            "intro": "Det første skridt i installationen efter at have erhvervet sig det nødvendige hardware, er at downloade <1>Raspberry Pi Imager</1> fra <3> https://www.raspberrypi.org/downloads/</3>.",
+            "imager": "Ved opstart skulle programmeret gerne se ud som billedet nedenfor. Sørg for at SD-kortet er tilsluttet din computer. Vælg Raspberry Pi OS (tidligere RASPBIAN) som operativsystem og det omtalte SD kort som destination for filerne. Tryk herefter på \"write\".",
+            "tooltip": "Program som installere styresystemet til Raspberry Pis på et ønsket SD-kort"
+        },
+        "remote": {
+            "title": "Opsætning af fjernkontrol",
+            "recommended": "Anbefalet",
+            "internet": {
+                "title": "Internet Adgang",
+                "intro": " Raspberry Pien forbinder automatisk til internettet ved opsætning gennem LAN-kabel. Hvis du ønsker at benytte WiFi, skal du først sætte dette op: Efter installationen af OS'et på SD-kortet er færdiggjort opret en fil ved navn <1>wpa-supplicant.conf</1> i mappen \"boot\" på SD-kortet (opret ikke en mappe ved navn \"boot\", da \"boot\" gerne skulle være hovedmappen på SD-kortet. Filen <3>kernel7.img</3> skulle gerne befinde sig samme sted, hvis du er usikker):",
+                "file": "Kopier indholdet nedenfor til filen, men sørg for at opdater landekode og WiFi detaljer til din personlige opsætning:",
+                "ready": "SD-kortet er nu klart. Indsæt kortet i Raspberry Pien, and sæt enheden i strøm. Den skulle gerne tænde af sig selv."
+            },
+            "ssh": {
+                "title": "SSH Konfiguration",
+                "intro": "NWA anbefaler at benytte <1>SSH</1> til fjernkontrol på Raspberry Pien. For at gøre dette muligt skal du oprette en tom fil ved navn <3>ssh</3> i samme mappe som før. Du skal ikke putte noget indhold i denne fil, og du skal heller ikke tildele filen en <5>file extension</5>:",
+                "system": "Både MacOS og Windows understøtter i dag SSH, men på Windowsmaksiner er visse funktionaliteter stadig begrænsede. Til at forsimple processen anbefaler NWA, at brugere af begge systemer benytter SSH-klienten PuTTY. Programmet kan downloades fra <1>https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html</1>.",
+                "putty": "Efter opstart af programmet, skulle du gerne se en brugergrænseflade magen til den nedenfor. Skriv \"raspberrypi\" som host name og tryk på \"Open\".",
+                "terminal": "En kommandopromt skulle gerne poppe op og bede om logindetaljer. Angiv \"pi\" som brugernavn og \"raspberry\" som kodeord:",
+                "password": "Nu skulle du gerne være forbundet til Raspberry Piens egen kommandopromt via fjernkontrol! For at sikre at ingen andre kan forbinde til enheden, anbefales der på det kraftigate at ændre kodeordnet ved at udføre nedenstående kommando. Indtast herefter det ønskede kodeord, og gentag en ekstra gang. Sørg for at huske dette password, da du ellers skal udføre alle trin i vejledningen igen.",
+                "tooltip": "Lad være med at oprette filen med endelser, som f.eks. ssh.txt, ssh.js og lignende. Efterlad dette blankt."
+            },
+            "java": {
+                "title": "Java Installation",
+                "intro": "Da serverprogrammet er skrevet i Java, er du nødsaget til at installere Java Development Kit. Dette gøres nemmest ved at indtaste nedenstående kommando, imens du er tilsluttet Raspberry Pien med fjernkontrol:",
+                "check": "Du kan tjekke om installationen var succesfuld ved at køre følgende kommando:"
+            },
+            "SCP": {
+                "title": "SCP",
+                "intro": "Selvom det er muligt at overføre filer med PuTTY eller SSH generalt gennem forskellige udvidelser, anbefaler NWA at man benytter <1>SCP</1> til dette. Det er vigtigt at få styr på dette, da du vil overføre filer i <3> hardware integration </3> sektionen senere.",
+                "system": "På MacOS og Linux er SCP understøttet ud af boksen. På disse maskiner behøver du derfor blot at skrive følgende kommando: (filepath_local er den absolutte sti til filens placering på din egen computer, filepath_remote er den absolutte sti til hvor du ønsker filen gemt på Raspberry Pien, og ip_address er ip-adressen for den benyttede Raspberry Pi):",
+                "adress": "Du kan finde ip-adressen til Raspberry Pien ved at skrive følgende kommando over fjernkontrol",
+                "winSCP": "Da Windows ikke understøtter SCP ud af boksen, er det nødvendigt at benyte et program til dette. NWA anbefaler WinSCP, da dette program understøtter simple drag-n-drop funktionaliteter. Du kan downloade programmet fra <1>https://winscp.net/eng/download.php</1>.",
+                "gui": "Brugergrænselfladen minder meget om PuTTY. Du behøver blot at angive logindetaljer som vist nedenfor sammen med dit personlige kodeord, og så er du inde.",
+                "tooltip": "Secure Copy Protocol: Overfører filer mellem lokal og fjern host"
+            }
+        },
+        "desktop": {
+            "title": "Desktop Setup",
+            "alternative": "Alternativ",
+            "intro": "Såfremt SIM-kortet understøtter tilstrækkelig 3G/4G forbindelser, kan modemet benyttet til både SMS- og internetdækning. Ved denne løsning vil fjernkontrol dog ikke være en mulighed ud af boksen, da Raspberry Pien ikke længere vil dele samme internet",
+            "setup": "Ved denne løsning vil det derfor være nødvendigt at opsætte Raspberry Pien i et skrivebordsmiljø, der inkludere skærm, mus og tastatur. Skærmen skal tilsluttes via et hDMI-kabel, og mus og keyboard skal desuden være tilsluttet via USB, da bluetooth ikke er sat op som standard. Overførslen af filer beskrevet i <1>hardware integration</1> skal ligeledes udføres ved brug af et USB-stik. Her er det vigtigt at notere, at Raspberry Pi OS ikke understøtter overførsel af filer på samme måde som på MacOS og Windows, da USB-stik skal til- og afmonteres ved brug. Hvordan dette hænger sammen kan læses på Raspberrys <3>documentation</3>.",
+            "otherwise": "Ellers ser implementationen ud som løsningen beskrevet på siden."
+        },
+        "celService": {
+            "title": "Mobilt netværk",
+            "section": "Til at sætte Huawei USB Modemet op behøver du blot at poppe bagsiden af, indsætte SIM kortet i toppen (behold det i den store beholder), og sæt modemet i din computer. Sørg for at SIM kortet er aktiveret på forhånd. Du skulle gerne automatisk blive viderestillet til adressen <1>http://192.168.8.1/</1>. Hvis ikke, følg dette link. Indtast her kortets PIN kode, og så burde alt være oppe og køre indenfor meget kort tid. Fjern modemet fra din computer og sæt det i Raspberry PIen når der er oprettet forbindelse. Husk nummeret til SIM kortet, da dette er hvad alle beboere i nabolaget vil modtage beskeder fra."
+        },
+        "next": "Næste: Software Forbindelse"
     },
     "connection": {
-        "title": ""
+        "title": "Server Forbindelse",
+        "downTitle": "Download af alarmsystem",
+        "downSec": "Systemet skal downloades fra <1>https://github.com/neighborhood-watch-alarm/nwa</1>. Klik på \"Clone or download\" -> \"Download ZIP\". Udpak zip-mappen når overførslen er fuldført.",
+        "java": {
+            "title": "Java IDE",
+            "intro": "NWA anbefaler at bruge en <1>IDE</1> optimeret til udvikling af <3>Java</3>, til at interagere med filerne. Systemet er blevet udviklet med Eclipse, og herfor foretrækkes dette. Eclipse kan downloades fra <5>https://www.eclipse.org/downloads/</5>.",
+            "install": "Såfremt du ikke allerede har Java installeret, skal du ligeledes downloade dette fra <1>https://www.java.com/en/download/</1>. I Eclipse skal du udføre følgende kommandoer:",
+            "eclipse": "Herefter skal du sørge for at aftjekke alle filerne. Efterfølgende skal du blot importere dem. Navngiv projektet \"server\". Pop-up vinduet skulle gerne se nogenlunde sådan her ud:",
+            "tooltipIDE": "Integreret udviklingsmiljø",
+            "tooltipJava": "Objektorientet programmingssprog"
+        },
+        "ttn": {
+            "title": "TTN Forbindelse",
+            "intro": "Når projektet er blevet importet skal du udvide det ved at klikke på det. Åben herefter filen <1>MSGRecver.java</1> på lokationen:",
+            "strings": "Her skal du redigere de tre felter region (f.eks. til \"eu\"), appID(det valgte navn på TTN appen) og appAccessKey(nøglen du blev bedt om at gemme til senere):",
+            "check": "For at sikre at alt er opsat korrekt indtil nu, giv programmet en prøvekørsel ved at højreklikke på det importerede projekt og udfør handlingerne angivet nedenfor:",
+            "output": "Dette skulle gerne få konsollen til at printe \"<1>connected to the backend...</1>\". Sørg herefter for at lukke programmet igen."
+        },
+        "next": "Næste: Database opsætning"
     },
     "database": {
-        "title": ""
+        "title": "Database Opsætning",
+        "update": {
+            "title": "Opdater Huse",
+            "intro": "Databasen redigeres ved i filen <1>SetupExample.java</1> på lokationen:",
+            "scroll": "Scroll ned til felterne magen til dem nedenfor. Alle huse i nabolaget skal defineres ligesom her. Dvs. med værdierne salt, HoueID, house, devices og et telefonnummer. Salt er et unikt array af hexadecimaler som bruges til at identificere huse. Hvert hexidecimal kan praktisk talt have alle værdier, men sørg for at efterlad de sidste to tomme (0x00). Hvis et hus har flere eller færre enheder end dem angivet her, skal du bare tilføje eller fjerne lignende linjer. Navnene på enhederne skal være unikke (ellers vil Java også brokke sig).",
+            "remember": "Sørg for at huske at tilføje alle enheder til \"houseDB\", \"deviceDB\" and \"phoneAddrDB\" som vist nedenfor!"
+        },
+        "implement": {
+            "title": "Implementer Opdateringer",
+            "intro": "For at få databaseopdateringerne beskrevet ovenfor inkorporeret i databasen, skal du åbne filen <1>Main_Method.java</1> på lokationen:",
+            "scroll": "Scroll ned til metoden magen til den viste nedenfor, og sørg for at fjerne <1>udkommenteringen</1> af linjen <3>SetupExample.testing(args)</3>.",
+            "run": "Kør herefter programmet som beskrevet i <1>server connection</1> sektionen. Databasen burde nu være opdateret. Husk at udkomenter linjen igen og stop programmet.",
+            "tooltip": "Fjern de to skråstreger"
+        },
+        "next": "Næste: Hardware Integration"
     },
     "integration": {
-        "title": ""
+        "title": "Hardware Integration",
+        "intro": "Alle skridt fra de tidligere guides vil i denne sektion blive sat sammen. Sørg derfor for, at alle opgaver er fuldført ordentligt!",
+        "jar": {
+            "title": "JAR fil",
+            "intro": "For at køre programmet på Raspberry Pien skal det først kompileres til en <1>JAR-file</1>. Dette gøres ved at udføre følgende kommandoer i Eclipse:",
+            "tooltip": "Java ARchive: Pakket fil som indeholder alle nødvendige klasser, metadata og resurser.",
+            "export": "Tryk på næste, men sørg for at \"Launch Configuration\" er sat til \"Main_Method\". Vælg en eksport destination og klik på finish."
+        },
+        "file": {
+            "title": "Filoverførsel",
+            "intro": "Når JAR-filen succesfuldt er blevet kompileret, skal du overføre den til Raspberry Pien via SCP som beskrevet i <1>raspberry pi setup</1> sektionen. Overfør ligeledes filerne \"send_sms.sh\", \"database_component.txt\", \"database_house.txt\" og \"database_phone.txt\" lokaliseret i serverens rodmappe. Filerne kan placeres alle steder, men NWA anbefaler \"Desktop\" for overskuelighed. Sørg for at overføre og erstatte databasefilerne igen, hver gang de er blevet opdateret!",
+            "move": "Efter filerne er blevet succesfuldt overført skal du oprette forbindelse over SSH gennem PuTTY - ligeledes beskrevet i raspberry pi sektionen. Bevæg dig hen til de overførte filer gennem kommandoprompten. Hvis filerne er blevet placeret på Desktop, behøver du blot at skrive kommandoen:",
+            "acces": "Det er nødvendigt at give adgang til filen <1>send_sms.sh</1> for at kunne benytte programmets SMS funktionaliteter. Skriv kommandoen:",
+            "check": "Du kan tjekke om SMS funktionaliterne virker ved at køre bash-scriptet direkte med følgende kommando:",
+            "result": "Hvis Raspberry Pien er sat op korrekt, burde nummeret indtastet kort efter modtage en meddelelse med det angivne indhold."
+        },
+        "server": {
+            "title": "Kør Serveren",
+            "run": "Kør JAR-filen med kommandoen nedenfor. Hvis alt virker, burde meddelelsen \"<1>connected to the backend...</1>\" igen fremtræde."
+        },
+        "next": "Systemet er opsat! Gå tilbage til hovedsiden."
     }
 }

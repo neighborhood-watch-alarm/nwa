@@ -33,13 +33,9 @@ const ServerWelcome = props => {
       <p>
         <Trans i18nKey="server_v1:intro.devices">
           The server consist of a
-          <ToolDescription id="rasp" name="Raspberry Pi" description="Single board computer" />
+          <ToolDescription id="rasp" name="Raspberry Pi" description={t("intro.tooltips.raspPi")} />
           and a
-          <ToolDescription
-            id="ttn"
-            name="TTN Gateway"
-            description="Bridge between LoRaWAN devices and The Things Network's online services"
-          >
+          <ToolDescription id="ttn" name="TTN Gateway" description={t("intro.tooltips.ttn")}>
             TTN Gateway
           </ToolDescription>
           . The gateway handles the communication back and forward with all the connected devices (
