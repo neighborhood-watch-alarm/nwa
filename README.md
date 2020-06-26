@@ -15,19 +15,19 @@ The current status for the different pipelines can be seen below:
 
 Alarm status:
 
-![Arduino alarm-system/alarm CI](https://github.com/simoneengelbr/nwa/workflows/Arduino%20alarm-system/alarm%20CI/badge.svg)
+[![Arduino alarm-system/alarm CI](https://github.com/simoneengelbr/nwa/workflows/Arduino%20alarm-system/alarm%20CI/badge.svg)](https://github.com/neighborhood-watch-alarm/nwa/actions?query=workflow%3A%22Arduino+alarm-system%2Falarm+CI%22)
 
 Server status:
 
-![Java/Maven alarm-system/server CI](https://github.com/simoneengelbr/nwa/workflows/Java/Maven%20alarm-system/server%20CI/badge.svg)
+[![Java/Maven alarm-system/server CI](https://github.com/simoneengelbr/nwa/workflows/Java/Maven%20alarm-system/server%20CI/badge.svg)](https://github.com/neighborhood-watch-alarm/nwa/actions?query=workflow%3A%22Java%2FMaven+alarm-system%2Fserver+CI%22)
 
 Frontend status:
 
-![Node.js site/frontend CI](https://github.com/simoneengelbr/nwa/workflows/Node.js%20site/frontend%20CI/badge.svg)
+[![Node.js site/frontend CI](https://github.com/simoneengelbr/nwa/workflows/Node.js%20site/frontend%20CI/badge.svg)](https://github.com/neighborhood-watch-alarm/nwa/actions?query=workflow%3A%22Node.js+site%2Ffrontend+CI%22)
 
 Backend status:
 
-![Node.js site/backend CI](https://github.com/simoneengelbr/nwa/workflows/Node.js%20site/backend%20CI/badge.svg)
+[![Node.js site/backend CI](https://github.com/simoneengelbr/nwa/workflows/Node.js%20site/backend%20CI/badge.svg)](https://github.com/neighborhood-watch-alarm/nwa/actions?query=workflow%3A%22Node.js+site%2Fbackend+CI%22)
 
 
 # Current Project Team Members
