@@ -110,6 +110,7 @@ New Maintainer checklist:
 1. Use [https://github.com/notifications](https://github.com/notifications) or set up email
 1. Become familiar with the [Code of Conduct][].
 1. Make a PR adding yourself to the [README][]. Collaborators are in alphabetical order by GitHub username.
+1. Gain acces to the Heroku staging- and production app, as well as the CD pipeline. 
   
 ## Managing the issue tracker
 
