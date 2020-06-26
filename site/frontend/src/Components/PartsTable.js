@@ -15,7 +15,7 @@ const PartsTable = props => {
             <tr>
               <th>{t("design.parts-table.amount")}</th>
               <th>{t("design.parts-table.component")}</th>
-              <th>{t("design.parts-table.retiler")}</th>
+              <th>{t("design.parts-table.retailer")}</th>
             </tr>
           </thead>
           <tbody>

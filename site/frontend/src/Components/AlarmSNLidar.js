@@ -106,7 +106,7 @@ const AlarmSNLidar = props => {
           <ul>
             <li>{t("guides.lidar-list0")}</li>
             <li>{t("guides.lidar-list1")}</li>
-            <li>{t("guides.lidar-list2")}</li>
+            <li>{t("guides.lidar-list2-sn")}</li>
             <li>{t("guides.lidar-list3")}</li>
             <li>{t("guides.lidar-list4")}</li>
           </ul>
