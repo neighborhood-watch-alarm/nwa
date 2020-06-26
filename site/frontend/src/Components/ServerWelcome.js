@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "reactstrap";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Label } from "reactstrap";
 import { NavLink as RouterNavLink, Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import systemPreview from "../Images/alarmsystem-basics.png";
 import ToolDescription from "./ToolDescription.js";
 
@@ -31,25 +31,22 @@ const ServerWelcome = props => {
       </Dropdown>
       <hr />
       <p>
-        The server consist of a
-        <ToolDescription id="rasp" name="Raspberry Pi" description="Single board computer" />
-        and a
-        <ToolDescription
-          id="ttn"
-          name="TTN Gateway"
-          description="Bridge between LoRaWAN devices and The Things Network's online services"
-        />
-        . The gateway handles the communication back and forward with all the connected devices (
-        <Link to="/alarms" className="alert-link">
-          visit the alarms section for more info
-        </Link>
-        ), and the server interprets this passed information. In case of a break in or if a device malfunctions, the
-        server notifices either the entire neighborhood or specific individuals by SMS - depending on the issue.
+        <Trans i18nKey="server_v1:intro.devices">
+          The server consist of a
+          <ToolDescription id="rasp" name="Raspberry Pi" description={t("intro.tooltips.raspPi")} />
+          and a
+          <ToolDescription id="ttn" name="TTN Gateway" description={t("intro.tooltips.ttn")}>
+            TTN Gateway
+          </ToolDescription>
+          . The gateway handles the communication back and forward with all the connected devices (
+          <Link to="/alarms" className="alert-link">
+            visit the alarms section for more info
+          </Link>
+          ), and the server interprets this passed information. In case of a break in or if a device malfunctions, the
+          server notifices either the entire neighborhood or specific individuals by SMS - depending on the issue.
+        </Trans>
       </p>
-      <p>
-        The diagram below shows the general communication flow between the different devices in the overall system,
-        where the TTN cloud and the NWA server house represents what will be referred to as just the server.
-      </p>
+      <p>{t("intro.diagram")}</p>
       <img
         className="photo-logo"
         src={systemPreview}
