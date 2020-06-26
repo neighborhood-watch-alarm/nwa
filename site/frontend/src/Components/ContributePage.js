@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Container, Row, Col } from "reactstrap";
-import EditText from "./EditText";
 
 const HelpPage = props => {
     const { t } = useTranslation("contribute");
