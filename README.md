@@ -15,7 +15,7 @@ The current status for the different pipelines can be seen below:
 
 Alarm status:
 
-![Arduino alarm-system/alarm CI](https://github.com/simoneengelbr/nwa/workflows/Arduino%20alarm-system/alarm%20CI/badge.svg)
+[![Arduino alarm-system/alarm CI](https://github.com/simoneengelbr/nwa/workflows/Arduino%20alarm-system/alarm%20CI/badge.svg)](https://github.com/neighborhood-watch-alarm/nwa/actions?query=workflow%3A%22Arduino+alarm-system%2Falarm+CI%22)
 
 Server status:
 
