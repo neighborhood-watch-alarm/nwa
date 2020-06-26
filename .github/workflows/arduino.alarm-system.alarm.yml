@@ -5,7 +5,7 @@ name: Arduino alarm-system/alarm CI
 on:
   push:
     branches: [ master ]
-    paths: /**
+    paths: alarm-system/alarm/**
   pull_request:
     branches: [ master ]
     paths: alarm-system/alarm/**
