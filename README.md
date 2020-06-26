@@ -13,10 +13,6 @@ All accepted source code goes through a **Continues Integration** pipeline using
 
 The current status for the different pipelines can be seen below:
 
-Alarm status:
-
-[![Arduino alarm-system/alarm CI](https://github.com/simoneengelbr/nwa/workflows/Arduino%20alarm-system/alarm%20CI/badge.svg)](https://github.com/neighborhood-watch-alarm/nwa/actions?query=workflow%3A%22Arduino+alarm-system%2Falarm+CI%22)
-
 Server status:
 
 [![Java/Maven alarm-system/server CI](https://github.com/simoneengelbr/nwa/workflows/Java/Maven%20alarm-system/server%20CI/badge.svg)](https://github.com/neighborhood-watch-alarm/nwa/actions?query=workflow%3A%22Java%2FMaven+alarm-system%2Fserver+CI%22)
