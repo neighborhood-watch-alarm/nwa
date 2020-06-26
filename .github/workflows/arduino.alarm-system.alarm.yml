@@ -54,8 +54,8 @@ jobs:
       - name: Setup Arduino CLI
         uses: arduino/setup-arduino-cli@v1.0.0
       
-      - name: Install library
-        uses: arduino-cli lib install LIDAR-Lite
+      #- name: Install library
+      #  uses: arduino-cli lib install LIDAR-Lite
       
       # We then install the platform, which one will be determined
       # dynamically by the build matrix.
