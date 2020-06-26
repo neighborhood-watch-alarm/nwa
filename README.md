@@ -9,7 +9,7 @@ For system details and architecture descriptions, please see the [wiki](https://
 
 # Code Status
 
-All accepted source code goes through a **Continues Integration** pipeline using *Github Actions*.
+Accepted source code for the server and the website goes through a **Continues Integration** pipeline using *Github Actions*.
 
 The current status for the different pipelines can be seen below:
 
