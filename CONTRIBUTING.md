@@ -4,13 +4,13 @@ We really appreciate your interest in contributing to the project! We need volun
 
 This document describes guidelines for contributing to the NWA project. Feel free to propose changes to this guide in a pull request. 
 
-We recommend you gain familiarity with the project by setting up your own NWA system based on installation guides on the [main site](nwa-site.herokuapp.com). This way, you have a setup to test the software on. However, this is not a necessity, and you can definitely still contribute with no hardware. Issues that require hardware are labeled with the 'hardware required' label.
+We recommend you gain familiarity with the project by setting up your own NWA system based on installation guides on the [main site](https://nwa-site.herokuapp.com/). This way, you have a setup to test the software on. However, this is not a necessity, and you can definitely still contribute with no hardware. Issues that require hardware are labeled with the 'hardware required' label.
 
 If you want to contribute to development but are new to software development, or find the project a bit daunting, you can start by checking whether there are any issues labeled ['good first issue'](https://github.com/neighborhood-watch-alarm/nwa/labels/good%20first%20issue).
 
 ### Important resources
 **Mailing list**: We would love to have you subscribed to our mailing list at nwa-forum@googlegroups.com, so you won't miss any development related diskussions. This is currently also the forum where users can ask for help with the system, and we would love your support in answering any questions from users.</br>
-**Code of Conduct**: Please read our [Code of Conduct](https://github.com/neighborhood-watch-alarm/nwa/CODE_OF_CONDUCT.md) before contributing to this project. 
+**Code of Conduct**: Please read our [Code of Conduct](https://github.com/neighborhood-watch-alarm/nwa/blob/master/CODE_OF_CONDUCT.md) before contributing to this project. 
 
 ## Bugs and feature requests
 You are welcome to report a bug or suggest a new feature. This is done by creating an [Issue](https://help.github.com/en/enterprise/2.15/user/articles/creating-an-issue).
@@ -20,7 +20,7 @@ If you discover a bug that is a breach in the security of the alarm system, plea
 When implementing changes in the Java code for the server, please write jUnit tests where applicable.
 
 ## Submitting changes
-Please send a [pull request](http://help.github.com/pull-requests/) via [the nwa Github](https://github.com/simoneengelbr/nwa/pulls) with a clear list of what you've done.
+Please send a [pull request](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) via [the nwa Github](https://github.com/simoneengelbr/nwa/pulls) with a clear list of what you've done.
 
 ## Contribution notes
 This is a young project built on code from two different university projects, and documentation, coding style, and test coverage is not yet fully developed. We are working on improving this, and would love your help:
